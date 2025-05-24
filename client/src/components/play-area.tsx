@@ -116,10 +116,10 @@ export function PlayArea({
         </Button>
       </div>
       
-      {/* Discovery Hint */}
-      <div className="text-center text-sm text-muted bg-slate-50 rounded-lg p-4">
-        <span className="text-accent mr-2">💡</span>
-        Try combining <code className="font-mono bg-white px-2 py-1 rounded">· · ·</code> to unlock a meditation timer
+      {/* AI Response Info */}
+      <div className="text-center text-sm text-muted bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4 border border-purple-200">
+        <span className="text-purple-500 mr-2">🧠</span>
+        The game now responds to your patterns - each combination creates a consciousness dialogue
       </div>
     </div>
   );

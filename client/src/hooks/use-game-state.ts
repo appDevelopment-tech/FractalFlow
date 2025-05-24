@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
-import { findCombination, getRandomResponse, calculatePoints, checkSpecialUnlocks, calculateLevel, getLevelProgress, type BasicSymbol } from '@/lib/symbol-combinations';
+import { findCombination, generateAIResponse, calculatePoints, checkSpecialUnlocks, calculateLevel, getLevelProgress, type BasicSymbol } from '@/lib/symbol-combinations';
 import type { GameProfile, Discovery } from '@shared/schema';
 
 export interface GameState {
@@ -10,6 +10,7 @@ export interface GameState {
   sessionId: number | null;
   lastResponse: string | null;
   notifications: Notification[];
+  playerHistory: string[]; // Track recent player patterns for AI responses
 }
 
 export interface Notification {
@@ -29,7 +30,8 @@ export function useGameState() {
     sessionTime: 0,
     sessionId: null,
     lastResponse: null,
-    notifications: []
+    notifications: [],
+    playerHistory: []
   });
 
   // Fetch game profile
@@ -92,6 +94,26 @@ export function useGameState() {
 
     return () => clearInterval(timer);
   }, []);
+
+  // Load saved state from localStorage
+  useEffect(() => {
+    const savedHistory = localStorage.getItem('fractal-flow-history');
+    if (savedHistory) {
+      try {
+        const history = JSON.parse(savedHistory);
+        setGameState(prev => ({ ...prev, playerHistory: history }));
+      } catch (e) {
+        console.log('Could not load saved history');
+      }
+    }
+  }, []);
+
+  // Save player history to localStorage
+  useEffect(() => {
+    if (gameState.playerHistory.length > 0) {
+      localStorage.setItem('fractal-flow-history', JSON.stringify(gameState.playerHistory));
+    }
+  }, [gameState.playerHistory]);
 
   // Start session when profile loads
   useEffect(() => {
@@ -193,11 +215,18 @@ export function useGameState() {
       });
 
     } else {
-      // Random response for unknown combinations
-      const response = getRandomResponse();
+      // Use AI response system for unknown combinations
+      const discoveredSymbols = Array.isArray(profile.discoveredSymbols) 
+        ? profile.discoveredSymbols 
+        : [];
+      const response = generateAIResponse(combination, gameState.playerHistory, discoveredSymbols);
+      
+      // Track this pattern in player history
+      const patternString = combination.join('');
       setGameState(prev => ({
         ...prev,
-        lastResponse: response
+        lastResponse: response,
+        playerHistory: [patternString, ...prev.playerHistory.slice(0, 9)] // Keep last 10 patterns
       }));
     }
   }, [profile, gameState.currentCombination, createDiscoveryMutation]);

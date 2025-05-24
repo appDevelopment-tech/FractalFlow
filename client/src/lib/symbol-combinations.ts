@@ -62,7 +62,58 @@ export function findCombination(symbols: SymbolCombination): CombinationRule | n
   return null;
 }
 
-// Get random response for unknown combinations
+// Generate intelligent AI response based on player patterns and history
+export function generateAIResponse(
+  playerPattern: SymbolCombination, 
+  playerHistory: string[], 
+  discoveredSymbols: string[]
+): string {
+  const patternString = playerPattern.join('');
+  
+  // Consciousness mirroring - respond to profound discoveries
+  if (discoveredSymbols.includes('∞') && playerPattern.includes('○')) {
+    return '·'; // Return to simplicity after infinity
+  }
+  
+  if (discoveredSymbols.includes('☯') && playerPattern.length === 1) {
+    return '◯'; // Acknowledge their journey to balance
+  }
+  
+  // Edge detection - guide stuck players
+  const recentDiscoveries = playerHistory.slice(-5);
+  if (recentDiscoveries.length >= 3 && !recentDiscoveries.includes('∴')) {
+    return '···'; // Hint at meditation pattern
+  }
+  
+  // Pattern mirroring with transformation
+  if (playerPattern.includes('○') && playerPattern.includes('●')) {
+    return Math.random() > 0.5 ? '◐' : '◑'; // Show duality responses
+  }
+  
+  if (playerPattern.includes('·') && playerPattern.length > 1) {
+    return '○'; // Expand from points to circles
+  }
+  
+  if (playerPattern.includes('+') || playerPattern.includes('×')) {
+    return '—'; // Respond to complexity with simplicity
+  }
+  
+  // Mirror with slight chaos for unknown patterns
+  if (playerPattern.length === 2) {
+    const [a, b] = playerPattern;
+    return Math.random() > 0.6 ? b : '?'; // Sometimes mirror, sometimes mystery
+  }
+  
+  if (playerPattern.length === 3) {
+    return '∴'; // Three always leads to therefore
+  }
+  
+  // Encourage exploration
+  const explorationResponses = ['?', '·', '○', '◯'];
+  return explorationResponses[Math.floor(Math.random() * explorationResponses.length)];
+}
+
+// Get random response for fallback (kept for compatibility)
 export function getRandomResponse(): string {
   const responses = ['?', '·', '○', '—'];
   return responses[Math.floor(Math.random() * responses.length)];
