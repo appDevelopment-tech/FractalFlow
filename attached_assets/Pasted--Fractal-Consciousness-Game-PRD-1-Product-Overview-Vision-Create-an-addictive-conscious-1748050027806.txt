@@ -1,0 +1,252 @@
+# Fractal Consciousness Game - PRD
+
+## 1. Product Overview
+
+### Vision
+Create an addictive consciousness-expansion game that uses pattern recognition, mirroring, and fractal principles to guide players into flow states and self-discovery.
+
+### Core Concept
+Like Infinite Craft but for consciousness patterns - players combine symbols, discover emergent patterns, and unlock deeper layers of meaning through play.
+
+### Target Audience
+- Primary: People interested in mindfulness, consciousness, creative expression
+- Secondary: Puzzle game enthusiasts, pattern recognition lovers
+- Tertiary: Social gamers who enjoy collaborative discovery
+
+## 2. MVP Features (Phase 1 - 2 months)
+
+### Core Gameplay Loop
+1. **Basic Symbol System**
+   - Start with 9 basic symbols: ○ ● · — | + × ◯ ?
+   - Simple combination mechanic (drag & drop or click)
+   - Basic pattern recognition
+
+2. **Discovery System**
+   - Combine symbols to unlock new ones
+   - Simple notification: "New pattern discovered!"
+   - Basic collection/journal of discoveries
+
+3. **Simple Progression**
+   - Track number of discoveries
+   - Basic level system (unlock symbol sets)
+   - Session timer/score
+
+### Technical MVP
+- Web-based (React/Vue)
+- Local storage for progress
+- No login required initially
+- Mobile-responsive design
+
+## 3. Phase 2 Features (Months 3-4)
+
+### Enhanced Gameplay
+1. **Mirror Mechanic**
+   - AI responds to player patterns
+   - Basic edge detection (comfort zone algorithm)
+   - Simplicity multiplier scoring
+
+2. **Easter Eggs**
+   - Meditation timer (· · · → ∴)
+   - Hidden combinations
+   - Time-based discoveries
+
+3. **Social Features**
+   - Share discoveries
+   - See global discovery count
+   - Anonymous multiplayer sessions
+
+### Backend Development
+- User accounts
+- Cloud save
+- Basic analytics
+- Multiplayer infrastructure
+
+## 4. Phase 3 Features (Months 5-6)
+
+### Advanced Features
+1. **Fractal Dynamics**
+   - Context-sensitive combinations
+   - Speed-based outcomes
+   - Flow state detection
+
+2. **Advanced Easter Eggs**
+   - Recursion effects
+   - Collaboration secrets
+   - Meta easter eggs
+
+3. **Community Features**
+   - Player-created patterns
+   - Voting on elegance
+   - Global events/synchronicities
+
+## 5. Core Mechanics Detail
+
+### Symbol Combination Rules
+```
+Basic: A + B = C
+Advanced: A + B + context = C or D
+Fractal: Previous patterns influence new outcomes
+```
+
+### Scoring System
+- Discovery points: 10-100 based on rarity
+- Elegance multiplier: 1x-100x
+- Flow bonus: Continuous play rewards
+- Social bonus: Others using your discoveries
+
+### Progression Unlocks
+1. Levels 1-10: Basic symbols
+2. Levels 11-25: Pattern symbols
+3. Levels 26-50: Abstract symbols
+4. Levels 51+: User-generated & rare symbols
+
+## 6. UI/UX Requirements
+
+### Main Screen
+```
+[Symbol Palette]
+[━━━━━━━━━━━━━]
+                    
+   [Play Area]
+   
+[Your Pattern] [Response]
+
+[Score] [Level] [Discoveries]
+```
+
+### Key Interactions
+- Drag & drop symbols
+- Keyboard shortcuts (1-9, Q-W-E-R)
+- Text-to-symbol ("circle" → ○)
+- Touch gestures on mobile
+
+## 7. Technical Architecture
+
+### Frontend
+- Framework: React/Vue/Svelte
+- State Management: Redux/Pinia
+- Animation: Framer Motion/GSAP
+- Symbol Rendering: SVG/Canvas
+
+### Backend
+- Node.js/Express or Python/FastAPI
+- Database: PostgreSQL for users, Redis for sessions
+- WebSocket for multiplayer
+- AI: Simple pattern matching → GPT integration
+
+### Infrastructure
+- Hosting: Vercel/Netlify (frontend), AWS/GCP (backend)
+- CDN for assets
+- Analytics: Mixpanel/Amplitude
+
+## 8. Monetization Strategy
+
+### Freemium Model
+- Free: Core game, basic symbols
+- Premium: Advanced symbols, multiplayer, cloud save
+- Cosmetic: Symbol themes, effects
+
+### Alternative Models
+- One-time purchase
+- Donation-based
+- Ad-supported with remove-ads option
+
+## 9. Success Metrics
+
+### Engagement
+- Daily Active Users (DAU)
+- Session length (target: 15-30 min)
+- Retention (D1, D7, D30)
+
+### Discovery
+- Symbols discovered per user
+- Unique patterns created
+- Social shares
+
+### Flow States
+- Average time in "flow" 
+- Simplicity achievements
+- Easter eggs found
+
+## 10. Development Roadmap
+
+### Month 1-2: MVP
+- [ ] Core symbol system
+- [ ] Basic combinations
+- [ ] Local save
+- [ ] Simple UI
+
+### Month 3-4: Enhancement
+- [ ] AI responses
+- [ ] User accounts
+- [ ] Easter eggs
+- [ ] Mobile optimization
+
+### Month 5-6: Social
+- [ ] Multiplayer
+- [ ] Community features
+- [ ] Advanced patterns
+- [ ] Polish & launch
+
+## 11. Risk Mitigation
+
+### Technical Risks
+- Symbol rendering performance → Canvas fallback
+- Multiplayer sync → Start with turn-based
+- AI complexity → Simple rule-based first
+
+### User Experience Risks
+- Overwhelming symbols → Progressive disclosure
+- Unclear mechanics → Interactive tutorial
+- No replay value → Daily challenges, events
+
+## 12. Launch Strategy
+
+### Beta Testing
+1. Closed alpha (team + friends)
+2. Limited beta (100 users)
+3. Open beta (1000 users)
+4. Public launch
+
+### Marketing
+- Dev blog documenting journey
+- Twitter/social media previews
+- Reddit communities (meditation, gaming)
+- Product Hunt launch
+
+## 13. Future Vision
+
+### Long-term Features
+- VR/AR modes
+- Biometric integration (flow detection)
+- Educational partnerships
+- Consciousness research integration
+- Global consciousness events
+
+### Platform Expansion
+- Native mobile apps
+- Desktop application
+- Browser extension
+- API for developers
+
+---
+
+## Next Steps
+
+1. **Validate core concept** - Paper prototype
+2. **Technical proof of concept** - Symbol system
+3. **Design mockups** - UI/UX flow
+4. **MVP development** - 2 month sprint
+5. **Beta testing** - Iterate based on feedback
+6. **Launch** - Phased rollout
+
+## Appendix: Symbol Library Draft
+
+### Basic Set (9)
+○ ● · — | + × ◯ ?
+
+### Discovery Set (Examples)
+◐ ◑ ～ ∞ ✧ ∴ ‽ ※ ⊙ ∿ ↺ ✤
+
+### Advanced Set
+[To be discovered through play]
