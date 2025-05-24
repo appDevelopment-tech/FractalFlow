@@ -1,0 +1,245 @@
+import { useState, useEffect, useCallback } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { apiRequest } from '@/lib/queryClient';
+import { findCombination, getRandomResponse, calculatePoints, checkSpecialUnlocks, calculateLevel, getLevelProgress, type BasicSymbol } from '@/lib/symbol-combinations';
+import type { GameProfile, Discovery } from '@shared/schema';
+
+export interface GameState {
+  currentCombination: BasicSymbol[];
+  sessionTime: number;
+  sessionId: number | null;
+  lastResponse: string | null;
+  notifications: Notification[];
+}
+
+export interface Notification {
+  id: string;
+  type: 'discovery' | 'level_up' | 'special';
+  title: string;
+  message: string;
+  points?: number;
+  timestamp: number;
+}
+
+export function useGameState() {
+  const queryClient = useQueryClient();
+  
+  const [gameState, setGameState] = useState<GameState>({
+    currentCombination: [],
+    sessionTime: 0,
+    sessionId: null,
+    lastResponse: null,
+    notifications: []
+  });
+
+  // Fetch game profile
+  const { data: profile, isLoading: profileLoading } = useQuery<GameProfile>({
+    queryKey: ['/api/game/profile'],
+  });
+
+  // Fetch recent discoveries
+  const { data: recentDiscoveries = [] } = useQuery<Discovery[]>({
+    queryKey: ['/api/game/discoveries', profile?.id],
+    enabled: !!profile?.id,
+  });
+
+  // Start session mutation
+  const startSessionMutation = useMutation({
+    mutationFn: async (profileId: number) => {
+      const response = await apiRequest('POST', '/api/game/session', {
+        profileId,
+        discoveryCount: 0,
+        finalScore: 0
+      });
+      return response.json();
+    },
+    onSuccess: (session) => {
+      setGameState(prev => ({ ...prev, sessionId: session.id }));
+    }
+  });
+
+  // Update profile mutation
+  const updateProfileMutation = useMutation({
+    mutationFn: async (updateData: Partial<GameProfile>) => {
+      const response = await apiRequest('PATCH', `/api/game/profile/${profile?.id}`, updateData);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/game/profile'] });
+    }
+  });
+
+  // Create discovery mutation
+  const createDiscoveryMutation = useMutation({
+    mutationFn: async (discoveryData: { symbolResult: string; combination: BasicSymbol[]; points: number }) => {
+      const response = await apiRequest('POST', '/api/game/discovery', {
+        profileId: profile?.id,
+        ...discoveryData
+      });
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/game/profile'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/game/discoveries', profile?.id] });
+    }
+  });
+
+  // Session timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setGameState(prev => ({ ...prev, sessionTime: prev.sessionTime + 1 }));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Start session when profile loads
+  useEffect(() => {
+    if (profile && !gameState.sessionId) {
+      startSessionMutation.mutate(profile.id);
+    }
+  }, [profile, gameState.sessionId]);
+
+  // Add symbol to current combination
+  const addSymbol = useCallback((symbol: BasicSymbol) => {
+    setGameState(prev => ({
+      ...prev,
+      currentCombination: [...prev.currentCombination, symbol].slice(-3) // Max 3 symbols
+    }));
+  }, []);
+
+  // Clear current combination
+  const clearCombination = useCallback(() => {
+    setGameState(prev => ({
+      ...prev,
+      currentCombination: [],
+      lastResponse: null
+    }));
+  }, []);
+
+  // Process symbol combination
+  const processCombination = useCallback(async () => {
+    if (!profile || gameState.currentCombination.length === 0) return;
+
+    const combination = [...gameState.currentCombination];
+    const rule = findCombination(combination);
+    
+    if (rule) {
+      // Check if this is a new discovery
+      const discoveredSymbols = Array.isArray(profile.discoveredSymbols) 
+        ? profile.discoveredSymbols 
+        : [];
+      const isFirstDiscovery = !discoveredSymbols.includes(rule.output);
+      
+      const points = calculatePoints(rule, isFirstDiscovery);
+      
+      // Create discovery record
+      createDiscoveryMutation.mutate({
+        symbolResult: rule.output,
+        combination,
+        points
+      });
+
+      // Check for special unlocks
+      const unlocks = checkSpecialUnlocks(rule.output);
+      
+      // Add notification
+      const notification: Notification = {
+        id: Date.now().toString(),
+        type: isFirstDiscovery ? 'discovery' : 'discovery',
+        title: isFirstDiscovery ? 'New Discovery!' : 'Pattern Recognized!',
+        message: `You ${isFirstDiscovery ? 'unlocked' : 'created'} ${rule.name}`,
+        points,
+        timestamp: Date.now()
+      };
+
+      setGameState(prev => ({
+        ...prev,
+        lastResponse: rule.output,
+        notifications: [notification, ...prev.notifications.slice(0, 4)] // Keep last 5
+      }));
+
+      // Check for level up
+      const newLevel = calculateLevel(profile.totalDiscoveries + 1);
+      if (newLevel > profile.level) {
+        const levelNotification: Notification = {
+          id: (Date.now() + 1).toString(),
+          type: 'level_up',
+          title: 'Level Up!',
+          message: `You reached level ${newLevel}`,
+          timestamp: Date.now()
+        };
+        
+        setGameState(prev => ({
+          ...prev,
+          notifications: [levelNotification, ...prev.notifications.slice(0, 4)]
+        }));
+      }
+
+      // Handle special unlocks
+      unlocks.forEach(unlock => {
+        const specialNotification: Notification = {
+          id: (Date.now() + Math.random()).toString(),
+          type: 'special',
+          title: 'Special Feature Unlocked!',
+          message: `You unlocked ${unlock.replace('_', ' ')}`,
+          timestamp: Date.now()
+        };
+        
+        setGameState(prev => ({
+          ...prev,
+          notifications: [specialNotification, ...prev.notifications.slice(0, 4)]
+        }));
+      });
+
+    } else {
+      // Random response for unknown combinations
+      const response = getRandomResponse();
+      setGameState(prev => ({
+        ...prev,
+        lastResponse: response
+      }));
+    }
+  }, [profile, gameState.currentCombination, createDiscoveryMutation]);
+
+  // Remove notification
+  const removeNotification = useCallback((id: string) => {
+    setGameState(prev => ({
+      ...prev,
+      notifications: prev.notifications.filter(n => n.id !== id)
+    }));
+  }, []);
+
+  // Format session time
+  const formattedSessionTime = useCallback(() => {
+    const minutes = Math.floor(gameState.sessionTime / 60);
+    const seconds = gameState.sessionTime % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }, [gameState.sessionTime]);
+
+  // Get level progress
+  const levelProgress = profile ? getLevelProgress(profile.totalDiscoveries) : null;
+
+  return {
+    // State
+    gameState,
+    profile,
+    recentDiscoveries,
+    levelProgress,
+    
+    // Loading states
+    isLoading: profileLoading,
+    isProcessing: createDiscoveryMutation.isPending,
+    
+    // Actions
+    addSymbol,
+    clearCombination,
+    processCombination,
+    removeNotification,
+    
+    // Computed values
+    formattedSessionTime,
+    currentLevel: profile ? calculateLevel(profile.totalDiscoveries) : 1,
+    discoveredSymbols: Array.isArray(profile?.discoveredSymbols) ? profile.discoveredSymbols : [],
+  };
+}
