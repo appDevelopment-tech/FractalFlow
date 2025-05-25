@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { useGameState } from '@/hooks/use-game-state';
 import { SymbolPalette } from '@/components/symbol-palette';
 import { PlayArea } from '@/components/play-area';
 import { ProgressSidebar } from '@/components/progress-sidebar';
 import { DiscoveryNotification } from '@/components/discovery-notification';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 export default function Game() {
   const {
@@ -17,10 +20,13 @@ export default function Game() {
     clearCombination,
     processCombination,
     removeNotification,
+    resetProgress,
     formattedSessionTime,
     currentLevel,
     discoveredSymbols,
   } = useGameState();
+
+  const [showHelp, setShowHelp] = useState(false);
 
   if (isLoading) {
     return (
@@ -71,6 +77,55 @@ export default function Game() {
                   <span className="text-amber-500">⭐</span>
                   <span className="text-slate-700">{profile?.totalScore || 0}</span>
                 </div>
+              </div>
+              
+              {/* Help and Reset Buttons */}
+              <div className="flex items-center space-x-2">
+                <Dialog open={showHelp} onOpenChange={setShowHelp}>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" size="sm" className="bg-white/80">
+                      <span className="text-lg">?</span>
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>How to Play Fractal Flow</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4 text-sm">
+                      <div>
+                        <h4 className="font-semibold mb-2">🎯 Goal</h4>
+                        <p>Combine symbols to discover new patterns and unlock deeper layers of consciousness.</p>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold mb-2">🎮 How to Play</h4>
+                        <ul className="space-y-1 list-disc list-inside">
+                          <li>Click symbols from the palette to add them to your pattern</li>
+                          <li>Press "Combine" to see what you discover</li>
+                          <li>Use keyboard shortcuts (1-9) for quick symbol selection</li>
+                          <li>The game responds intelligently to your patterns</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold mb-2">💡 Tips</h4>
+                        <ul className="space-y-1 list-disc list-inside">
+                          <li>Try combining opposite symbols like ○ and ●</li>
+                          <li>Experiment with repeated patterns like · · ·</li>
+                          <li>Points are only awarded for first-time discoveries</li>
+                          <li>The AI learns from your exploration style</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+                
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={resetProgress}
+                  className="bg-white/80 text-red-600 hover:text-red-700"
+                >
+                  Reset
+                </Button>
               </div>
             </div>
           </div>

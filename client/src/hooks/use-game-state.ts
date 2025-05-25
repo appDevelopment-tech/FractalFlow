@@ -155,7 +155,23 @@ export function useGameState() {
       
       const points = calculatePoints(rule, isFirstDiscovery);
       
-      // Create discovery record
+      // Prevent re-discovery cheating - only award points for first discovery
+      if (!isFirstDiscovery) {
+        setGameState(prev => ({
+          ...prev,
+          lastResponse: rule.output,
+          notifications: [{
+            id: Date.now().toString(),
+            type: 'discovery',
+            title: 'Pattern Recognized!',
+            message: `You rediscovered ${rule.name} - no points awarded`,
+            timestamp: Date.now()
+          }, ...prev.notifications.slice(0, 4)]
+        }));
+        return;
+      }
+      
+      // Create discovery record only for new discoveries
       createDiscoveryMutation.mutate({
         symbolResult: rule.output,
         combination,
@@ -215,7 +231,7 @@ export function useGameState() {
       });
 
     } else {
-      // Use AI response system for unknown combinations
+      // No combination found - give helpful feedback
       const discoveredSymbols = Array.isArray(profile.discoveredSymbols) 
         ? profile.discoveredSymbols 
         : [];
@@ -226,7 +242,14 @@ export function useGameState() {
       setGameState(prev => ({
         ...prev,
         lastResponse: response,
-        playerHistory: [patternString, ...prev.playerHistory.slice(0, 9)] // Keep last 10 patterns
+        playerHistory: [patternString, ...prev.playerHistory.slice(0, 9)], // Keep last 10 patterns
+        notifications: [{
+          id: Date.now().toString(),
+          type: 'discovery',
+          title: 'No Combination Found',
+          message: 'These symbols don\'t combine... yet. Try different patterns!',
+          timestamp: Date.now()
+        }, ...prev.notifications.slice(0, 4)]
       }));
     }
   }, [profile, gameState.currentCombination, createDiscoveryMutation]);
@@ -245,6 +268,14 @@ export function useGameState() {
     const seconds = gameState.sessionTime % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }, [gameState.sessionTime]);
+
+  // Reset all progress
+  const resetProgress = useCallback(() => {
+    if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+      localStorage.clear();
+      window.location.reload();
+    }
+  }, []);
 
   // Get level progress
   const levelProgress = profile ? getLevelProgress(profile.totalDiscoveries) : null;
@@ -265,6 +296,7 @@ export function useGameState() {
     clearCombination,
     processCombination,
     removeNotification,
+    resetProgress,
     
     // Computed values
     formattedSessionTime,
