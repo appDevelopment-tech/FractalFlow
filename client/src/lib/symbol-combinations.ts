@@ -85,9 +85,13 @@ export function generateAIResponse(
     return '···'; // Hint at meditation pattern
   }
   
-  // Pattern mirroring with transformation
+  // Pattern mirroring with transformation - the exact pattern you wanted!
   if (playerPattern.includes('○') && playerPattern.includes('●')) {
-    return Math.random() > 0.5 ? '◐' : '◑'; // Show duality responses
+    // If they haven't discovered the actual combination yet, show mirror responses
+    if (!discoveredSymbols.includes('◐')) {
+      return Math.random() > 0.5 ? '●○' : '◐'; // Mirror or hint at discovery
+    }
+    return Math.random() > 0.5 ? '◐' : '◑'; // Show duality responses after discovery
   }
   
   if (playerPattern.includes('·') && playerPattern.length > 1) {
@@ -98,10 +102,20 @@ export function generateAIResponse(
     return '—'; // Respond to complexity with simplicity
   }
   
-  // Mirror with slight chaos for unknown patterns
+  // Enhanced mirroring for 2-symbol patterns
   if (playerPattern.length === 2) {
     const [a, b] = playerPattern;
-    return Math.random() > 0.6 ? b : '?'; // Sometimes mirror, sometimes mystery
+    
+    // Show the exact mirroring behavior you wanted to see!
+    if (a === '○' && b === '●') {
+      return Math.random() > 0.5 ? '●○' : '◐';
+    }
+    if (a === '●' && b === '○') {
+      return Math.random() > 0.5 ? '○●' : '◐'; 
+    }
+    
+    // Mirror other patterns with transformation
+    return Math.random() > 0.6 ? `${b}${a}` : '?'; // Mirror or mystery
   }
   
   if (playerPattern.length === 3) {
