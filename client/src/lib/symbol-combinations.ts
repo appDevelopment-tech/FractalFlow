@@ -30,10 +30,24 @@ export const COMBINATION_RULES: CombinationRule[] = [
   { input: ['+', '×'], output: '✤', points: 70, name: 'Star Cross', description: 'Stellar intersection' },
   { input: ['|', '|', '|'], output: '|||', points: 35, name: 'Triple Bar', description: 'Strong foundation' },
   
-  // Easter egg combinations
+  // More basic combinations
+  { input: ['●', '○'], output: '◑', points: 25, name: 'Reverse Unity', description: 'Dark embraces light' },
+  { input: ['|', '—'], output: '+', points: 15, name: 'Cross Alt', description: 'Vertical meets horizontal' },
+  { input: ['·', '○'], output: '◯', points: 20, name: 'Hollow Circle', description: 'Point expands outward' },
+  { input: ['×', '+'], output: '✛', points: 30, name: 'Heavy Cross', description: 'Multiplication crosses addition' },
+  { input: ['○', '—'], output: '⊖', points: 22, name: 'Circle Minus', description: 'Unity with subtraction' },
+  { input: ['●', '|'], output: '⫸', points: 18, name: 'Dot Line', description: 'Darkness divided' },
+  { input: ['?', '·'], output: '⁇', points: 24, name: 'Question Dot', description: 'Uncertain point' },
+  { input: ['—', '—'], output: '=', points: 16, name: 'Equals', description: 'Perfect equality' },
+  { input: ['|', '·'], output: '⫶', points: 17, name: 'Line Dot', description: 'Vertical precision' },
+  { input: ['×', '×'], output: '✕', points: 28, name: 'X Mark', description: 'Double crossing' },
+  
+  // Second-order combinations using discovered symbols
   { input: ['∞', '·'], output: '✧', points: 100, name: 'Infinite Point', description: 'The eternal moment' },
   { input: ['◐', '◑'], output: '☯', points: 150, name: 'Yin Yang', description: 'Perfect balance achieved' },
   { input: ['?', '○', '?'], output: '◊', points: 80, name: 'Diamond', description: 'Clarity through questioning' },
+  { input: ['⊗', '∴'], output: '⊛', points: 120, name: 'Tensor Logic', description: 'Multiplication meets reasoning' },
+  { input: ['☯', '?'], output: '☸', points: 200, name: 'Dharma Wheel', description: 'Balance questions reality' },
 ];
 
 // Helper function to check if arrays are equal
