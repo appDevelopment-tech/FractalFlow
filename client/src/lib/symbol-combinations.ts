@@ -1,5 +1,5 @@
-// Symbol combination rules and discovery logic
-export const BASIC_SYMBOLS = ['○', '●', '·', '—', '|', '+', '×', '◯', '?'] as const;
+// Symbol combination rules and discovery logic - starting with just the dot
+export const BASIC_SYMBOLS = ['·'] as const;
 
 export type BasicSymbol = typeof BASIC_SYMBOLS[number];
 export type SymbolCombination = string[];
@@ -12,56 +12,54 @@ export interface CombinationRule {
   description?: string;
 }
 
-// Define combination rules
+// Define combination rules - Everything emerges from the dot (·)
 export const COMBINATION_RULES: CombinationRule[] = [
-  // Basic combinations
-  { input: ['○', '●'], output: '◐', points: 25, name: 'Half Moon', description: 'Balance of light and dark' },
+  // The universe begins with two dots
+  { input: ['·', '·'], output: '—', points: 10, name: 'Horizontal Line', description: 'Two points create extension' },
+  
+  // Three dots create different patterns based on context
+  { input: ['·', '·', '·'], output: '|', points: 15, name: 'Vertical Line', description: 'Three points reach upward' },
+  
+  // Lines combine to create structure
+  { input: ['—', '|'], output: '+', points: 20, name: 'Cross', description: 'Intersection of dimensions' },
+  { input: ['|', '—'], output: '+', points: 20, name: 'Cross', description: 'Vertical meets horizontal' },
+  
+  // Cross can evolve into multiplication
+  { input: ['+', '+'], output: '×', points: 25, name: 'Multiplication', description: 'Cross doubles into complexity' },
+  
+  // Dots with lines create circles
+  { input: ['·', '—'], output: '○', points: 18, name: 'Circle', description: 'Point expands around line' },
+  { input: ['·', '|'], output: '●', points: 18, name: 'Filled Circle', description: 'Point grows dense and full' },
+  
+  // Advanced dot patterns
+  { input: ['·', '·', '·', '·'], output: '∶', points: 30, name: 'Dual Awareness', description: 'Four points of consciousness' },
+  { input: ['·', '·', '·', '·', '·'], output: '⋯', points: 40, name: 'Deep Meditation', description: 'Five breaths deeper' },
+  
+  // Circle combinations
+  { input: ['○', '●'], output: '◐', points: 35, name: 'Half Moon', description: 'Light and dark unite' },
+  { input: ['●', '○'], output: '◑', points: 35, name: 'Reverse Unity', description: 'Dark embraces light' },
   { input: ['○', '○'], output: '∞', points: 50, name: 'Infinity', description: 'Endless cycles' },
-  { input: ['·', '·', '·'], output: '∴', points: 30, name: 'Therefore', description: 'Meditation timer unlocked' },
-  { input: ['—', '|'], output: '+', points: 15, name: 'Cross', description: 'Intersection of paths' },
-  { input: ['+', '+'], output: '✚', points: 35, name: 'Double Cross', description: 'Healing symbol' },
-  { input: ['×', '○'], output: '⊗', points: 40, name: 'Circled Times', description: 'Multiplication in unity' },
-  { input: ['?', '?'], output: '‽', points: 45, name: 'Interrobang', description: 'Surprised questioning' },
-  { input: ['◯', '·'], output: '⊙', points: 55, name: 'Circled Dot', description: 'Center of attention' },
   
-  // Advanced patterns
-  { input: ['○', '●', '○'], output: '◑', points: 60, name: 'Yin Yang Start', description: 'Beginning of duality' },
-  { input: ['·', '—', '·'], output: '∶', points: 25, name: 'Ratio', description: 'Mathematical proportion' },
-  { input: ['+', '×'], output: '✤', points: 70, name: 'Star Cross', description: 'Stellar intersection' },
-  { input: ['|', '|', '|'], output: '|||', points: 35, name: 'Triple Bar', description: 'Strong foundation' },
+  // Question emerges from mystery
+  { input: ['○', '·'], output: '?', points: 22, name: 'Question', description: 'Circle contains mystery' },
+  { input: ['●', '·'], output: '◯', points: 24, name: 'Ring', description: 'Hollow circle with center' },
   
-  // More basic combinations
-  { input: ['●', '○'], output: '◑', points: 25, name: 'Reverse Unity', description: 'Dark embraces light' },
-  { input: ['|', '—'], output: '+', points: 15, name: 'Cross Alt', description: 'Vertical meets horizontal' },
-  { input: ['·', '○'], output: '◯', points: 20, name: 'Hollow Circle', description: 'Point expands outward' },
-  { input: ['×', '+'], output: '✛', points: 30, name: 'Heavy Cross', description: 'Multiplication crosses addition' },
-  { input: ['○', '—'], output: '⊖', points: 22, name: 'Circle Minus', description: 'Unity with subtraction' },
-  { input: ['●', '|'], output: '⫸', points: 18, name: 'Dot Line', description: 'Darkness divided' },
-  { input: ['?', '·'], output: '⁇', points: 24, name: 'Question Dot', description: 'Uncertain point' },
-  { input: ['—', '—'], output: '=', points: 16, name: 'Equals', description: 'Perfect equality' },
-  { input: ['|', '·'], output: '⫶', points: 17, name: 'Line Dot', description: 'Vertical precision' },
-  { input: ['×', '×'], output: '✕', points: 28, name: 'X Mark', description: 'Double crossing' },
-  
-  // Meditation sequences - the path to four elements
-  { input: ['·', '·'], output: '∶', points: 20, name: 'Dual Awareness', description: 'Two points of consciousness' },
-  { input: ['·', '·', '·', '·', '·'], output: '⋯', points: 50, name: 'Deep Meditation', description: 'Five breaths deeper' },
-  { input: ['∶', '∶'], output: '⁖', points: 40, name: 'Four-Fold Vision', description: 'Dual awareness doubles' },
+  // Advanced combinations
+  { input: ['∶', '∶'], output: '⁖', points: 50, name: 'Four-Fold Vision', description: 'Dual awareness doubles' },
   { input: ['⋯', '○'], output: '◎', points: 60, name: 'Centered Awareness', description: 'Meditation finds center' },
+  { input: ['?', '?'], output: '‽', points: 45, name: 'Interrobang', description: 'Questions multiply' },
   
-  // The Four Elements emerge from deep practice
+  // The Four Elements emerge from centered awareness
   { input: ['◎', '|'], output: '🔥', points: 100, name: 'Fire Element', description: 'Vertical energy rises' },
   { input: ['◎', '—'], output: '💧', points: 100, name: 'Water Element', description: 'Horizontal flow' },
   { input: ['◎', '·'], output: '🌍', points: 100, name: 'Earth Element', description: 'Grounded awareness' },
   { input: ['◎', '○'], output: '💨', points: 100, name: 'Air Element', description: 'Expanded consciousness' },
   
-  // Second-order combinations using discovered symbols
-  { input: ['∞', '·'], output: '✧', points: 100, name: 'Infinite Point', description: 'The eternal moment' },
+  // Higher-order combinations
   { input: ['◐', '◑'], output: '☯', points: 150, name: 'Yin Yang', description: 'Perfect balance achieved' },
-  { input: ['?', '○', '?'], output: '◊', points: 80, name: 'Diamond', description: 'Clarity through questioning' },
-  { input: ['⊗', '∴'], output: '⊛', points: 120, name: 'Tensor Logic', description: 'Multiplication meets reasoning' },
-  { input: ['☯', '?'], output: '☸', points: 200, name: 'Dharma Wheel', description: 'Balance questions reality' },
+  { input: ['∞', '·'], output: '✧', points: 120, name: 'Infinite Point', description: 'The eternal moment' },
   
-  // Infinite combinations with the four elements
+  // Elemental combinations
   { input: ['🔥', '💧'], output: '💨', points: 150, name: 'Steam', description: 'Fire meets water becomes air' },
   { input: ['🌍', '💨'], output: '🌪️', points: 160, name: 'Tornado', description: 'Earth spins with air' },
   { input: ['🔥', '🌍'], output: '🌋', points: 170, name: 'Volcano', description: 'Fire erupts from earth' },
