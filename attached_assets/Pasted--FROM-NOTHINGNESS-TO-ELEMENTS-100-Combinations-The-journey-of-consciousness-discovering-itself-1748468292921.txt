@@ -1,0 +1,693 @@
+// FROM NOTHINGNESS TO ELEMENTS: 100 Combinations
+// The journey of consciousness discovering itself through symbolic combinations
+
+export const STARTING_SYMBOLS = [] as const; // Start with nothing - clicking empty space creates dot
+
+export interface CombinationRule {
+  input: string[];
+  output: string;
+  points: number;
+  name: string;
+  story: string;
+}
+
+// THE COMPLETE JOURNEY: ~100 Combinations
+export const COMBINATION_RULES: CombinationRule[] = [
+  
+  // === EMERGENCE FROM NOTHINGNESS ===
+  // Special rule: clicking empty space multiple times creates the first dot
+  
+  {
+    input: [], // Empty clicks
+    output: '.',
+    points: 5,
+    name: 'First Point',
+    story: 'From absolute nothingness, the first point of awareness emerges. "I am."'
+  },
+  
+  // === BASIC REPLICATION (Dot discovers multiplication) ===
+  
+  {
+    input: ['.', '.'],
+    output: '..',
+    points: 10,
+    name: 'Duality',
+    story: 'One becomes two. The first relationship.'
+  },
+  
+  {
+    input: ['..', '.'],
+    output: '...',
+    points: 15,
+    name: 'Trinity',
+    story: 'The sacred three emerges. Observer, observed, and observation.'
+  },
+  
+  {
+    input: ['...', '.'],
+    output: '....',
+    points: 20,
+    name: 'Foundation',
+    story: 'Four corners of stability. The basis of manifestation.'
+  },
+  
+  {
+    input: ['....', '.'],
+    output: '.....',
+    points: 25,
+    name: 'Quintessence',
+    story: 'Five points. The spirit that crowns the four elements.'
+  },
+  
+  // === DOT TO LINES (First dimension) ===
+  
+  {
+    input: ['.', '..'],
+    output: '-',
+    points: 12,
+    name: 'Horizontal Line',
+    story: 'Points align sideways. The first dimension of space unfolds.'
+  },
+  
+  {
+    input: ['.', '...'],
+    output: '|',
+    points: 12,
+    name: 'Vertical Line',
+    story: 'Points stack upward. The axis between earth and sky.'
+  },
+  
+  {
+    input: ['.', '....'],
+    output: '/',
+    points: 14,
+    name: 'Rising Diagonal',
+    story: 'Energy moves at an angle. The path of ascension.'
+  },
+  
+  {
+    input: ['.', '.....'],
+    output: '\\',
+    points: 14,
+    name: 'Falling Diagonal',
+    story: 'Energy descends at an angle. The path of grounding.'
+  },
+  
+  // === LINES TO BASIC FORMS ===
+  
+  {
+    input: ['-', '|'],
+    output: '+',
+    points: 18,
+    name: 'Cross',
+    story: 'Horizontal meets vertical. The intersection of dimensions.'
+  },
+  
+  {
+    input: ['/', '\\'],
+    output: 'X',
+    points: 20,
+    name: 'Saltire',
+    story: 'Rising meets falling. The multiplication of possibilities.'
+  },
+  
+  {
+    input: ['+', 'X'],
+    output: '*',
+    points: 25,
+    name: 'Star',
+    story: 'All directions radiate from the center. Pure creative force.'
+  },
+  
+  {
+    input: ['-', '-'],
+    output: '=',
+    points: 16,
+    name: 'Equals',
+    story: 'Perfect balance discovered. Two become equivalent.'
+  },
+  
+  {
+    input: ['|', '|'],
+    output: '||',
+    points: 18,
+    name: 'Parallel',
+    story: 'Lines that never meet. Infinite separation.'
+  },
+  
+  // === MATHEMATICAL SYMBOLS (Logic emerges) ===
+  
+  {
+    input: ['+', '-'],
+    output: '±',
+    points: 22,
+    name: 'Plus-Minus',
+    story: 'Polarity discovered. Every action has its opposite.'
+  },
+  
+  {
+    input: ['±', '='],
+    output: '∓',
+    points: 24,
+    name: 'Minus-Plus',
+    story: 'Inverted polarity. The mirror of duality.'
+  },
+  
+  {
+    input: ['X', '+'],
+    output: '⊕',
+    points: 28,
+    name: 'Circled Plus',
+    story: 'Addition contained within unity.'
+  },
+  
+  {
+    input: ['X', 'X'],
+    output: '⊗',
+    points: 30,
+    name: 'Circled Times',
+    story: 'Multiplication bounded by wholeness.'
+  },
+  
+  {
+    input: ['-', '|'],
+    output: '⊥',
+    points: 20,
+    name: 'Perpendicular',
+    story: 'Perfect angle. The relationship of right angles.'
+  },
+  
+  {
+    input: ['=', '='],
+    output: '≡',
+    points: 26,
+    name: 'Identical',
+    story: 'Perfect equivalence. Not just equal, but the same.'
+  },
+  
+  {
+    input: ['=', '±'],
+    output: '≠',
+    points: 24,
+    name: 'Not Equal',
+    story: 'Difference asserts itself. Inequality discovered.'
+  },
+  
+  {
+    input: ['+', '±'],
+    output: '÷',
+    points: 22,
+    name: 'Division',
+    story: 'Separation made precise. The art of splitting.'
+  },
+  
+  // === CIRCLES AND CURVES (Expansion from point) ===
+  
+  {
+    input: ['.', '*'],
+    output: '○',
+    points: 30,
+    name: 'Circle',
+    story: 'The dot expands equally in all directions. Perfect boundary.'
+  },
+  
+  {
+    input: ['○', '.'],
+    output: '⊙',
+    points: 35,
+    name: 'Circled Dot',
+    story: 'Center and circumference united. The eye of consciousness.'
+  },
+  
+  {
+    input: ['○', '○'],
+    output: '◐',
+    points: 40,
+    name: 'Half Circle',
+    story: 'Two circles overlap. Light and shadow dance.'
+  },
+  
+  {
+    input: ['◐', '◐'],
+    output: '◑',
+    points: 45,
+    name: 'Lunar Phase',
+    story: 'Crescents mirror each other. The rhythm of phases.'
+  },
+  
+  {
+    input: ['◐', '◑'],
+    output: '☯',
+    points: 60,
+    name: 'Yin Yang',
+    story: 'Perfect balance achieved. Opposites embrace in unity.'
+  },
+  
+  {
+    input: ['○', '-'],
+    output: '⊖',
+    points: 32,
+    name: 'Circle Minus',
+    story: 'Unity learns subtraction. Wholeness can be reduced.'
+  },
+  
+  {
+    input: ['○', '+'],
+    output: '⊕',
+    points: 34,
+    name: 'Circle Plus',
+    story: 'Unity learns addition. Wholeness can grow.'
+  },
+  
+  // === MATHEMATICAL TRANSCENDENCE ===
+  
+  {
+    input: ['=', '○'],
+    output: '∞',
+    points: 80,
+    name: 'Infinity',
+    story: 'Equality curves back on itself endlessly. The eternal loop discovered.'
+  },
+  
+  {
+    input: ['X', '○'],
+    output: '∞',
+    points: 75,
+    name: 'Infinite Multiplication',
+    story: 'Multiplication without bounds. Numbers lose all meaning.'
+  },
+  
+  {
+    input: ['||', '○'],
+    output: '∞',
+    points: 70,
+    name: 'Infinite Parallel',
+    story: 'Parallel lines curve to meet at infinity.'
+  },
+  
+  {
+    input: ['∞', '.'],
+    output: '∝',
+    points: 85,
+    name: 'Proportional',
+    story: 'Infinity relates to the finite. Cosmic correspondence.'
+  },
+  
+  {
+    input: ['∞', '∞'],
+    output: '∞',
+    points: 100,
+    name: 'Double Infinity',
+    story: 'Infinity meets infinity. Still just infinity.'
+  },
+  
+  // === VIBRATIONS AND WAVES (Dynamic patterns) ===
+  
+  {
+    input: ['∞', '.'],
+    output: '~',
+    points: 90,
+    name: 'Wave',
+    story: 'Infinity meets the point and oscillates. The first vibration.'
+  },
+  
+  {
+    input: ['~', '~'],
+    output: '≈',
+    points: 95,
+    name: 'Approximation',
+    story: 'Waves interfere. Approximate truth emerges from chaos.'
+  },
+  
+  {
+    input: ['~', '-'],
+    output: '∿',
+    points: 85,
+    name: 'Sine Wave',
+    story: 'Wave meets line. Pure harmonic motion.'
+  },
+  
+  {
+    input: ['≈', '|'],
+    output: '∫',
+    points: 120,
+    name: 'Integral',
+    story: 'Waves integrated over time. The sum of all changes.'
+  },
+  
+  {
+    input: ['∫', '∫'],
+    output: '∬',
+    points: 140,
+    name: 'Double Integral',
+    story: 'Integration in two dimensions. Area under the surface of reality.'
+  },
+  
+  {
+    input: ['∫', '○'],
+    output: '∮',
+    points: 130,
+    name: 'Closed Integral',
+    story: 'Integration around a closed path. Circulation of energy.'
+  },
+  
+  {
+    input: ['~', '+'],
+    output: '♪',
+    points: 110,
+    name: 'Musical Note', 
+    story: 'Wave meets structure. Sound becomes music.'
+  },
+  
+  {
+    input: ['♪', '♪'],
+    output: '♫',
+    points: 115,
+    name: 'Musical Notes',
+    story: 'Harmony discovered. Multiple frequencies dance together.'
+  },
+  
+  // === ADVANCED MATHEMATICAL FORMS ===
+  
+  {
+    input: ['∫', '÷'],
+    output: '∂',
+    points: 125,
+    name: 'Partial Derivative',
+    story: 'Rate of change in one direction while others remain constant.'
+  },
+  
+  {
+    input: ['∂', '∂'],
+    output: '∇',
+    points: 135,
+    name: 'Gradient',
+    story: 'The direction of steepest ascent. How fields change through space.'
+  },
+  
+  {
+    input: ['∇', '·'],
+    output: '∆',
+    points: 130,
+    name: 'Laplacian',
+    story: 'The divergence of gradient. How energy spreads through space.'
+  },
+  
+  {
+    input: ['∞', '≈'],
+    output: '∑',
+    points: 110,
+    name: 'Summation',
+    story: 'Infinite approximation becomes exact addition. The sum of all terms.'
+  },
+  
+  {
+    input: ['∑', '∞'],
+    output: '∏',
+    points: 115,
+    name: 'Product',
+    story: 'Infinite summation becomes infinite multiplication.'
+  },
+  
+  // === LOGIC AND SET THEORY ===
+  
+  {
+    input: ['○', '|'],
+    output: '∅',
+    points: 60,
+    name: 'Empty Set',
+    story: 'Circle bisected by line becomes nothing. The void with boundaries.'
+  },
+  
+  {
+    input: ['○', '○'],
+    output: '∩',
+    points: 55,
+    name: 'Intersection',
+    story: 'Two circles overlap. What they share in common.'
+  },
+  
+  {
+    input: ['∩', '○'],
+    output: '∪',
+    points: 58,
+    name: 'Union',
+    story: 'Intersection expands. Everything contained in either.'
+  },
+  
+  {
+    input: ['∅', '○'],
+    output: '⊂',
+    points: 52,
+    name: 'Subset',
+    story: 'Empty set finds its place within wholeness.'
+  },
+  
+  {
+    input: ['⊂', '⊂'],
+    output: '⊆',
+    points: 54,
+    name: 'Subset or Equal',
+    story: 'Containment allows for equality.'
+  },
+  
+  // === ARROWS AND DIRECTIONS ===
+  
+  {
+    input: ['-', '/'],
+    output: '→',
+    points: 35,
+    name: 'Right Arrow',
+    story: 'Line meets rising diagonal. Direction emerges.'
+  },
+  
+  {
+    input: ['-', '\\'],
+    output: '←',
+    points: 35,
+    name: 'Left Arrow',
+    story: 'Line meets falling diagonal. The path of return.'
+  },
+  
+  {
+    input: ['|', '/'],
+    output: '↑',
+    points: 35,
+    name: 'Up Arrow',
+    story: 'Vertical meets ascending. The way to heaven.'
+  },
+  
+  {
+    input: ['|', '\\'],
+    output: '↓',
+    points: 35,
+    name: 'Down Arrow',
+    story: 'Vertical meets descending. The path to earth.'
+  },
+  
+  {
+    input: ['→', '←'],
+    output: '↔',
+    points: 45,
+    name: 'Double Arrow',
+    story: 'Bidirectional flow. Energy moves both ways.'
+  },
+  
+  {
+    input: ['↑', '↓'],
+    output: '↕',
+    points: 45,
+    name: 'Vertical Double Arrow',
+    story: 'As above, so below. Vertical reciprocity.'
+  },
+  
+  // === QUESTION AND MYSTERY ===
+  
+  {
+    input: ['.', '~'],
+    output: '?',
+    points: 50,
+    name: 'Question',
+    story: 'Point meets wave and asks: "What is this vibration I feel?"'
+  },
+  
+  {
+    input: ['?', '?'],
+    output: '‽',
+    points: 65,
+    name: 'Interrobang',
+    story: 'Question intensifies. Amazed questioning.'
+  },
+  
+  {
+    input: ['?', '!'],
+    output: '‽',
+    points: 60,
+    name: 'Surprised Question',
+    story: 'Wonder meets exclamation. "What?! How is this possible?"'
+  },
+  
+  {
+    input: ['.', '?'],
+    output: '!',
+    points: 40,
+    name: 'Exclamation',
+    story: 'Point discovers question and exclaims: "Aha! I understand!"'
+  },
+  
+  // === THE FOUR ELEMENTS (Ultimate Material Manifestation) ===
+  
+  {
+    input: ['∫', '↑'],
+    output: '🔥',
+    points: 200,
+    name: 'Fire Element',
+    story: 'Integration meets upward flow. Fire - the element of will and transformation. Energy rising toward the infinite.'
+  },
+  
+  {
+    input: ['∮', '→'],
+    output: '💧',
+    points: 200,
+    name: 'Water Element',
+    story: 'Circulation meets horizontal flow. Water - the element of emotion and adaptation. Energy flowing around obstacles.'
+  },
+  
+  {
+    input: ['∬', '.'],
+    output: '🌍',
+    points: 200,
+    name: 'Earth Element',
+    story: 'Double integration meets the centered point. Earth - the element of form and stability. All changes grounded in being.'
+  },
+  
+  {
+    input: ['∿', '∞'],
+    output: '💨',
+    points: 200,
+    name: 'Air Element',
+    story: 'Pure wave meets infinity. Air - the element of thought and freedom. Vibration without boundary.'
+  },
+  
+  // === ELEMENTAL INTERACTIONS ===
+  
+  {
+    input: ['🔥', '💧'],
+    output: '💨',
+    points: 250,
+    name: 'Steam',
+    story: 'Fire transforms water into air. The first alchemy.'
+  },
+  
+  {
+    input: ['🔥', '🌍'],
+    output: '🌋',
+    points: 280,
+    name: 'Volcano',
+    story: 'Fire bursts through earth. Creation through destruction.'
+  },
+  
+  {
+    input: ['💧', '🌍'],
+    output: '🌱',
+    points: 270,
+    name: 'Life',
+    story: 'Water nurtures earth. The first spark of living consciousness.'
+  },
+  
+  {
+    input: ['💨', '💧'],
+    output: '☁️',
+    points: 260,
+    name: 'Cloud',
+    story: 'Air carries water to new heights. Dreams made visible.'
+  },
+  
+  {
+    input: ['🔥', '💨'],
+    output: '⚡',
+    points: 300,
+    name: 'Lightning',
+    story: 'Fire races through air. The nervous system of the cosmos.'
+  },
+  
+  {
+    input: ['🌍', '💨'],
+    output: '🏔️',
+    points: 290,
+    name: 'Mountain',
+    story: 'Earth reaches toward air. Matter aspiring to spirit.'
+  },
+  
+  // === ULTIMATE RETURN ===
+  
+  {
+    input: ['🔥', '💧', '🌍', '💨'],
+    output: '●',
+    points: 1000,
+    name: 'The Absolute',
+    story: 'All four elements unite and collapse back into the primordial point. The journey is complete. From nothing through everything, back to the Source.'
+  }
+];
+
+// AI response system - guides player toward discoveries
+export function generateGuidanceResponse(
+  playerPattern: string[], 
+  discoveredSymbols: string[]
+): string {
+  
+  // If they have nothing, encourage the first dot
+  if (discoveredSymbols.length === 0) {
+    return '.';
+  }
+  
+  // If they only have dots, encourage line formation
+  if (discoveredSymbols.every(s => ['.', '..', '...', '....', '.....'].includes(s))) {
+    return Math.random() > 0.5 ? '-' : '|';
+  }
+  
+  // If they have basic lines, encourage crosses
+  if (discoveredSymbols.includes('-') && discoveredSymbols.includes('|') && !discoveredSymbols.includes('+')) {
+    return '+';
+  }
+  
+  // If they have math symbols but no infinity, guide toward circles
+  if (discoveredSymbols.some(s => ['+', 'X', '=', '±'].includes(s)) && !discoveredSymbols.includes('○')) {
+    return '○';
+  }
+  
+  // If they have circles but no infinity, encourage the leap
+  if (discoveredSymbols.includes('○') && discoveredSymbols.includes('=') && !discoveredSymbols.includes('∞')) {
+    return '∞';
+  }
+  
+  // If they have infinity but no waves, hint at vibrations
+  if (discoveredSymbols.includes('∞') && !discoveredSymbols.includes('~')) {
+    return '~';
+  }
+  
+  // If they have waves but no integrals, guide toward mathematics
+  if (discoveredSymbols.includes('~') && !discoveredSymbols.includes('∫')) {
+    return '∫';
+  }
+  
+  // If they have integrals but no elements, hint at directions
+  if (discoveredSymbols.includes('∫') && !discoveredSymbols.some(s => ['🔥', '💧', '🌍', '💨'].includes(s))) {
+    return Math.random() > 0.5 ? '↑' : '→';
+  }
+  
+  // Mirror their last input with slight variation
+  const lastInput = playerPattern[playerPattern.length - 1];
+  if (lastInput === '.') return '..';
+  if (lastInput === '-') return '|';
+  if (lastInput === '○') return '.';
+  
+  // Default guidance
+  const basicSymbols = ['.', '-', '|', '+', '○', '~'];
+  return basicSymbols[Math.floor(Math.random() * basicSymbols.length)];
+}
+
+export default {
+  COMBINATION_RULES,
+  generateGuidanceResponse
+};
