@@ -1,5 +1,5 @@
 // Symbol combination rules and discovery logic - starting with just the dot
-export const BASIC_SYMBOLS = ['·'] as const;
+export const BASIC_SYMBOLS = ['.'] as const;
 
 export type BasicSymbol = typeof BASIC_SYMBOLS[number];
 export type SymbolCombination = string[];
@@ -10,9 +10,177 @@ export interface CombinationRule {
   points: number;
   name: string;
   description?: string;
+  discoveryType?: 'replication' | 'extension' | 'expansion' | 'intensification' | 'transformation' | 'combination';
+  story?: string;
 }
 
-// Define combination rules - Everything emerges from the dot (·)
+// CATEGORY 1: SINGLE DOT DISCOVERIES - What can emerge from a single point of consciousness?
+export const DOT_DISCOVERIES: CombinationRule[] = [
+  // === REPLICATION DISCOVERIES ===
+  {
+    input: ['.'],
+    output: '..',
+    points: 10,
+    name: 'Duality',
+    description: 'Consciousness divides to know itself',
+    discoveryType: 'replication',
+    story: 'The dot notices itself and realizes: "I am." Then wonders: "What if there were two of me?"'
+  },
+  {
+    input: ['.'],
+    output: '...',
+    points: 15,
+    name: 'Trinity',
+    description: 'Three-fold awareness emerges',
+    discoveryType: 'replication',
+    story: 'The dot discovers it can be observer, observed, and the witnessing itself.'
+  },
+  {
+    input: ['.'],
+    output: '....',
+    points: 20,
+    name: 'Stability',
+    description: 'Four corners of manifestation',
+    discoveryType: 'replication',
+    story: 'Four points of awareness. The dot discovers foundational structure.'
+  },
+  {
+    input: ['.'],
+    output: '.....',
+    points: 25,
+    name: 'Quintessence',
+    description: 'Spirit crowns matter',
+    discoveryType: 'replication',
+    story: 'Five points. The dot finds the sacred number - four corners plus the center.'
+  },
+
+  // === EXTENSION DISCOVERIES ===
+  {
+    input: ['.'],
+    output: '—',
+    points: 12,
+    name: 'Horizontal Reach',
+    description: 'The first dimension of space unfolds',
+    discoveryType: 'extension',
+    story: 'The dot asks: "What lies beyond me?" and stretches sideways.'
+  },
+  {
+    input: ['.'],
+    output: '|',
+    points: 12,
+    name: 'Vertical Ascent',
+    description: 'The axis of aspiration appears',
+    discoveryType: 'extension',
+    story: 'The dot yearns upward and downward: "What is above and below?"'
+  },
+  {
+    input: ['.'],
+    output: '/',
+    points: 14,
+    name: 'Diagonal Rising',
+    description: 'The path between earth and sky',
+    discoveryType: 'extension',
+    story: 'The dot discovers it can move at angles. Rising energy.'
+  },
+  {
+    input: ['.'],
+    output: '\\',
+    points: 14,
+    name: 'Diagonal Falling',
+    description: 'The path from sky to earth',
+    discoveryType: 'extension',
+    story: 'The dot learns to descend at angles. Grounding energy.'
+  },
+
+  // === EXPANSION DISCOVERIES ===
+  {
+    input: ['.'],
+    output: '○',
+    points: 20,
+    name: 'Circle of Being',
+    description: 'The first boundary appears',
+    discoveryType: 'expansion',
+    story: 'The dot breathes outward and discovers: "I am not just a point - I am space itself!"'
+  },
+  {
+    input: ['.'],
+    output: '◯',
+    points: 18,
+    name: 'Hollow Circle',
+    description: 'Form and void dance together',
+    discoveryType: 'expansion',
+    story: 'The dot expands but keeps its center empty.'
+  },
+  {
+    input: ['.'],
+    output: '●',
+    points: 16,
+    name: 'Filled Circle',
+    description: 'Density and presence unified',
+    discoveryType: 'expansion',
+    story: 'The dot expands and fills completely.'
+  },
+
+  // === INTENSIFICATION DISCOVERIES ===
+  {
+    input: ['.'],
+    output: '•',
+    points: 8,
+    name: 'Focused Dot',
+    description: 'Intensity discovered',
+    discoveryType: 'intensification',
+    story: 'The dot concentrates its energy: "What if I became more... myself?"'
+  },
+  {
+    input: ['.'],
+    output: '·',
+    points: 6,
+    name: 'Gentle Dot',
+    description: 'The whisper of consciousness',
+    discoveryType: 'intensification',
+    story: 'The dot softens: "What if I became subtle?"'
+  },
+
+  // === TRANSFORMATION DISCOVERIES ===
+  {
+    input: ['.'],
+    output: '*',
+    points: 25,
+    name: 'Star Birth',
+    description: 'Energy shoots in all directions',
+    discoveryType: 'transformation',
+    story: 'The dot explodes with realization: "I am not just a point - I am a radiating center!"'
+  },
+  {
+    input: ['.'],
+    output: '+',
+    points: 22,
+    name: 'Cross Formation',
+    description: 'Horizontal and vertical meet within',
+    discoveryType: 'transformation',
+    story: 'The dot discovers the power of intersection.'
+  },
+  {
+    input: ['.'],
+    output: '×',
+    points: 20,
+    name: 'Multiplication Sign',
+    description: 'The power to multiply reality',
+    discoveryType: 'transformation',
+    story: 'The dot rotates its cross and discovers: "I can multiply reality itself!"'
+  },
+  {
+    input: ['.'],
+    output: '?',
+    points: 30,
+    name: 'Question',
+    description: 'The eternal question awakens',
+    discoveryType: 'transformation',
+    story: 'The dot\'s deepest discovery: "What am I? What is this? What is possible?"'
+  }
+];
+
+// CATEGORY 2: COMBINATION RULES (unlocked after exploring Category 1)
 export const COMBINATION_RULES: CombinationRule[] = [
   // The universe begins with two dots
   { input: ['·', '·'], output: '—', points: 10, name: 'Horizontal Line', description: 'Two points create extension' },
@@ -78,8 +246,59 @@ function arraysEqual(a: any[], b: any[]): boolean {
 }
 
 // Find matching combination rule - now supports infinite combinations!
+// Check if player has completed Category 1 (single dot discoveries)
+export function hasCompletedCategory1(discoveredSymbols: string[]): boolean {
+  const requiredDiscoveries = DOT_DISCOVERIES.length;
+  const playerDiscoveries = DOT_DISCOVERIES.filter(d => 
+    discoveredSymbols.includes(d.output)
+  ).length;
+  
+  return playerDiscoveries >= Math.floor(requiredDiscoveries * 0.6); // 60% completion
+}
+
+// Get progress in Category 1
+export function getCategory1Progress(discoveredSymbols: string[]): {
+  discovered: number;
+  total: number;
+  byType: Record<string, number>;
+  percentage: number;
+} {
+  const total = DOT_DISCOVERIES.length;
+  const discovered = DOT_DISCOVERIES.filter(d => 
+    discoveredSymbols.includes(d.output)
+  ).length;
+  
+  // Count by discovery type
+  const byType: Record<string, number> = {};
+  ['replication', 'extension', 'expansion', 'intensification', 'transformation'].forEach(type => {
+    byType[type] = DOT_DISCOVERIES.filter(d => 
+      d.discoveryType === type && discoveredSymbols.includes(d.output)
+    ).length;
+  });
+  
+  const percentage = Math.floor((discovered / total) * 100);
+  
+  return { discovered, total, byType, percentage };
+}
+
 export function findCombination(symbols: SymbolCombination, discoveredSymbols: string[] = []): CombinationRule | null {
-  // Try exact match first
+  // CATEGORY 1: Single dot discoveries - the dot exploring what it can become
+  if (symbols.length === 1 && symbols[0] === '.') {
+    // Find a random undiscovered dot discovery
+    const undiscovered = DOT_DISCOVERIES.filter(d => !discoveredSymbols.includes(d.output));
+    if (undiscovered.length > 0) {
+      return undiscovered[Math.floor(Math.random() * undiscovered.length)];
+    }
+    // If all discovered, return a random one for variety
+    return DOT_DISCOVERIES[Math.floor(Math.random() * DOT_DISCOVERIES.length)];
+  }
+  
+  // Check if they've completed enough of Category 1 to access combinations
+  if (!hasCompletedCategory1(discoveredSymbols) && symbols.length > 1) {
+    return null; // Guide them back to exploring the dot first
+  }
+
+  // CATEGORY 2: Try exact match first
   const exactMatch = COMBINATION_RULES.find(rule => 
     arraysEqual(rule.input, symbols)
   );

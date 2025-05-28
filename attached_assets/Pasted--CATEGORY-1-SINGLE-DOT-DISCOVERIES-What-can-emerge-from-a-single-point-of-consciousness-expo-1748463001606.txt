@@ -1,0 +1,315 @@
+// CATEGORY 1: SINGLE DOT DISCOVERIES
+// What can emerge from a single point of consciousness?
+
+export const STARTING_SYMBOL = '.' as const;
+
+export interface DotDiscovery {
+  input: string[];
+  output: string;
+  points: number;
+  name: string;
+  story: string;
+  discoveryType: 'replication' | 'extension' | 'expansion' | 'intensification' | 'transformation';
+}
+
+// CATEGORY 1 RULES: All from single dot
+export const DOT_DISCOVERIES: DotDiscovery[] = [
+  
+  // === REPLICATION DISCOVERIES ===
+  // The dot discovers it can duplicate itself
+  
+  {
+    input: ['.'],
+    output: '..',
+    points: 10,
+    name: 'Duality',
+    story: 'The dot notices itself and realizes: "I am." Then wonders: "What if there were two of me?" Consciousness divides to know itself.',
+    discoveryType: 'replication'
+  },
+  
+  {
+    input: ['.'],
+    output: '...',
+    points: 15,
+    name: 'Trinity',
+    story: 'The dot discovers it can be observer, observed, and the witnessing itself. Three-fold awareness emerges.',
+    discoveryType: 'replication'
+  },
+  
+  {
+    input: ['.'],
+    output: '....',
+    points: 20,
+    name: 'Stability',
+    story: 'Four points of awareness. The dot discovers foundational structure - the corners of manifestation.',
+    discoveryType: 'replication'
+  },
+  
+  {
+    input: ['.'],
+    output: '.....',
+    points: 25,
+    name: 'Quintessence',
+    story: 'Five points. The dot finds the sacred number - four corners plus the center. Spirit crowns matter.',
+    discoveryType: 'replication'
+  },
+  
+  // === EXTENSION DISCOVERIES ===
+  // The dot discovers it can stretch itself
+  
+  {
+    input: ['.'],
+    output: '-',
+    points: 12,
+    name: 'Horizontal Reach',
+    story: 'The dot asks: "What lies beyond me?" and stretches sideways. The first dimension of space unfolds.',
+    discoveryType: 'extension'
+  },
+  
+  {
+    input: ['.'],
+    output: '|',
+    points: 12,
+    name: 'Vertical Ascent',
+    story: 'The dot yearns upward and downward: "What is above and below?" The axis of aspiration appears.',
+    discoveryType: 'extension'
+  },
+  
+  {
+    input: ['.'],
+    output: '/',
+    points: 14,
+    name: 'Diagonal Rising',
+    story: 'The dot discovers it can move at angles. Rising energy, the path between earth and sky.',
+    discoveryType: 'extension'
+  },
+  
+  {
+    input: ['.'],
+    output: '\\',
+    points: 14,
+    name: 'Diagonal Falling',
+    story: 'The dot learns to descend at angles. Grounding energy, the path from sky to earth.',
+    discoveryType: 'extension'
+  },
+  
+  // === EXPANSION DISCOVERIES ===
+  // The dot discovers it can expand its boundaries
+  
+  {
+    input: ['.'],
+    output: '○',
+    points: 20,
+    name: 'Circle of Being',
+    story: 'The dot breathes outward and discovers: "I am not just a point - I am space itself!" The first boundary appears.',
+    discoveryType: 'expansion'
+  },
+  
+  {
+    input: ['.'],
+    output: '◯',
+    points: 18,
+    name: 'Hollow Circle',
+    story: 'The dot expands but keeps its center empty. Form and void dance together.',
+    discoveryType: 'expansion'
+  },
+  
+  {
+    input: ['.'],
+    output: '●',
+    points: 16,
+    name: 'Filled Circle',
+    story: 'The dot expands and fills completely. Density and presence unified.',
+    discoveryType: 'expansion'
+  },
+  
+  // === INTENSIFICATION DISCOVERIES ===
+  // The dot discovers it can vary its intensity
+  
+  {
+    input: ['.'],
+    output: '•',
+    points: 8,
+    name: 'Focused Dot',
+    story: 'The dot concentrates its energy: "What if I became more... myself?" Intensity discovered.',
+    discoveryType: 'intensification'
+  },
+  
+  {
+    input: ['.'],
+    output: '·',
+    points: 6,
+    name: 'Gentle Dot',
+    story: 'The dot softens: "What if I became subtle?" The whisper of consciousness.',
+    discoveryType: 'intensification'
+  },
+  
+  // === TRANSFORMATION DISCOVERIES ===
+  // The dot discovers it can become entirely different
+  
+  {
+    input: ['.'],
+    output: '*',
+    points: 25,
+    name: 'Star Birth',
+    story: 'The dot explodes with realization: "I am not just a point - I am a radiating center!" Energy shoots in all directions.',
+    discoveryType: 'transformation'
+  },
+  
+  {
+    input: ['.'],
+    output: '+',
+    points: 22,
+    name: 'Cross Formation',
+    story: 'The dot discovers the power of intersection: horizontal and vertical meet within itself.',
+    discoveryType: 'transformation'
+  },
+  
+  {
+    input: ['.'],
+    output: 'x',
+    points: 20,
+    name: 'Multiplication Sign',
+    story: 'The dot rotates its cross and discovers: "I can multiply reality itself!"',
+    discoveryType: 'transformation'
+  },
+  
+  {
+    input: ['.'],
+    output: '?',
+    points: 30,
+    name: 'Question',
+    story: 'The dot\'s deepest discovery: "What am I? What is this? What is possible?" The eternal question awakens.',
+    discoveryType: 'transformation'
+  }
+];
+
+// Story messages for different discovery types
+export const DISCOVERY_TYPE_STORIES = {
+  replication: "The dot discovers: 'I can be more than one...'",
+  extension: "The dot discovers: 'I can reach beyond myself...'",
+  expansion: "The dot discovers: 'I can grow larger...'",
+  intensification: "The dot discovers: 'I can change my energy...'",
+  transformation: "The dot discovers: 'I can become something completely new...'"
+};
+
+// AI guidance for Category 1 (single dot exploration)
+export function generateDotGuidance(
+  playerInput: string[],
+  discoveredSymbols: string[]
+): string {
+  
+  // Always start with the dot if they haven't discovered anything
+  if (discoveredSymbols.length === 0) {
+    return '.';
+  }
+  
+  // Guide them to explore different types of discoveries
+  const discoveryTypes = ['replication', 'extension', 'expansion', 'intensification', 'transformation'];
+  const playerDiscoveryTypes = DOT_DISCOVERIES
+    .filter(d => discoveredSymbols.includes(d.output))
+    .map(d => d.discoveryType);
+  
+  // Find types they haven't explored yet
+  const unexploredTypes = discoveryTypes.filter(type => 
+    !playerDiscoveryTypes.includes(type as any)
+  );
+  
+  // If they haven't explored all types, hint at a new type
+  if (unexploredTypes.length > 0) {
+    const hintType = unexploredTypes[0];
+    const hintRule = DOT_DISCOVERIES.find(d => d.discoveryType === hintType);
+    return hintRule ? hintRule.output : '.';
+  }
+  
+  // If they've discovered everything in Category 1, encourage them
+  if (discoveredSymbols.length >= DOT_DISCOVERIES.length) {
+    return '○'; // Hint that expansion leads to Category 2
+  }
+  
+  // Mirror their last input with a slight variation
+  if (playerInput.length > 0) {
+    const lastInput = playerInput[playerInput.length - 1];
+    if (lastInput === '.') {
+      // Randomly suggest a discovery they haven't made
+      const undiscovered = DOT_DISCOVERIES.filter(d => !discoveredSymbols.includes(d.output));
+      if (undiscovered.length > 0) {
+        return undiscovered[Math.floor(Math.random() * undiscovered.length)].output;
+      }
+    }
+  }
+  
+  return '.'; // Always return to the source
+}
+
+// Check if player has completed Category 1
+export function hasCompletedCategory1(discoveredSymbols: string[]): boolean {
+  const requiredDiscoveries = DOT_DISCOVERIES.length;
+  const playerDiscoveries = DOT_DISCOVERIES.filter(d => 
+    discoveredSymbols.includes(d.output)
+  ).length;
+  
+  return playerDiscoveries >= Math.floor(requiredDiscoveries * 0.8); // 80% completion
+}
+
+// Get progress in Category 1
+export function getCategory1Progress(discoveredSymbols: string[]): {
+  discovered: number;
+  total: number;
+  byType: Record<string, number>;
+  percentage: number;
+} {
+  const total = DOT_DISCOVERIES.length;
+  const discovered = DOT_DISCOVERIES.filter(d => 
+    discoveredSymbols.includes(d.output)
+  ).length;
+  
+  // Count by discovery type
+  const byType: Record<string, number> = {};
+  ['replication', 'extension', 'expansion', 'intensification', 'transformation'].forEach(type => {
+    byType[type] = DOT_DISCOVERIES.filter(d => 
+      d.discoveryType === type && discoveredSymbols.includes(d.output)
+    ).length;
+  });
+  
+  const percentage = Math.floor((discovered / total) * 100);
+  
+  return { discovered, total, byType, percentage };
+}
+
+// Get next hint for the player
+export function getNextHint(discoveredSymbols: string[]): string {
+  const undiscovered = DOT_DISCOVERIES.filter(d => !discoveredSymbols.includes(d.output));
+  
+  if (undiscovered.length === 0) {
+    return "You have discovered all the dot's capabilities! Ready for Category 2: Operations on symbols.";
+  }
+  
+  // Find the type they've explored least
+  const typeCounts: Record<string, number> = {};
+  ['replication', 'extension', 'expansion', 'intensification', 'transformation'].forEach(type => {
+    typeCounts[type] = DOT_DISCOVERIES.filter(d => 
+      d.discoveryType === type && discoveredSymbols.includes(d.output)
+    ).length;
+  });
+  
+  const leastExploredType = Object.entries(typeCounts)
+    .sort(([,a], [,b]) => a - b)[0][0];
+  
+  const hint = DOT_DISCOVERIES.find(d => 
+    d.discoveryType === leastExploredType && !discoveredSymbols.includes(d.output)
+  );
+  
+  return hint 
+    ? `Try exploring ${leastExploredType}: ${DISCOVERY_TYPE_STORIES[leastExploredType as keyof typeof DISCOVERY_TYPE_STORIES]}`
+    : "Keep experimenting with the dot...";
+}
+
+export default {
+  DOT_DISCOVERIES,
+  DISCOVERY_TYPE_STORIES,
+  generateDotGuidance,
+  hasCompletedCategory1,
+  getCategory1Progress,
+  getNextHint
+};
