@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { type BasicSymbol } from '@/lib/symbol-combinations';
+import { InteractiveCanvas } from './interactive-canvas';
 
 interface PlayAreaProps {
   currentCombination: BasicSymbol[];
@@ -8,6 +9,7 @@ interface PlayAreaProps {
   onCombine: () => void;
   onClear: () => void;
   isProcessing: boolean;
+  onSymbolAdd: (symbol: string) => void;
 }
 
 export function PlayArea({ 
@@ -15,7 +17,8 @@ export function PlayArea({
   lastResponse, 
   onCombine, 
   onClear, 
-  isProcessing 
+  isProcessing,
+  onSymbolAdd
 }: PlayAreaProps) {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 min-h-[600px]">

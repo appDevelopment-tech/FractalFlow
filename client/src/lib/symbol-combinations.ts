@@ -31,6 +31,10 @@ export const COMBINATION_RULES: CombinationRule[] = [
   { input: ['·', '—'], output: '○', points: 18, name: 'Circle', description: 'Point expands around line' },
   { input: ['·', '|'], output: '●', points: 18, name: 'Filled Circle', description: 'Point grows dense and full' },
   
+  // Curved lines from interaction
+  { input: ['—', '○'], output: '∼', points: 22, name: 'Wave', description: 'Line flows like water' },
+  { input: ['|', '○'], output: '∼', points: 22, name: 'Curve', description: 'Vertical becomes flowing' },
+  
   // Advanced dot patterns
   { input: ['·', '·', '·', '·'], output: '∶', points: 30, name: 'Dual Awareness', description: 'Four points of consciousness' },
   { input: ['·', '·', '·', '·', '·'], output: '⋯', points: 40, name: 'Deep Meditation', description: 'Five breaths deeper' },
