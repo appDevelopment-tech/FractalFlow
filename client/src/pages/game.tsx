@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useGameState } from '@/hooks/use-game-state';
-import { SymbolPalette } from '@/components/symbol-palette';
+import { InfinitePalette } from '@/components/infinite-palette';
 import { PlayArea } from '@/components/play-area';
 import { ProgressSidebar } from '@/components/progress-sidebar';
 import { DiscoveryNotification } from '@/components/discovery-notification';
@@ -182,7 +182,7 @@ export default function Game() {
           
           {/* Symbol Palette */}
           <div className="lg:col-span-1">
-            <SymbolPalette
+            <InfinitePalette
               onSymbolClick={addSymbol}
               discoveredSymbols={discoveredSymbols}
             />
