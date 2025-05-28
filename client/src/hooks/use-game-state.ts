@@ -269,13 +269,32 @@ export function useGameState() {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }, [gameState.sessionTime]);
 
-  // Reset all progress
-  const resetProgress = useCallback(() => {
-    if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+  // Reset all progress including profile data
+  const resetProgress = useCallback(async () => {
+    if (confirm('Are you sure you want to reset all progress? This will clear your discoveries, points, level, and tutorial. This cannot be undone.')) {
+      // Clear localStorage
       localStorage.clear();
+      
+      // Reset profile data on server
+      if (profile) {
+        try {
+          await updateProfileMutation.mutateAsync({
+            level: 1,
+            totalScore: 0,
+            totalDiscoveries: 0,
+            flowStreak: 0,
+            discoveredSymbols: [],
+            sessionData: {}
+          });
+        } catch (error) {
+          console.log('Could not reset server data, but localStorage cleared');
+        }
+      }
+      
+      // Reload page to start fresh
       window.location.reload();
     }
-  }, []);
+  }, [profile, updateProfileMutation]);
 
   // Get level progress
   const levelProgress = profile ? getLevelProgress(profile.totalDiscoveries) : null;
