@@ -2,7 +2,7 @@
 export const BASIC_SYMBOLS = ['○', '●', '·', '—', '|', '+', '×', '◯', '?'] as const;
 
 export type BasicSymbol = typeof BASIC_SYMBOLS[number];
-export type SymbolCombination = BasicSymbol[];
+export type SymbolCombination = string[];
 
 export interface CombinationRule {
   input: SymbolCombination;
@@ -191,7 +191,7 @@ function generateDynamicDescription(symbols: SymbolCombination, result: string):
 
 // Generate intelligent AI response based on player patterns and history
 export function generateAIResponse(
-  playerPattern: SymbolCombination, 
+  playerPattern: string[], 
   playerHistory: string[], 
   discoveredSymbols: string[]
 ): string {

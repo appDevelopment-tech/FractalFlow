@@ -87,7 +87,7 @@ export function SymbolPalette({ onSymbolClick, discoveredSymbols }: SymbolPalett
               )}>
                 {symbol}
               </span>
-            </div>
+            </button>
           ))}
           
           {/* Locked slots */}

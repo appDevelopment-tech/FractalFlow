@@ -7,7 +7,7 @@ import { getDailyMystery, markDailyMysteryCompleted } from '@/lib/daily-mystery'
 import type { GameProfile, Discovery } from '@shared/schema';
 
 export interface GameState {
-  currentCombination: BasicSymbol[];
+  currentCombination: string[];
   sessionTime: number;
   sessionId: number | null;
   lastResponse: string | null;
@@ -125,7 +125,7 @@ export function useGameState() {
   }, [profile, gameState.sessionId]);
 
   // Add symbol to current combination
-  const addSymbol = useCallback((symbol: BasicSymbol) => {
+  const addSymbol = useCallback((symbol: string) => {
     soundEngine.playSymbolClick(); // Audio feedback for symbol selection
     setGameState(prev => ({
       ...prev,
