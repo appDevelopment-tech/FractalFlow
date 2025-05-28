@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { findCombination, generateAIResponse, calculatePoints, checkSpecialUnlocks, calculateLevel, getLevelProgress, type BasicSymbol } from '@/lib/symbol-combinations';
+import { soundEngine } from '@/lib/sounds';
 import type { GameProfile, Discovery } from '@shared/schema';
 
 export interface GameState {
@@ -124,6 +125,7 @@ export function useGameState() {
 
   // Add symbol to current combination
   const addSymbol = useCallback((symbol: BasicSymbol) => {
+    soundEngine.playSymbolClick(); // Audio feedback for symbol selection
     setGameState(prev => ({
       ...prev,
       currentCombination: [...prev.currentCombination, symbol].slice(-3) // Max 3 symbols
@@ -143,6 +145,7 @@ export function useGameState() {
   const processCombination = useCallback(async () => {
     if (!profile || gameState.currentCombination.length === 0) return;
 
+    soundEngine.playCombine(); // Audio feedback for combination attempt
     const combination = [...gameState.currentCombination];
     const rule = findCombination(combination);
     
@@ -170,6 +173,9 @@ export function useGameState() {
         }));
         return;
       }
+      
+      // Play discovery sound for new discoveries
+      soundEngine.playDiscovery();
       
       // Create discovery record only for new discoveries
       createDiscoveryMutation.mutate({
@@ -200,6 +206,8 @@ export function useGameState() {
       // Check for level up
       const newLevel = calculateLevel(profile.totalDiscoveries + 1);
       if (newLevel > profile.level) {
+        soundEngine.playLevelUp(); // Special sound for level up
+        
         const levelNotification: Notification = {
           id: (Date.now() + 1).toString(),
           type: 'level_up',

@@ -7,6 +7,7 @@ import { DiscoveryNotification } from '@/components/discovery-notification';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { soundEngine } from '@/lib/sounds';
 
 export default function Game() {
   const {
@@ -28,6 +29,7 @@ export default function Game() {
 
   const [showHelp, setShowHelp] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
   // Show tutorial on first visit
   useEffect(() => {
@@ -40,6 +42,24 @@ export default function Game() {
   const handleTutorialComplete = () => {
     localStorage.setItem('fractal-flow-tutorial-seen', 'true');
     setShowTutorial(false);
+  };
+
+  // Load sound preference from localStorage
+  useEffect(() => {
+    const savedSoundPref = localStorage.getItem('fractal-flow-sound-enabled');
+    if (savedSoundPref !== null) {
+      const enabled = savedSoundPref === 'true';
+      setSoundEnabled(enabled);
+      soundEngine.setEnabled(enabled);
+    }
+  }, []);
+
+  // Toggle sound and save preference
+  const toggleSound = () => {
+    const newEnabled = !soundEnabled;
+    setSoundEnabled(newEnabled);
+    soundEngine.setEnabled(newEnabled);
+    localStorage.setItem('fractal-flow-sound-enabled', newEnabled.toString());
   };
 
   if (isLoading) {
@@ -93,7 +113,7 @@ export default function Game() {
                 </div>
               </div>
               
-              {/* Help and Reset Buttons */}
+              {/* Help, Sound, and Reset Buttons */}
               <div className="flex items-center space-x-2">
                 <Dialog open={showHelp} onOpenChange={setShowHelp}>
                   <DialogTrigger asChild>
@@ -131,6 +151,16 @@ export default function Game() {
                     </div>
                   </DialogContent>
                 </Dialog>
+                
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={toggleSound}
+                  className="bg-white/80"
+                  title={soundEnabled ? "Disable sounds" : "Enable sounds"}
+                >
+                  <span className="text-lg">{soundEnabled ? '🔊' : '🔇'}</span>
+                </Button>
                 
                 <Button 
                   variant="outline" 
