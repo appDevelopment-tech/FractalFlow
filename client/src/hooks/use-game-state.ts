@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { findCombination, generateAIResponse, calculatePoints, checkSpecialUnlocks, calculateLevel, getLevelProgress, type BasicSymbol } from '@/lib/symbol-combinations';
 import { soundEngine } from '@/lib/sounds';
+import { getDailyMystery, markDailyMysteryCompleted } from '@/lib/daily-mystery';
 import type { GameProfile, Discovery } from '@shared/schema';
 
 export interface GameState {
@@ -176,6 +177,27 @@ export function useGameState() {
       
       // Play discovery sound for new discoveries
       soundEngine.playDiscovery();
+      
+      // Check if this solves the daily mystery
+      const dailyMystery = getDailyMystery();
+      if (rule.output === dailyMystery.reward) {
+        markDailyMysteryCompleted();
+        
+        // Add special daily mystery notification
+        const mysteryNotification: Notification = {
+          id: (Date.now() + 0.5).toString(),
+          type: 'special',
+          title: '🎁 Daily Mystery Solved!',
+          message: `You unlocked today's mystery: ${dailyMystery.description}`,
+          points: points + 50, // Bonus points for daily mystery
+          timestamp: Date.now()
+        };
+        
+        setGameState(prev => ({
+          ...prev,
+          notifications: [mysteryNotification, ...prev.notifications.slice(0, 4)]
+        }));
+      }
       
       // Create discovery record only for new discoveries
       createDiscoveryMutation.mutate({

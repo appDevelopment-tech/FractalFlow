@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
+import { DailyMysteryCard } from '@/components/daily-mystery';
 import type { GameProfile, Discovery } from '@shared/schema';
 
 interface ProgressSidebarProps {
@@ -8,13 +9,15 @@ interface ProgressSidebarProps {
   recentDiscoveries: Discovery[];
   levelProgress: { current: number; max: number; percentage: number } | null;
   currentLevel: number;
+  discoveredSymbols: string[];
 }
 
 export function ProgressSidebar({ 
   profile, 
   recentDiscoveries, 
   levelProgress, 
-  currentLevel 
+  currentLevel,
+  discoveredSymbols
 }: ProgressSidebarProps) {
   return (
     <div className="space-y-6">
@@ -120,25 +123,8 @@ export function ProgressSidebar({
         </div>
       </div>
       
-      {/* Easter Egg Hint */}
-      <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl shadow-sm border border-purple-200 p-6">
-        <h3 className="text-lg font-semibold text-slate-800 mb-3 flex items-center">
-          <span className="text-purple-500 mr-2">🥚</span>
-          Mystery
-        </h3>
-        <p className="text-sm text-slate-600 mb-3">
-          Some patterns reveal themselves only when discovered in sequence...
-        </p>
-        <div className="text-center">
-          <div className="inline-flex items-center space-x-2 bg-white/50 rounded-lg px-3 py-2">
-            <span className="text-lg font-mono">?</span>
-            <span className="text-sm text-muted">+</span>
-            <span className="text-lg font-mono">?</span>
-            <span className="text-sm text-muted">=</span>
-            <span className="text-lg">✧</span>
-          </div>
-        </div>
-      </div>
+      {/* Daily Mystery */}
+      <DailyMysteryCard discoveredSymbols={discoveredSymbols} />
     </div>
   );
 }

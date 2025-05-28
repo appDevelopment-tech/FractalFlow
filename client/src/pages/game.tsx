@@ -206,6 +206,7 @@ export default function Game() {
               recentDiscoveries={recentDiscoveries}
               levelProgress={levelProgress}
               currentLevel={currentLevel}
+              discoveredSymbols={discoveredSymbols}
             />
           </div>
         </div>
