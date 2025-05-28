@@ -60,10 +60,10 @@ function getSymbolCategory(symbol: string): string {
 export function InfinitePalette({ onSymbolClick, discoveredSymbols }: InfinitePaletteProps) {
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Only show basic symbols and the four elements (if discovered)
+  // Show basic symbols plus ALL discovered symbols as building blocks
   const fourElements = ['🔥', '💧', '🌍', '💨'];
+  const availableSymbols = [...BASIC_SYMBOLS, ...discoveredSymbols];
   const discoveredElements = discoveredSymbols.filter(symbol => fourElements.includes(symbol));
-  const availableSymbols = [...BASIC_SYMBOLS, ...discoveredElements];
 
   // Filter symbols based on search
   const filteredSymbols = availableSymbols.filter(symbol => {
