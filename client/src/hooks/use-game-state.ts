@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
-import { findCombination, generateAIResponse, calculatePoints, checkSpecialUnlocks, calculateLevel, getLevelProgress, type BasicSymbol } from '@/lib/symbol-combinations';
+import { findCombination, generateAIResponse, calculatePoints, checkSpecialUnlocks, calculateLevel, getLevelProgress, checkForFourElements, type BasicSymbol } from '@/lib/symbol-combinations';
 import { soundEngine } from '@/lib/sounds';
 import { getDailyMystery, markDailyMysteryCompleted } from '@/lib/daily-mystery';
 import type { GameProfile, Discovery } from '@shared/schema';

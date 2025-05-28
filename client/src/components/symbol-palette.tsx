@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
 interface SymbolPaletteProps {
-  onSymbolClick: (symbol: BasicSymbol) => void;
+  onSymbolClick: (symbol: BasicSymbol | string) => void;
   discoveredSymbols: string[];
 }
 
@@ -65,13 +65,16 @@ export function SymbolPalette({ onSymbolClick, discoveredSymbols }: SymbolPalett
         </h3>
         
         <div className="grid grid-cols-3 gap-2">
-          {/* Show discovered symbols */}
-          {discoveredSymbols.slice(0, 6).map((symbol, index) => (
-            <div
+          {/* Show discovered symbols as clickable buttons */}
+          {discoveredSymbols.slice(0, 9).map((symbol, index) => (
+            <button
               key={symbol}
+              onClick={() => onSymbolClick(symbol)}
               className={cn(
                 "rounded-lg p-3 text-center cursor-pointer transition-all duration-200 hover:scale-105",
-                index === 0 ? "bg-gradient-to-br from-accent/10 to-accent/20 border border-accent/30 animate-pulse" :
+                "bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-200",
+                "hover:border-purple-400 hover:shadow-md flex items-center justify-center",
+                index === 0 ? "ring-2 ring-purple-400 animate-pulse" :
                 index === 1 ? "bg-gradient-to-br from-secondary/10 to-secondary/20 border border-secondary/30" :
                 "bg-gradient-to-br from-emerald-100 to-emerald-200 border border-emerald-300"
               )}
