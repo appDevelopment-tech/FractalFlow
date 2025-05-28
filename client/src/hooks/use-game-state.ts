@@ -148,7 +148,13 @@ export function useGameState() {
 
     soundEngine.playCombine(); // Audio feedback for combination attempt
     const combination = [...gameState.currentCombination];
-    const rule = findCombination(combination);
+    
+    // Get discovered symbols for infinite combinations
+    const discoveredSymbols = Array.isArray(profile.discoveredSymbols) 
+      ? profile.discoveredSymbols 
+      : [];
+    
+    const rule = findCombination(combination, discoveredSymbols);
     
     if (rule) {
       // Check if this is a new discovery
