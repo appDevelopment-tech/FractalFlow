@@ -215,6 +215,23 @@ export function useGameState() {
       // Check for special unlocks
       const unlocks = checkSpecialUnlocks(rule.output);
       
+      // Check for four elements achievement - UNIVERSE UNLOCKED!
+      const newDiscoveredSymbols = [...discoveredSymbols, rule.output];
+      const hadFourElements = checkForFourElements(discoveredSymbols);
+      const nowHasFourElements = checkForFourElements(newDiscoveredSymbols);
+      
+      if (nowHasFourElements && !hadFourElements) {
+        const universeNotification: Notification = {
+          id: (Date.now() + 1).toString(),
+          type: 'special',
+          title: '🌟 UNIVERSE UNLOCKED!',
+          message: 'You have discovered the four elements! The infinite game begins - everything can now be combined with everything. From nothing, you have created the building blocks of reality.',
+          points: 500,
+          timestamp: Date.now()
+        };
+        setGameState(prev => ({ ...prev, notifications: [universeNotification, ...prev.notifications] }));
+      }
+
       // Add notification
       const notification: Notification = {
         id: Date.now().toString(),
