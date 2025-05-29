@@ -244,6 +244,7 @@ export function useGameState() {
 
       setGameState(prev => ({
         ...prev,
+        currentCombination: [], // Clear combination after successful discovery
         lastResponse: rule.output,
         notifications: [notification, ...prev.notifications.slice(0, 4)] // Keep last 5
       }));
