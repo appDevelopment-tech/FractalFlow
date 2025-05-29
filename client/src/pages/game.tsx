@@ -212,9 +212,38 @@ export default function Game() {
       )}
 
       {/* Main Game Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
+        {/* Mobile Layout */}
+        <div className="block md:hidden space-y-4">
+          {/* Progress Sidebar - Mobile Buttons */}
+          <ProgressSidebar
+            profile={profile}
+            recentDiscoveries={recentDiscoveries}
+            levelProgress={levelProgress}
+            currentLevel={currentLevel}
+            discoveredSymbols={discoveredSymbols}
+          />
           
+          {/* Symbol Palette */}
+          <InfinitePalette
+            onSymbolClick={addSymbol}
+            discoveredSymbols={discoveredSymbols}
+          />
+          
+          {/* Play Area */}
+          <PlayArea
+            currentCombination={gameState.currentCombination}
+            lastResponse={gameState.lastResponse}
+            onCombine={processCombination}
+            onClear={clearCombination}
+            isProcessing={isProcessing}
+            onSymbolAdd={addSymbol}
+            discoveredSymbols={discoveredSymbols}
+          />
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden md:grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Symbol Palette */}
           <div className="lg:col-span-1">
             <InfinitePalette
@@ -231,6 +260,8 @@ export default function Game() {
               onCombine={processCombination}
               onClear={clearCombination}
               isProcessing={isProcessing}
+              onSymbolAdd={addSymbol}
+              discoveredSymbols={discoveredSymbols}
             />
           </div>
           
