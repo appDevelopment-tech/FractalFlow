@@ -37,7 +37,7 @@ export function InfinitePalette({ onSymbolClick, discoveredSymbols }: InfinitePa
   });
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 h-full flex flex-col">
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6 h-[300px] md:h-full flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-slate-800 flex items-center">
@@ -63,7 +63,7 @@ export function InfinitePalette({ onSymbolClick, discoveredSymbols }: InfinitePa
 
       {/* Simple Grid - Starting Elements + Four Elements */}
       <div className="flex-1 overflow-y-auto">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-2 md:gap-3">
           {filteredSymbols.map((symbol) => {
             const isFourElement = ['🔥', '💧', '🌍', '💨'].includes(symbol);
             return (
@@ -71,7 +71,7 @@ export function InfinitePalette({ onSymbolClick, discoveredSymbols }: InfinitePa
                 key={symbol}
                 onClick={() => onSymbolClick(symbol)}
                 className={cn(
-                  "p-4 rounded-lg border-2 transition-all duration-200 text-center",
+                  "p-2 md:p-4 rounded-lg border-2 transition-all duration-200 text-center",
                   "hover:scale-105 active:scale-95 hover:shadow-md",
                   isFourElement
                     ? "border-orange-300 bg-gradient-to-br from-orange-50 to-red-50 hover:border-orange-500 ring-2 ring-orange-200"

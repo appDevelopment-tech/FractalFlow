@@ -1,7 +1,11 @@
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { Button } from '@/components/ui/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
 import { DailyMysteryCard } from '@/components/daily-mystery';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import type { GameProfile, Discovery } from '@shared/schema';
 
 interface ProgressSidebarProps {
@@ -19,17 +23,49 @@ export function ProgressSidebar({
   currentLevel,
   discoveredSymbols
 }: ProgressSidebarProps) {
+  const [isProgressOpen, setIsProgressOpen] = useState(false);
+  const [isDiscoveriesOpen, setIsDiscoveriesOpen] = useState(false);
+  const [isDailyMysteryOpen, setIsDailyMysteryOpen] = useState(false);
+  
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       
-      {/* Progress Card */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      {/* Progress Card - Mobile Collapsible */}
+      <Collapsible open={isProgressOpen} onOpenChange={setIsProgressOpen} className="md:hidden">
+        <CollapsibleTrigger asChild>
+          <Button variant="outline" className="w-full justify-between bg-white border-slate-200">
+            <div className="flex items-center">
+              <span className="text-primary mr-2">📈</span>
+              Progress
+            </div>
+            {isProgressOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          </Button>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 mt-2">
+            <ProgressContent 
+              profile={profile} 
+              levelProgress={levelProgress} 
+              currentLevel={currentLevel} 
+              discoveredSymbols={discoveredSymbols}
+            />
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
+
+      {/* Progress Card - Desktop */}
+      <div className="hidden md:block bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <h3 className="text-lg font-semibold text-slate-800 mb-4 flex items-center">
           <span className="text-primary mr-2">📈</span>
           Progress
         </h3>
-        
-        <div className="space-y-4">
+        <ProgressContent 
+          profile={profile} 
+          levelProgress={levelProgress} 
+          currentLevel={currentLevel} 
+          discoveredSymbols={discoveredSymbols}
+        />
+      </div>
           {/* Level Progress */}
           <div>
             <div className="flex items-center justify-between mb-2">
