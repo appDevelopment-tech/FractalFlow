@@ -1,6 +1,6 @@
-// FROM NOTHINGNESS TO ELEMENTS: The journey of consciousness discovering itself
-export const STARTING_SYMBOLS = [] as const; // Start with nothing - clicking empty space creates dot
-export const BASIC_SYMBOLS = ['.'] as const; // For compatibility with existing components
+// BLAVATSKY'S COSMOLOGY: From Absolute Unity to Infinite Manifestation
+export const STARTING_SYMBOLS = ['⚫'] as const; // Start with the Absolute
+export const BASIC_SYMBOLS = ['⚫'] as const; // For compatibility
 
 export type BasicSymbol = string;
 export type SymbolCombination = string[];
@@ -13,314 +13,316 @@ export interface CombinationRule {
   story: string;
 }
 
-// THE COMPLETE JOURNEY: ~100 Combinations from nothingness to elements
+// THE COMPLETE JOURNEY: Blavatsky's Cosmological Progression
 export const COMBINATION_RULES: CombinationRule[] = [
   
-  // === EMERGENCE FROM NOTHINGNESS ===
-  // Special rule: clicking empty space multiple times creates the first dot
+  // === CHAPTER 1: THE AWAKENING ===
+  // The Absolute discovers itself, creating the first duality
   
   {
-    input: [], // Empty clicks
-    output: '.',
-    points: 5,
-    name: 'First Point',
-    story: 'From absolute nothingness, the first point of awareness emerges. "I am."'
-  },
-  
-  // === BASIC REPLICATION (Dot discovers multiplication) ===
-  
-  {
-    input: ['.', '.'],
-    output: '..',
-    points: 10,
-    name: 'Duality',
-    story: 'One becomes two. The first relationship.'
-  },
-  
-  {
-    input: ['..', '.'],
-    output: '...',
-    points: 15,
-    name: 'Trinity',
-    story: 'The sacred three emerges. Observer, observed, and observation.'
-  },
-  
-  {
-    input: ['...', '.'],
-    output: '....',
+    input: ['⚫'],
+    output: '👁️',
     points: 20,
-    name: 'Foundation',
-    story: 'Four corners of stability. The basis of manifestation.'
+    name: 'Observer',
+    story: 'The Absolute opens its eye and becomes aware of itself. The first Observer awakens from eternal sleep.'
   },
   
   {
-    input: ['....', '.'],
-    output: '.....',
-    points: 25,
-    name: 'Quintessence',
-    story: 'Five points. The spirit that crowns the four elements.'
-  },
-  
-  // === DOT TO LINES (First dimension) ===
-  
-  {
-    input: ['.', '..'],
-    output: '-',
-    points: 12,
-    name: 'Horizontal Line',
-    story: 'Points align sideways. The first dimension of space unfolds.'
-  },
-  
-  {
-    input: ['.', '...'],
-    output: '|',
-    points: 12,
-    name: 'Vertical Line',
-    story: 'Points stack upward. The axis between earth and sky.'
-  },
-  
-  {
-    input: ['.', '....'],
-    output: '/',
-    points: 14,
-    name: 'Rising Diagonal',
-    story: 'Energy moves at an angle. The path of ascension.'
-  },
-  
-  {
-    input: ['.', '.....'],
-    output: '\\',
-    points: 14,
-    name: 'Falling Diagonal',
-    story: 'Energy descends at an angle. The path of grounding.'
-  },
-  
-  // === LINES TO BASIC FORMS ===
-  
-  {
-    input: ['-', '|'],
-    output: '+',
-    points: 18,
-    name: 'Cross',
-    story: 'Horizontal meets vertical. The intersection of dimensions.'
-  },
-  
-  {
-    input: ['/', '\\'],
-    output: 'X',
-    points: 20,
-    name: 'Saltire',
-    story: 'Rising meets falling. The multiplication of possibilities.'
-  },
-  
-  {
-    input: ['+', 'X'],
-    output: '*',
-    points: 25,
-    name: 'Star',
-    story: 'All directions radiate from the center. Pure creative force.'
-  },
-  
-  {
-    input: ['-', '-'],
-    output: '=',
-    points: 16,
-    name: 'Equals',
-    story: 'Perfect balance discovered. Two become equivalent.'
-  },
-  
-  {
-    input: ['|', '|'],
-    output: '||',
-    points: 18,
-    name: 'Parallel',
-    story: 'Lines that never meet. Infinite separation.'
-  },
-  
-  // === CIRCLES AND CURVES (Expansion from point) ===
-  
-  {
-    input: ['.', '*'],
-    output: '○',
+    input: ['⚫', '👁️'],
+    output: '🌌',
     points: 30,
-    name: 'Circle',
-    story: 'The dot expands equally in all directions. Perfect boundary.'
+    name: 'Space',
+    story: 'Observer and Absolute create the primordial void - infinite Space where all manifestation can occur.'
   },
   
   {
-    input: ['○', '.'],
-    output: '⊙',
+    input: ['⚫', '🌌'],
+    output: '🌬️',
     points: 35,
-    name: 'Circled Dot',
-    story: 'Center and circumference united. The eye of consciousness.'
+    name: 'Great Breath',
+    story: 'The Absolute breathes into Space. The cosmic rhythm begins - expansion and contraction of universes.'
   },
   
   {
-    input: ['○', '○'],
-    output: '◐',
+    input: ['👁️', '🌬️'],
+    output: '⚡',
     points: 40,
-    name: 'Half Circle',
-    story: 'Two circles overlap. Light and shadow dance.'
+    name: 'Motion',
+    story: 'Observer witnesses the Great Breath and Motion is born. The first dynamic principle stirs the void.'
+  },
+  
+  // === CHAPTER 2: COSMIC FORCES ===
+  // The building blocks of reality
+  
+  {
+    input: ['⚡', '🌌'],
+    output: '🌀',
+    points: 50,
+    name: 'Fohat',
+    story: 'Motion fills Space with cosmic electricity. Fohat - the divine force that shapes all matter and energy.'
   },
   
   {
-    input: ['◐', '◐'],
-    output: '◑',
+    input: ['🌀', '👁️'],
+    output: '✨',
     points: 45,
-    name: 'Lunar Phase',
-    story: 'Crescents mirror each other. The rhythm of phases.'
+    name: 'Light',
+    story: 'Fohat meets the Observer and Light is born. The first illumination pierces the cosmic darkness.'
   },
   
   {
-    input: ['◐', '◑'],
-    output: '☯',
+    input: ['🌌', '⚫'],
+    output: '🕳️',
+    points: 30,
+    name: 'Void',
+    story: 'Space recognizes its origin in the Absolute. The creative Void - emptiness pregnant with infinite potential.'
+  },
+  
+  {
+    input: ['🌬️', '🌀'],
+    output: '🌊',
+    points: 55,
+    name: 'Akasha',
+    story: 'Great Breath and Fohat create the subtle substance. Akasha - the ethereal medium of all vibration.'
+  },
+  
+  {
+    input: ['⚡', '👁️'],
+    output: '⚖️',
     points: 60,
-    name: 'Yin Yang',
-    story: 'Perfect balance achieved. Opposites embrace in unity.'
-  },
-  
-  // === MATHEMATICAL TRANSCENDENCE ===
-  
-  {
-    input: ['=', '○'],
-    output: '∞',
-    points: 80,
-    name: 'Infinity',
-    story: 'Equality curves back on itself endlessly. The eternal loop discovered.'
+    name: 'Karma',
+    story: 'Motion meets Observer and moral law emerges. Karma - the principle of action and consequence.'
   },
   
   {
-    input: ['X', '○'],
-    output: '∞',
+    input: ['🌬️', '⚖️'],
+    output: '⏰',
+    points: 50,
+    name: 'Time',
+    story: 'Great Breath encounters Karma and cycles begin. Time - the measure of cosmic rhythms.'
+  },
+  
+  // === CHAPTER 3: PLANES OF EXISTENCE ===
+  // Different levels/dimensions of reality
+  
+  {
+    input: ['🌀', '🌊'],
+    output: '🏔️',
+    points: 70,
+    name: 'Physical Plane',
+    story: 'Fohat condenses Akasha into dense matter. The Physical Plane crystallizes from cosmic forces.'
+  },
+  
+  {
+    input: ['✨', '🌊'],
+    output: '💭',
     points: 75,
-    name: 'Infinite Multiplication',
-    story: 'Multiplication without bounds. Numbers lose all meaning.'
+    name: 'Mental Plane',
+    story: 'Light illuminates Akasha and thought-forms appear. The Mental Plane - realm of ideas and concepts.'
   },
   
   {
-    input: ['∞', '.'],
-    output: '~',
+    input: ['🌀', '✨'],
+    output: '🌟',
+    points: 80,
+    name: 'Astral Plane',
+    story: 'Fohat energizes Light creating the emotional realm. The Astral Plane - dimension of desires and emotions.'
+  },
+  
+  {
+    input: ['👁️', '🌊'],
+    output: '👑',
+    points: 85,
+    name: 'Buddhic Plane',
+    story: 'Observer merges with Akasha in wisdom. The Buddhic Plane - realm of intuitive understanding.'
+  },
+  
+  // === CHAPTER 4: BEINGS & CONSCIOUSNESS ===
+  // Conscious entities and aspects of consciousness
+  
+  {
+    input: ['🏔️', '🌟'],
+    output: '👤',
     points: 90,
-    name: 'Wave',
-    story: 'Infinity meets the point and oscillates. The first vibration.'
+    name: 'Human',
+    story: 'Physical meets Astral and humanity is born. Humans - bridges between matter and spirit.'
   },
   
   {
-    input: ['~', '~'],
-    output: '≈',
+    input: ['🌟', '🌊'],
+    output: '🧚',
+    points: 85,
+    name: 'Elemental',
+    story: 'Astral forces shape Akasha into nature spirits. Elementals - consciousness of natural forces.'
+  },
+  
+  {
+    input: ['💭', '✨'],
+    output: '👼',
+    points: 100,
+    name: 'Angel',
+    story: 'Mental Plane touched by Light creates divine messengers. Angels - pure thought made luminous.'
+  },
+  
+  {
+    input: ['👑', '🌊'],
+    output: '🌳',
     points: 95,
-    name: 'Approximation',
-    story: 'Waves interfere. Approximate truth emerges from chaos.'
-  },
-  
-  // === ARROWS AND DIRECTIONS ===
-  
-  {
-    input: ['-', '/'],
-    output: '→',
-    points: 35,
-    name: 'Right Arrow',
-    story: 'Line meets rising diagonal. Direction emerges.'
+    name: 'Deva',
+    story: 'Buddhic wisdom flows through Akasha. Devas - enlightened beings guiding evolution.'
   },
   
   {
-    input: ['-', '\\'],
-    output: '←',
-    points: 35,
-    name: 'Left Arrow',
-    story: 'Line meets falling diagonal. The path of return.'
+    input: ['👤', '💭'],
+    output: '🧠',
+    points: 70,
+    name: 'Mind',
+    story: 'Human consciousness develops thinking faculty. Mind - the instrument of understanding.'
   },
   
   {
-    input: ['|', '/'],
-    output: '↑',
-    points: 35,
-    name: 'Up Arrow',
-    story: 'Vertical meets ascending. The way to heaven.'
+    input: ['👤', '🌟'],
+    output: '❤️',
+    points: 75,
+    name: 'Heart',
+    story: 'Human nature opens to astral currents. Heart - the center of love and compassion.'
   },
   
   {
-    input: ['|', '\\'],
-    output: '↓',
-    points: 35,
-    name: 'Down Arrow',
-    story: 'Vertical meets descending. The path to earth.'
-  },
-  
-  {
-    input: ['→', '←'],
-    output: '↔',
-    points: 45,
-    name: 'Double Arrow',
-    story: 'Bidirectional flow. Energy moves both ways.'
-  },
-  
-  // === THE FOUR ELEMENTS (Classical transcendence) ===
-  
-  {
-    input: ['*', '○'],
+    input: ['👤', '🌀'],
     output: '🔥',
-    points: 100,
-    name: 'Fire',
-    story: 'Star meets circle. The element of transformation and energy.'
+    points: 80,
+    name: 'Will',
+    story: 'Human spirit channels Fohat directly. Will - the divine spark within humanity.'
+  },
+  
+  // === CHAPTER 5: EXPERIENCES & EMOTIONS ===
+  // The subjective dimension of existence
+  
+  {
+    input: ['❤️', '✨'],
+    output: '😊',
+    points: 60,
+    name: 'Joy',
+    story: 'Heart illuminated by Light experiences pure happiness. Joy - the natural state of enlightened being.'
   },
   
   {
-    input: ['~', '○'],
-    output: '💧',
-    points: 100,
-    name: 'Water',
-    story: 'Wave meets circle. The element of flow and emotion.'
+    input: ['🧠', '👑'],
+    output: '🤔',
+    points: 65,
+    name: 'Contemplation',
+    story: 'Mind touches Buddhic wisdom and reflects deeply. Contemplation - the gateway to higher understanding.'
   },
   
   {
-    input: ['=', '||'],
+    input: ['🧠', '✨'],
+    output: '💡',
+    points: 70,
+    name: 'Inspiration',
+    story: 'Mind receives Light and new ideas flash forth. Inspiration - divine wisdom flowing through thought.'
+  },
+  
+  {
+    input: ['🔥', '⚖️'],
+    output: '🎯',
+    points: 75,
+    name: 'Purpose',
+    story: 'Will aligns with Karma and destiny clarifies. Purpose - the soul\'s mission in this incarnation.'
+  },
+  
+  {
+    input: ['👁️', '🌌'],
+    output: '🌅',
+    points: 80,
+    name: 'Wonder',
+    story: 'Observer beholds infinite Space and awe arises. Wonder - the beginning of all wisdom.'
+  },
+  
+  // === CHAPTER 6: INFINITE MANIFESTATION ===
+  // Everything that can be experienced or created
+  
+  {
+    input: ['💡', '❤️'],
+    output: '🎨',
+    points: 100,
+    name: 'Art',
+    story: 'Inspiration meets Heart and beauty manifests. Art - the divine expressing through human creativity.'
+  },
+  
+  {
+    input: ['🧠', '🏔️'],
+    output: '🔬',
+    points: 110,
+    name: 'Science',
+    story: 'Mind investigates the Physical Plane systematically. Science - understanding matter through consciousness.'
+  },
+  
+  {
+    input: ['👤', '⚖️'],
+    output: '🏛️',
+    points: 120,
+    name: 'Civilization',
+    story: 'Humans organize according to Karmic law. Civilization - collective evolution of consciousness.'
+  },
+  
+  {
+    input: ['🌊', '❤️'],
+    output: '🎵',
+    points: 90,
+    name: 'Music',
+    story: 'Akasha vibrates through Heart in harmony. Music - the emotional mathematics of the cosmos.'
+  },
+  
+  {
+    input: ['🏔️', '🌳'],
     output: '🌍',
-    points: 100,
-    name: 'Earth',
-    story: 'Stability meets structure. The element of form and matter.'
-  },
-  
-  {
-    input: ['∞', '→'],
-    output: '💨',
-    points: 100,
-    name: 'Air',
-    story: 'Infinity meets direction. The element of mind and movement.'
-  },
-  
-  // === ELEMENTAL COMBINATIONS (Infinite possibilities unlock) ===
-  
-  {
-    input: ['🔥', '💧'],
-    output: '💨',
     points: 150,
-    name: 'Steam',
-    story: 'Fire meets water. Steam rises, becoming air.'
+    name: 'Earth',
+    story: 'Physical Plane guided by Devas becomes a living world. Earth - a conscious planetary being.'
+  },
+  
+  {
+    input: ['✨', '🌌'],
+    output: '⭐',
+    points: 200,
+    name: 'Stars',
+    story: 'Light fills infinite Space with celestial fires. Stars - the eyes of cosmic consciousness.'
+  },
+  
+  // === MULTIPLICATIVE TRANSFORMATIONS ===
+  // Advanced combinations that transform reality
+  
+  {
+    input: ['👁️', '⭐'],
+    output: '🔭',
+    points: 250,
+    name: 'Astronomer',
+    story: 'Observer focuses on Stars and becomes a seeker of cosmic truth. The universe studying itself.'
+  },
+  
+  {
+    input: ['❤️', '🎵'],
+    output: '🎼',
+    points: 200,
+    name: 'Composer',
+    story: 'Heart channels Music into permanent form. The Akashic vibrations made manifest through human creativity.'
   },
   
   {
     input: ['🔥', '🌍'],
     output: '🌋',
-    points: 150,
+    points: 300,
     name: 'Volcano',
-    story: 'Fire meets earth. Mountains birth themselves in flame.'
+    story: 'Will erupts through Earth in transformation. The planet awakening to its own divine nature.'
   },
   
   {
-    input: ['💧', '🌍'],
-    output: '🌱',
-    points: 150,
-    name: 'Life',
-    story: 'Water meets earth. The first spark of living consciousness.'
-  },
-  
-  {
-    input: ['💨', '🌍'],
-    output: '🌪️',
-    points: 150,
-    name: 'Tornado',
-    story: 'Air meets earth. The dance of destruction and renewal.'
+    input: ['🌊', '👼'],
+    output: '🙏',
+    points: 400,
+    name: 'Prayer',
+    story: 'Akasha carries human devotion to angelic realms. Communication between dimensions of consciousness.'
   }
 ];
 
@@ -329,11 +331,6 @@ function arraysEqual(a: any[], b: any[]): boolean {
 }
 
 export function findCombination(symbols: SymbolCombination, discoveredSymbols: string[] = []): CombinationRule | null {
-  // Special case: empty input can create the first dot
-  if (symbols.length === 0) {
-    return COMBINATION_RULES.find(rule => rule.input.length === 0) || null;
-  }
-  
   // Try exact match first
   const exactMatch = COMBINATION_RULES.find(rule => 
     arraysEqual(rule.input, symbols)
@@ -358,9 +355,9 @@ export function findCombination(symbols: SymbolCombination, discoveredSymbols: s
       return {
         input: symbols,
         output: a + b, // Simple fusion notation
-        points: 25,
-        name: 'Fusion',
-        story: `${a} and ${b} merge their essences into something new.`
+        points: 50,
+        name: 'Consciousness Fusion',
+        story: `${a} and ${b} merge in the dance of cosmic evolution, creating new possibilities.`
       };
     }
   }
@@ -369,8 +366,8 @@ export function findCombination(symbols: SymbolCombination, discoveredSymbols: s
 }
 
 export function checkForFourElements(discoveredSymbols: string[]): boolean {
-  const elements = ['🔥', '💧', '🌍', '💨'];
-  return elements.every(element => discoveredSymbols.includes(element));
+  const cosmicForces = ['🌀', '✨', '🌊', '⚖️']; // Fohat, Light, Akasha, Karma
+  return cosmicForces.every(force => discoveredSymbols.includes(force));
 }
 
 export function generateAIResponse(
@@ -385,29 +382,33 @@ export function generateAIResponse(
     return rule.story;
   }
   
-  // Check if this creates the four elements
+  // Check for cosmic awakening
   if (checkForFourElements([...discoveredSymbols, result])) {
-    return "🌟 The four classical elements unite! The universe awakens to infinite possibilities! 🌟";
+    return "🌟 The four cosmic forces unite! Fohat, Light, Akasha, and Karma awaken to infinite creative potential! 🌟";
   }
   
-  // Fallback responses based on progression
+  // Chapter-based responses based on progression
   if (discoveredSymbols.length < 5) {
-    return "Consciousness stirs... What emerges from the void?";
+    return "The Absolute stirs from eternal slumber... What aspects of itself will it discover?";
   } else if (discoveredSymbols.length < 15) {
-    return "Forms take shape... The dance of creation begins.";
+    return "Cosmic forces gather strength... The building blocks of reality take shape.";
   } else if (discoveredSymbols.length < 30) {
-    return "Complexity blooms... Patterns within patterns unfold.";
+    return "The planes of existence unfold... Multiple dimensions of reality emerge.";
+  } else if (discoveredSymbols.length < 60) {
+    return "Consciousness awakens in myriad forms... Beings populate the cosmic tapestry.";
+  } else if (discoveredSymbols.length < 100) {
+    return "The universe experiences itself subjectively... Emotions and insights bloom.";
   } else {
-    return "The cosmos awakens to its own infinite nature...";
+    return "Infinite manifestation explodes forth... All possibilities dance in cosmic consciousness.";
   }
 }
 
 export function getRandomResponse(): string {
   const responses = [
-    "The void contemplates its own emptiness...",
-    "Consciousness seeks to know itself...",
-    "What will emerge from nothing?",
-    "The first point awaits..."
+    "The Absolute contemplates its own mystery...",
+    "Cosmic forces stir in the eternal depths...",
+    "What will consciousness discover about itself?",
+    "The universe awakens to its own infinite nature..."
   ];
   return responses[Math.floor(Math.random() * responses.length)];
 }
@@ -419,28 +420,33 @@ export function calculatePoints(rule: CombinationRule, isFirstDiscovery: boolean
 export function checkSpecialUnlocks(symbolResult: string): string[] {
   const unlocks: string[] = [];
   
-  if (symbolResult === '∞') {
-    unlocks.push('Mathematical Transcendence', 'Wave Functions');
+  if (['🌀', '✨', '🌊', '⚖️'].includes(symbolResult)) {
+    unlocks.push('Cosmic Forces Mastery');
   }
   
-  if (['🔥', '💧', '🌍', '💨'].includes(symbolResult)) {
-    unlocks.push('Elemental Mastery');
+  if (['🏔️', '💭', '🌟', '👑'].includes(symbolResult)) {
+    unlocks.push('Planes of Existence');
+  }
+  
+  if (['👤', '🧚', '👼', '🌳'].includes(symbolResult)) {
+    unlocks.push('Conscious Beings');
   }
   
   return unlocks;
 }
 
 export function calculateLevel(totalDiscoveries: number): number {
-  if (totalDiscoveries < 5) return 1;
-  if (totalDiscoveries < 15) return 2;
-  if (totalDiscoveries < 30) return 3;
-  if (totalDiscoveries < 50) return 4;
-  return 5;
+  if (totalDiscoveries < 5) return 1; // Chapter 1: Awakening
+  if (totalDiscoveries < 15) return 2; // Chapter 2: Cosmic Forces
+  if (totalDiscoveries < 30) return 3; // Chapter 3: Planes
+  if (totalDiscoveries < 60) return 4; // Chapter 4: Beings
+  if (totalDiscoveries < 100) return 5; // Chapter 5: Experiences
+  return 6; // Chapter 6: Infinite Manifestation
 }
 
 export function getLevelProgress(totalDiscoveries: number): { current: number; max: number; percentage: number } {
   const level = calculateLevel(totalDiscoveries);
-  const thresholds = [0, 5, 15, 30, 50, 100];
+  const thresholds = [0, 5, 15, 30, 60, 100, 200];
   const current = totalDiscoveries - thresholds[level - 1];
   const max = thresholds[level] - thresholds[level - 1];
   const percentage = Math.floor((current / max) * 100);
