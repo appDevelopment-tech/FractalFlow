@@ -289,7 +289,7 @@ export function useGameState() {
       const discoveredSymbols = Array.isArray(profile.discoveredSymbols) 
         ? profile.discoveredSymbols 
         : [];
-      const response = generateAIResponse(combination, gameState.playerHistory, discoveredSymbols);
+      const response = "😔";
       
       // Track this pattern in player history
       const patternString = combination.join('');
@@ -300,7 +300,7 @@ export function useGameState() {
         notifications: [{
           id: Date.now().toString(),
           type: 'discovery',
-          title: '😔',
+          title: 'No Combination Found',
           message: 'These symbols don\'t combine... yet. Try different patterns!',
           timestamp: Date.now()
         }, ...prev.notifications.slice(0, 1)]
