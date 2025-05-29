@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { type BasicSymbol } from '@/lib/symbol-combinations';
+import { type BasicSymbol, getContextualHint, getCombinationHints } from '@/lib/symbol-combinations';
 import { InteractiveCanvas } from './interactive-canvas';
+import { useState } from 'react';
 
 interface PlayAreaProps {
   currentCombination: BasicSymbol[];
@@ -10,6 +11,7 @@ interface PlayAreaProps {
   onClear: () => void;
   isProcessing: boolean;
   onSymbolAdd: (symbol: string) => void;
+  discoveredSymbols: string[];
 }
 
 export function PlayArea({ 
@@ -18,8 +20,28 @@ export function PlayArea({
   onCombine, 
   onClear, 
   isProcessing,
-  onSymbolAdd
+  onSymbolAdd,
+  discoveredSymbols
 }: PlayAreaProps) {
+  const [currentHint, setCurrentHint] = useState<string | null>(null);
+  const [showHint, setShowHint] = useState(false);
+  
+  const getHint = () => {
+    // Try combination-specific hints first
+    const combinationHints = getCombinationHints(currentCombination);
+    if (combinationHints.length > 0) {
+      const randomHint = combinationHints[Math.floor(Math.random() * combinationHints.length)];
+      setCurrentHint(randomHint);
+    } else {
+      // Fall back to contextual hints
+      const contextualHint = getContextualHint(discoveredSymbols);
+      setCurrentHint(contextualHint || "The cosmos holds infinite mysteries... Try combining different forces of consciousness...");
+    }
+    setShowHint(true);
+    
+    // Hide hint after 8 seconds
+    setTimeout(() => setShowHint(false), 8000);
+  };
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 min-h-[600px]">
       <div className="text-center mb-8">
@@ -117,8 +139,27 @@ export function PlayArea({
             <span>Clear</span>
           </span>
         </Button>
+        
+        <Button
+          onClick={getHint}
+          variant="outline"
+          className="px-6 py-2 font-medium transition-all duration-200 hover:scale-105 active:scale-95 border-amber-300 text-amber-700 hover:bg-amber-50"
+        >
+          <span className="flex items-center space-x-2">
+            <span>💡</span>
+            <span>Hint</span>
+          </span>
+        </Button>
       </div>
       
+      {/* Hint Display */}
+      {showHint && currentHint && (
+        <div className="mb-4 text-center text-sm bg-gradient-to-r from-amber-50 to-yellow-50 rounded-lg p-4 border border-amber-200 animate-fadeIn">
+          <span className="text-amber-600 mr-2">💡</span>
+          <span className="text-amber-800 font-medium">{currentHint}</span>
+        </div>
+      )}
+
       {/* AI Response Info */}
       <div className="text-center text-sm text-muted bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4 border border-purple-200">
         <span className="text-purple-500 mr-2">🧠</span>

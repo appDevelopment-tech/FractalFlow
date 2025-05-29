@@ -8,6 +8,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { soundEngine } from '@/lib/sounds';
+import { getHintForStuckPlayer } from '@/lib/symbol-combinations';
 
 export default function Game() {
   const {
@@ -28,6 +29,7 @@ export default function Game() {
   } = useGameState();
 
   const [showHelp, setShowHelp] = useState(false);
+  const [currentHint, setCurrentHint] = useState('');
   const [showTutorial, setShowTutorial] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
 
@@ -113,8 +115,20 @@ export default function Game() {
                 </div>
               </div>
               
-              {/* Help, Sound, and Reset Buttons */}
+              {/* Hint, Help, Sound, and Reset Buttons */}
               <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const hint = getHintForStuckPlayer(discoveredSymbols);
+                    setCurrentHint(hint);
+                  }}
+                  className="bg-purple-50 hover:bg-purple-100 border-purple-200 text-purple-700"
+                >
+                  💡 Hint
+                </Button>
+                
                 <Dialog open={showHelp} onOpenChange={setShowHelp}>
                   <DialogTrigger asChild>
                     <Button variant="outline" size="sm" className="bg-white/80">
@@ -175,6 +189,27 @@ export default function Game() {
           </div>
         </div>
       </header>
+
+      {/* Hint Display */}
+      {currentHint && (
+        <div className="bg-gradient-to-r from-purple-100 to-blue-100 border-l-4 border-purple-500 p-4 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-start">
+            <div className="flex-shrink-0">
+              <span className="text-2xl">🔮</span>
+            </div>
+            <div className="ml-3">
+              <p className="text-purple-800 font-medium">Cosmic Guidance</p>
+              <p className="text-purple-700 mt-1">{currentHint}</p>
+            </div>
+            <button
+              onClick={() => setCurrentHint('')}
+              className="ml-auto text-purple-600 hover:text-purple-800"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Main Game Area */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

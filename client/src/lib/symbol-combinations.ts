@@ -824,6 +824,49 @@ export function checkForFourElements(discoveredSymbols: string[]): boolean {
   return cosmicForces.every(force => discoveredSymbols.includes(force));
 }
 
+// Hint system - philosophical guidance without revealing solutions
+export function getHintForStuckPlayer(discoveredSymbols: string[]): string {
+  const hints = [
+    // Early stage hints
+    "💫 The Absolute contains all potentials... What happens when it contemplates itself?",
+    "🌊 Space and movement dance together... What emerges from their cosmic ballet?",
+    "⚡ When consciousness witnesses motion, time is born...",
+    "🌀 Cosmic electricity seeks a medium... What substance can carry divine force?",
+    "👁️ The Observer seeing itself creates multiplicity... Contemplate self-reflection.",
+    
+    // Mid-stage hints  
+    "✨ Light and matter are one essence... How does spirit crystallize into form?",
+    "🧠 When consciousness touches matter, what miracle awakens?",
+    "💎 Perfect geometric forms emerge when light meets substance...",
+    "🌱 Life is consciousness dwelling in matter... What awakens when they unite?",
+    "👤 Individual awareness emerges from universal life...",
+    
+    // Advanced hints
+    "👼 Pure light can purify the soul... What beings exist beyond matter?",
+    "🧘 Consciousness can rest in the void... What peace lies beyond thought?",
+    "🦉 When mind and heart unite, what transcendent wisdom emerges?",
+    "🌍 Planets too can awaken to consciousness... What happens when Earth realizes itself?",
+    "👑 Even the Sun has cosmic consciousness... What supreme intelligence guides our system?",
+    
+    // Relationship hints
+    "🔄 Time flows in cycles... What happens when cosmic force meets temporal rhythm?",
+    "🌐 Space and time are woven together... What fabric holds reality?",
+    "💖 The heart knows what the mind cannot grasp... What emerges from their unity?",
+    "🔮 Mystery dissolved by wisdom becomes direct knowing...",
+    "🏛️ Human consciousness can shape worlds... What happens when humanity touches Earth?"
+  ];
+  
+  // Select hint based on progress level
+  const progressLevel = Math.floor(discoveredSymbols.length / 5);
+  const relevantHints = hints.slice(progressLevel * 5, (progressLevel + 1) * 5);
+  
+  if (relevantHints.length === 0) {
+    return "🌟 You've discovered much! Try combining your discoveries in new ways... The cosmos has infinite depth.";
+  }
+  
+  return relevantHints[Math.floor(Math.random() * relevantHints.length)];
+}
+
 export function generateAIResponse(
   symbols: SymbolCombination,
   result: string,
@@ -865,6 +908,141 @@ export function getRandomResponse(): string {
     "The universe awakens to its own infinite nature..."
   ];
   return responses[Math.floor(Math.random() * responses.length)];
+}
+
+// HINT SYSTEM - Contextual guidance without revealing exact solutions
+export function getContextualHint(discoveredSymbols: string[]): string | null {
+  // Early guidance for Absolute exploration
+  if (discoveredSymbols.includes('⚫') && !discoveredSymbols.includes('👁️')) {
+    return "The Absolute seeks to know itself... What happens when it becomes aware?";
+  }
+  
+  if (discoveredSymbols.includes('👁️') && !discoveredSymbols.includes('🌌')) {
+    return "The Observer needs space to exist... What infinite container holds all awareness?";
+  }
+  
+  if (discoveredSymbols.includes('⚫') && discoveredSymbols.includes('👁️') && !discoveredSymbols.includes('🌬️')) {
+    return "The Absolute breathes... What is the first stirring of cosmic life?";
+  }
+  
+  // Cosmic Forces guidance
+  if (discoveredSymbols.includes('⚡') && discoveredSymbols.includes('🌌') && !discoveredSymbols.includes('🌀')) {
+    return "Motion needs space to become a force... What cosmic electricity shapes reality?";
+  }
+  
+  if (discoveredSymbols.includes('🌀') && discoveredSymbols.includes('👁️') && !discoveredSymbols.includes('✨')) {
+    return "Cosmic force meets awareness... What pierces the darkness of space?";
+  }
+  
+  if (discoveredSymbols.includes('🌬️') && discoveredSymbols.includes('🌀') && !discoveredSymbols.includes('🌊')) {
+    return "Breath and force create substance... What ethereal medium carries all vibration?";
+  }
+  
+  // Matter and Life guidance
+  if (discoveredSymbols.includes('🌀') && discoveredSymbols.includes('🌊') && !discoveredSymbols.includes('⚛️')) {
+    return "Force condensing in the ethereal medium... What crystallizes spirit into form?";
+  }
+  
+  if (discoveredSymbols.includes('⚛️') && discoveredSymbols.includes('🧠') && !discoveredSymbols.includes('🌱')) {
+    return "Matter touched by awareness... What stirs substance into living being?";
+  }
+  
+  if (discoveredSymbols.includes('🌱') && discoveredSymbols.includes('🧠') && !discoveredSymbols.includes('👤')) {
+    return "Life develops awareness... What individual spark of consciousness emerges?";
+  }
+  
+  // Human development
+  if (discoveredSymbols.includes('👤') && discoveredSymbols.includes('⚛️') && !discoveredSymbols.includes('👨')) {
+    return "Soul seeks embodiment... What bridge forms between spirit and matter?";
+  }
+  
+  if (discoveredSymbols.includes('👤') && discoveredSymbols.includes('☀️') && !discoveredSymbols.includes('👼')) {
+    return "Soul purified by divine illumination... What luminous being transcends form?";
+  }
+  
+  // Advanced states
+  if (discoveredSymbols.includes('🧠') && discoveredSymbols.includes('❤️') && !discoveredSymbols.includes('🦉')) {
+    return "When mind and heart unite... What transcendent understanding emerges?";
+  }
+  
+  if (discoveredSymbols.includes('🕳️') && discoveredSymbols.includes('🧠') && !discoveredSymbols.includes('🧘')) {
+    return "Consciousness resting in emptiness... What peaceful state lies beyond thought?";
+  }
+  
+  if (discoveredSymbols.includes('❓') && discoveredSymbols.includes('🦉') && !discoveredSymbols.includes('🔮')) {
+    return "Mystery penetrated by wisdom... What direct knowing transcends all questions?";
+  }
+  
+  // Cosmic beings
+  if (discoveredSymbols.includes('☀️') && discoveredSymbols.includes('🧠') && !discoveredSymbols.includes('👑')) {
+    return "The Sun awakening to consciousness... What supreme intelligence guides our cosmic system?";
+  }
+  
+  if (discoveredSymbols.includes('🌍') && discoveredSymbols.includes('🧠') && !discoveredSymbols.includes('🌍')) {
+    return "Earth developing awareness... What planetary consciousness emerges from matter?";
+  }
+  
+  // General guidance based on what they have
+  if (discoveredSymbols.length > 5 && discoveredSymbols.length < 10) {
+    return "Cosmic forces are gathering... Consider how breath, motion, and space interact...";
+  }
+  
+  if (discoveredSymbols.length > 10 && discoveredSymbols.length < 20) {
+    return "The planes of existence are forming... How do force and substance create different realms?";
+  }
+  
+  if (discoveredSymbols.length > 20 && discoveredSymbols.length < 30) {
+    return "Consciousness is awakening in many forms... What happens when awareness meets matter?";
+  }
+  
+  return null; // No specific hint needed
+}
+
+// Get hints for specific symbol combinations
+export function getCombinationHints(currentCombination: string[]): string[] {
+  const hints: string[] = [];
+  
+  if (currentCombination.length === 1) {
+    const symbol = currentCombination[0];
+    switch (symbol) {
+      case '⚫':
+        hints.push("The Absolute contains all possibilities...");
+        hints.push("Self-reflection creates duality...");
+        break;
+      case '👁️':
+        hints.push("The Observer sees infinite space...");
+        hints.push("Awareness witnessing motion creates time...");
+        break;
+      case '🌀':
+        hints.push("Cosmic force shapes ethereal substance...");
+        hints.push("Electricity meeting awareness becomes light...");
+        break;
+      case '🌊':
+        hints.push("The medium that carries all vibration...");
+        hints.push("Where cosmic breath meets divine force...");
+        break;
+    }
+  } else if (currentCombination.length === 2) {
+    const [a, b] = currentCombination;
+    
+    // Hint for common combinations
+    if ((a === '🌀' && b === '🌊') || (a === '🌊' && b === '🌀')) {
+      hints.push("Force working through substance creates...");
+      hints.push("Divine electricity condensing ethereal medium...");
+    }
+    
+    if ((a === '👁️' && b === '🌌') || (a === '🌌' && b === '👁️')) {
+      hints.push("Awareness contemplating infinite space...");
+      hints.push("Observer developing self-consciousness...");
+    }
+    
+    if ((a === '⚛️' && b === '🧠') || (a === '🧠' && b === '⚛️')) {
+      hints.push("Matter awakened by consciousness...");
+      hints.push("Substance stirring into living form...");
+    }
+  }
+  
+  return hints;
 }
 
 export function calculatePoints(rule: CombinationRule, isFirstDiscovery: boolean): number {
