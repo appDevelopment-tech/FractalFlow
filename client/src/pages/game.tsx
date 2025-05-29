@@ -100,7 +100,7 @@ export default function Game() {
                 <span className="text-white text-lg">∞</span>
               </div>
               <div>
-                <h1 className="text-lg md:text-xl font-display font-bold text-slate-800">Fractal</h1>
+                <h1 className="text-lg md:text-xl font-display font-bold text-slate-800">Fractal Flow</h1>
                 <p className="text-xs text-muted hidden md:block">Consciousness Discovery Game</p>
               </div>
             </div>

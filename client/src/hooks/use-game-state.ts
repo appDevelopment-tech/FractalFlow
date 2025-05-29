@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { findCombination, generateAIResponse, calculatePoints, checkSpecialUnlocks, calculateLevel, getLevelProgress, checkForFourElements, type BasicSymbol } from '@/lib/symbol-combinations';
 import { soundEngine } from '@/lib/sounds';
-import { getDailyMystery, markDailyMysteryCompleted } from '@/lib/daily-mystery';
+import { getDailyMystery, markDailyMysteryCompleted, hasCompletedDailyMystery } from '@/lib/daily-mystery';
 import type { GameProfile, Discovery } from '@shared/schema';
 
 export interface GameState {
@@ -184,9 +184,20 @@ export function useGameState() {
       // Play discovery sound for new discoveries
       soundEngine.playDiscovery();
       
-      // Check if this solves the daily mystery
+      // Check if this discovery completes the daily mystery
       const dailyMystery = getDailyMystery();
-      if (rule.output === dailyMystery.reward) {
+      const allDiscoveredSymbols = [...discoveredSymbols, rule.output];
+      const mysteryWasCompleted = hasCompletedDailyMystery(discoveredSymbols);
+      const mysteryNowCompleted = hasCompletedDailyMystery(allDiscoveredSymbols);
+      
+      if (!mysteryWasCompleted && mysteryNowCompleted) {
+        // Award the mystery reward symbol
+        createDiscoveryMutation.mutate({
+          symbolResult: dailyMystery.reward,
+          combination: ['🎁', '✨'], // Special combination for mystery reward
+          points: 100 // Bonus points for daily mystery
+        });
+        
         markDailyMysteryCompleted();
         
         // Add special daily mystery notification
@@ -194,14 +205,14 @@ export function useGameState() {
           id: (Date.now() + 0.5).toString(),
           type: 'special',
           title: '🎁 Daily Mystery Solved!',
-          message: `You unlocked today's mystery: ${dailyMystery.description}`,
-          points: points + 50, // Bonus points for daily mystery
+          message: `You unlocked ${dailyMystery.reward}: ${dailyMystery.description}`,
+          points: 100,
           timestamp: Date.now()
         };
         
         setGameState(prev => ({
           ...prev,
-          notifications: [mysteryNotification, ...prev.notifications.slice(0, 4)]
+          notifications: [mysteryNotification, ...prev.notifications.slice(0, 1)]
         }));
       }
       
