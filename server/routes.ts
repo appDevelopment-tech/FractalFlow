@@ -103,6 +103,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Clear all discoveries for default profile (reset function)
+  app.delete("/api/game/discoveries", async (req, res) => {
+    try {
+      // Use default profile ID 1 for anonymous play
+      await storage.clearDiscoveriesByProfile(1);
+      res.json({ message: "Discoveries cleared successfully" });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
   // Start new session
   app.post("/api/game/session", async (req, res) => {
     try {

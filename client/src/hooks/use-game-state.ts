@@ -340,9 +340,14 @@ export function useGameState() {
       // Clear localStorage
       localStorage.clear();
       
-      // Reset profile data on server
-      if (profile) {
-        try {
+      try {
+        // Clear all discoveries from server
+        await apiRequest('/api/game/discoveries', {
+          method: 'DELETE'
+        });
+        
+        // Reset profile data on server
+        if (profile) {
           await updateProfileMutation.mutateAsync({
             level: 1,
             totalScore: 0,
@@ -351,9 +356,9 @@ export function useGameState() {
             discoveredSymbols: [],
             sessionData: {}
           });
-        } catch (error) {
-          console.log('Could not reset server data, but localStorage cleared');
         }
+      } catch (error) {
+        console.log('Could not reset server data, but localStorage cleared');
       }
       
       // Reload page to start fresh
