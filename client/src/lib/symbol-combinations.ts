@@ -884,20 +884,8 @@ export function generateAIResponse(
     return "🌟 The four cosmic forces unite! Fohat, Light, Akasha, and Karma awaken to infinite creative potential! 🌟";
   }
   
-  // Chapter-based responses based on progression
-  if (discoveredSymbols.length < 5) {
-    return "The Absolute stirs from eternal slumber... What aspects of itself will it discover?";
-  } else if (discoveredSymbols.length < 15) {
-    return "Cosmic forces gather strength... The building blocks of reality take shape.";
-  } else if (discoveredSymbols.length < 30) {
-    return "The planes of existence unfold... Multiple dimensions of reality emerge.";
-  } else if (discoveredSymbols.length < 60) {
-    return "Consciousness awakens in myriad forms... Beings populate the cosmic tapestry.";
-  } else if (discoveredSymbols.length < 100) {
-    return "The universe experiences itself subjectively... Emotions and insights bloom.";
-  } else {
-    return "Infinite manifestation explodes forth... All possibilities dance in cosmic consciousness.";
-  }
+  // Simple progression responses
+  return "Discovery complete!";
 }
 
 export function getRandomResponse(): string {
