@@ -11,43 +11,43 @@ export interface DailyMystery {
   description: string;
 }
 
-// Predefined mysteries that rotate based on date
+// Predefined mysteries that rotate based on date - require multiple discoveries for engagement
 const MYSTERIES: Omit<DailyMystery, 'date'>[] = [
   {
-    hint: "The observer reflects upon itself",
-    solution: ['👁️‍🗨️', '👁️‍🗨️'],
-    reward: '🔮',
-    description: "Gnosis - direct knowing through self-reflection"
+    hint: "Discover the cosmic trinity: Observer, Space, Great Breath, Motion, and Fohat",
+    solution: ['👁️', '🌌', '🌬️', '⚡', '🌀'],
+    reward: '🌟',
+    description: "Cosmic Awakening - the five foundational forces unite"
   },
   {
-    hint: "Space breathes and motion begins",
-    solution: ['🌌', '🌬️'],
-    reward: '⚡',
-    description: "Motion - the first stirring of cosmic activity"
+    hint: "Master the elements: discover Light, Akasha, Karma, and Time",
+    solution: ['✨', '🌊', '⚖️', '⏰'],
+    reward: '💫',
+    description: "Elemental Mastery - command over the four cosmic elements"
   },
   {
-    hint: "When matter meets consciousness",
-    solution: ['💎', '🧠'],
-    reward: '🌱',
-    description: "Life - consciousness dwelling in material form"
-  },
-  {
-    hint: "Light reveals the cosmic substance",
-    solution: ['✨', '🌊'],
-    reward: '👁️',
-    description: "Perception - awareness illuminating the akashic medium"
-  },
-  {
-    hint: "The heart channels divine force",
-    solution: ['❤️', '🌀'],
-    reward: '💖',
-    description: "Love - the heart expressing cosmic electricity as compassion"
-  },
-  {
-    hint: "When mind touches wisdom",
-    solution: ['🧠', '🦉'],
+    hint: "Create consciousness: find Matter, Mind, Life, and Soul",
+    solution: ['💎', '🧠', '🌱', '💭'],
     reward: '🧘',
-    description: "Meditation - consciousness at rest in its own nature"
+    description: "Consciousness Evolution - the path from matter to soul"
+  },
+  {
+    hint: "Awaken the heart: discover Human, Heart, Emotion, and Love",
+    solution: ['👤', '❤️', '😊', '💖'],
+    reward: '🕊️',
+    description: "Heart Awakening - the emotional dimension of consciousness"
+  },
+  {
+    hint: "Transcend matter: find Angel, Tree of Life, Mountain, and Solar Logos",
+    solution: ['👼', '🌳', '🏔️', '👑'],
+    reward: '✨',
+    description: "Transcendence - beings beyond material existence"
+  },
+  {
+    hint: "Unite opposites: discover Fire, Water, Earth, Air, and Will",
+    solution: ['🔥', '💧', '🌍', '💨', '🔥'],
+    reward: '⚖️',
+    description: "Elemental Balance - harmony of opposing forces"
   },
   {
     hint: "Empty circles dance",
@@ -73,7 +73,8 @@ export function getDailyMystery(): DailyMystery {
 
 export function hasCompletedDailyMystery(discoveredSymbols: string[]): boolean {
   const mystery = getDailyMystery();
-  return discoveredSymbols.includes(mystery.reward);
+  // Check if player has discovered all required symbols for today's mystery
+  return mystery.solution.every(symbol => discoveredSymbols.includes(symbol));
 }
 
 export function getDailyMysteryProgress(): {
