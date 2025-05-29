@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { soundEngine } from '@/lib/sounds';
 import { getHintForStuckPlayer } from '@/lib/symbol-combinations';
+import { Menu, X } from 'lucide-react';
 
 export default function Game() {
   const {
@@ -33,6 +34,7 @@ export default function Game() {
   const [showTutorial, setShowTutorial] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [showElementsPanel, setShowElementsPanel] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   // Show tutorial on first visit
   useEffect(() => {
@@ -98,8 +100,8 @@ export default function Game() {
                 <span className="text-white text-lg">∞</span>
               </div>
               <div>
-                <h1 className="text-xl font-display font-bold text-slate-800">Fractal Flow</h1>
-                <p className="text-xs text-muted">Consciousness Discovery Game</p>
+                <h1 className="text-lg md:text-xl font-display font-bold text-slate-800">Fractal</h1>
+                <p className="text-xs text-muted hidden md:block">Consciousness Discovery Game</p>
               </div>
             </div>
             
@@ -116,8 +118,8 @@ export default function Game() {
                 </div>
               </div>
               
-              {/* Hint, Help, Donate, Sound, and Reset Buttons */}
-              <div className="flex items-center space-x-2">
+              {/* Desktop Buttons */}
+              <div className="hidden md:flex items-center space-x-2">
                 <Button
                   variant="outline"
                   size="sm"
@@ -134,7 +136,7 @@ export default function Game() {
                   variant="outline"
                   size="sm"
                   onClick={() => window.open('https://buymeacoffee.com/maxpetrusex', '_blank')}
-                  className="hidden md:flex bg-yellow-400 hover:bg-yellow-500 border-yellow-500 text-black font-medium"
+                  className="bg-yellow-400 hover:bg-yellow-500 border-yellow-500 text-black font-medium"
                 >
                   🍵 Buy me a coffee
                 </Button>
@@ -195,8 +197,77 @@ export default function Game() {
                   Reset
                 </Button>
               </div>
+
+              {/* Mobile Hamburger Menu */}
+              <div className="md:hidden">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setShowMobileMenu(!showMobileMenu)}
+                  className="bg-white/80"
+                >
+                  {showMobileMenu ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+                </Button>
+              </div>
             </div>
           </div>
+
+          {/* Mobile Menu Dropdown */}
+          {showMobileMenu && (
+            <div className="md:hidden border-t border-slate-200 bg-white/90 backdrop-blur-sm">
+              <div className="px-4 py-3 space-y-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const hint = getHintForStuckPlayer(discoveredSymbols);
+                    setCurrentHint(hint);
+                    setShowMobileMenu(false);
+                  }}
+                  className="w-full bg-purple-50 hover:bg-purple-100 border-purple-200 text-purple-700"
+                >
+                  💡 Hint
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => {
+                    toggleSound();
+                    setShowMobileMenu(false);
+                  }}
+                  className="w-full bg-white/80"
+                >
+                  <span className="text-lg mr-2">{soundEnabled ? '🔊' : '🔇'}</span>
+                  {soundEnabled ? 'Sound On' : 'Sound Off'}
+                </Button>
+
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => {
+                    setShowHelp(true);
+                    setShowMobileMenu(false);
+                  }}
+                  className="w-full bg-white/80"
+                >
+                  ? Help
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => {
+                    resetProgress();
+                    setShowMobileMenu(false);
+                  }}
+                  className="w-full bg-white/80 text-red-600 hover:text-red-700"
+                >
+                  Reset Game
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </header>
 
@@ -394,8 +465,8 @@ export default function Game() {
         </DialogContent>
       </Dialog>
       
-      {/* Floating Action Button */}
-      <div className="fixed bottom-6 right-6 z-40">
+      {/* Floating Action Button - Hidden on mobile */}
+      <div className="hidden md:block fixed bottom-6 right-6 z-40">
         <button
           onClick={() => {
             if (document.fullscreenElement) {

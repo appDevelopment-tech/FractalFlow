@@ -246,7 +246,7 @@ export function useGameState() {
         ...prev,
         currentCombination: [], // Clear combination after successful discovery
         lastResponse: rule.output,
-        notifications: [notification, ...prev.notifications.slice(0, 4)] // Keep last 5
+        notifications: [notification, ...prev.notifications.slice(0, 1)] // Keep last 2
       }));
 
       // Check for level up
@@ -300,10 +300,10 @@ export function useGameState() {
         notifications: [{
           id: Date.now().toString(),
           type: 'discovery',
-          title: 'No Combination Found',
+          title: '😔',
           message: 'These symbols don\'t combine... yet. Try different patterns!',
           timestamp: Date.now()
-        }, ...prev.notifications.slice(0, 4)]
+        }, ...prev.notifications.slice(0, 1)]
       }));
     }
   }, [profile, gameState.currentCombination, createDiscoveryMutation]);
