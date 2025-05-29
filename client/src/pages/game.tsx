@@ -133,9 +133,9 @@ export default function Game() {
                   variant="outline"
                   size="sm"
                   onClick={() => window.open('https://buymeacoffee.com/maxpetrusex', '_blank')}
-                  className="bg-yellow-50 hover:bg-yellow-100 border-yellow-200 text-yellow-700"
+                  className="bg-yellow-400 hover:bg-yellow-500 border-yellow-500 text-black font-medium"
                 >
-                  ☕ Donate
+                  🍵 Buy me a coffee
                 </Button>
                 
                 <Dialog open={showHelp} onOpenChange={setShowHelp}>
