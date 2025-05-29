@@ -43,7 +43,7 @@ export function useGameState() {
 
   // Fetch recent discoveries
   const { data: recentDiscoveries = [] } = useQuery<Discovery[]>({
-    queryKey: ['/api/game/discoveries', profile?.id],
+    queryKey: ['/api/game/discoveries'],
     enabled: !!profile?.id,
   });
 
@@ -84,7 +84,7 @@ export function useGameState() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/game/profile'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/game/discoveries', profile?.id] });
+      queryClient.invalidateQueries({ queryKey: ['/api/game/discoveries'] });
     }
   });
 

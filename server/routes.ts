@@ -77,7 +77,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get recent discoveries
+  // Get recent discoveries (default profile)
+  app.get("/api/game/discoveries", async (req, res) => {
+    try {
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
+      
+      // Use default profile ID 1 for anonymous play
+      const discoveries = await storage.getDiscoveriesByProfile(1, limit);
+      res.json(discoveries);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  // Get recent discoveries by profile ID
   app.get("/api/game/discoveries/:profileId", async (req, res) => {
     try {
       const profileId = parseInt(req.params.profileId);
