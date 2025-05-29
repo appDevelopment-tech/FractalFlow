@@ -115,7 +115,7 @@ export default function Game() {
                 </div>
               </div>
               
-              {/* Hint, Help, Sound, and Reset Buttons */}
+              {/* Hint, Help, Donate, Sound, and Reset Buttons */}
               <div className="flex items-center space-x-2">
                 <Button
                   variant="outline"
@@ -127,6 +127,15 @@ export default function Game() {
                   className="bg-purple-50 hover:bg-purple-100 border-purple-200 text-purple-700"
                 >
                   💡 Hint
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.open('https://buymeacoffee.com/maxpetrusex', '_blank')}
+                  className="bg-yellow-50 hover:bg-yellow-100 border-yellow-200 text-yellow-700"
+                >
+                  ☕ Donate
                 </Button>
                 
                 <Dialog open={showHelp} onOpenChange={setShowHelp}>
