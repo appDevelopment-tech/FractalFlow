@@ -337,14 +337,12 @@ export function useGameState() {
   // Reset all progress including profile data
   const resetProgress = useCallback(async () => {
     if (confirm('Are you sure you want to reset all progress? This will clear your discoveries, points, level, and tutorial. This cannot be undone.')) {
-      // Clear localStorage
-      localStorage.clear();
-      
       try {
+        // Clear localStorage including daily mystery progress
+        localStorage.clear();
+        
         // Clear all discoveries from server
-        await apiRequest('/api/game/discoveries', {
-          method: 'DELETE'
-        });
+        await apiRequest('DELETE', '/api/game/discoveries');
         
         // Reset profile data on server
         if (profile) {
@@ -357,14 +355,30 @@ export function useGameState() {
             sessionData: {}
           });
         }
+        
+        // Clear game state
+        setGameState({
+          currentCombination: [],
+          sessionTime: 0,
+          sessionId: null,
+          lastResponse: null,
+          notifications: [],
+          playerHistory: []
+        });
+        
+        // Invalidate all queries to refresh data
+        queryClient.invalidateQueries();
+        
+        // Reload page to start completely fresh
+        window.location.reload();
       } catch (error) {
-        console.log('Could not reset server data, but localStorage cleared');
+        console.error('Reset failed:', error);
+        // Even if server reset fails, clear localStorage and reload
+        localStorage.clear();
+        window.location.reload();
       }
-      
-      // Reload page to start fresh
-      window.location.reload();
     }
-  }, [profile, updateProfileMutation]);
+  }, [profile, updateProfileMutation, queryClient, setGameState]);
 
   // Get level progress
   const levelProgress = profile ? getLevelProgress(profile.totalDiscoveries) : null;
