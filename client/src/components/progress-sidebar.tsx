@@ -68,37 +68,51 @@ function ProgressContent({
 }
 
 // Helper component for discoveries content
-function DiscoveriesContent({ recentDiscoveries }: { recentDiscoveries: Discovery[] }) {
+function DiscoveriesContent({ recentDiscoveries, showAll = false }: { recentDiscoveries: Discovery[]; showAll?: boolean }) {
+  const [showAllDiscoveries, setShowAllDiscoveries] = useState(showAll);
+  const discoveriesToShow = showAllDiscoveries ? recentDiscoveries : recentDiscoveries.slice(0, 3);
+  
   return (
     <div className="space-y-3">
       {recentDiscoveries.length > 0 ? (
-        recentDiscoveries.slice(0, 3).map((discovery, index) => (
-          <div
-            key={discovery.id}
-            className={cn(
-              "flex items-center space-x-3 p-3 rounded-lg border",
-              index === 0 ? "bg-gradient-to-r from-accent/5 to-transparent border-accent/20" :
-              index === 1 ? "bg-gradient-to-r from-secondary/5 to-transparent border-secondary/20" :
-              "bg-slate-50 border-slate-200"
-            )}
-          >
-            <div className="text-2xl">{discovery.symbolResult}</div>
-            <div className="flex-1">
-              <div className="font-medium text-slate-800">
-                {getCombinationName(discovery.symbolResult)}
+        <>
+          {discoveriesToShow.map((discovery, index) => (
+            <div
+              key={discovery.id}
+              className={cn(
+                "flex items-center space-x-3 p-3 rounded-lg border",
+                index === 0 && !showAllDiscoveries ? "bg-gradient-to-r from-accent/5 to-transparent border-accent/20" :
+                index === 1 && !showAllDiscoveries ? "bg-gradient-to-r from-secondary/5 to-transparent border-secondary/20" :
+                "bg-slate-50 border-slate-200"
+              )}
+            >
+              <div className="text-2xl">{discovery.symbolResult}</div>
+              <div className="flex-1">
+                <div className="font-medium text-slate-800">
+                  {getCombinationName(discovery.symbolResult)}
+                </div>
+                <div className="text-sm text-muted">
+                  {Array.isArray(discovery.combination) ? discovery.combination.join(' + ') : 'Direct discovery'} = {discovery.symbolResult}
+                </div>
+                <div className="text-xs text-slate-600 mt-1 italic">
+                  {getSymbolExplanation(discovery.symbolResult)}
+                </div>
               </div>
-              <div className="text-sm text-muted">
-                {Array.isArray(discovery.combination) ? discovery.combination.join(' + ') : 'Direct discovery'} = {discovery.symbolResult}
-              </div>
-              <div className="text-xs text-slate-600 mt-1 italic">
-                {getSymbolExplanation(discovery.symbolResult)}
-              </div>
+              <Badge variant="secondary" className="text-xs">
+                +{discovery.points}
+              </Badge>
             </div>
-            <Badge variant="secondary" className="text-xs">
-              +{discovery.points}
-            </Badge>
-          </div>
-        ))
+          ))}
+          
+          {recentDiscoveries.length > 3 && !showAll && (
+            <button
+              onClick={() => setShowAllDiscoveries(!showAllDiscoveries)}
+              className="w-full text-center py-2 text-sm text-blue-600 hover:text-blue-800 transition-colors"
+            >
+              {showAllDiscoveries ? 'Show recent only' : `View all ${recentDiscoveries.length} discoveries`}
+            </button>
+          )}
+        </>
       ) : (
         <div className="text-center py-8 text-muted">
           <span className="text-4xl mb-2 block">🔍</span>
