@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { getDailyMystery, getDailyMysteryProgress, getTimeUntilNextMystery, type DailyMystery } from '@/lib/daily-mystery';
+import { getDailyMystery, getDailyMysteryProgress, getTimeUntilNextMystery, hasCompletedDailyMystery, type DailyMystery } from '@/lib/daily-mystery';
 
 interface DailyMysteryProps {
   discoveredSymbols: string[];
@@ -11,8 +11,12 @@ interface DailyMysteryProps {
 export function DailyMysteryCard({ discoveredSymbols = [], onHintClick }: DailyMysteryProps) {
   const mystery = getDailyMystery();
   const progress = getDailyMysteryProgress();
-  const isCompleted = discoveredSymbols.includes(mystery.reward);
+  const isCompleted = hasCompletedDailyMystery(discoveredSymbols);
   const timeUntilNext = getTimeUntilNextMystery();
+  
+  // Show progress: how many required symbols have been discovered
+  const discoveredCount = mystery.solution.filter(symbol => discoveredSymbols.includes(symbol)).length;
+  const totalRequired = mystery.solution.length;
 
   return (
     <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl shadow-sm border border-purple-200 p-6">
@@ -43,11 +47,33 @@ export function DailyMysteryCard({ discoveredSymbols = [], onHintClick }: DailyM
               <p className="text-lg font-medium text-purple-800 mb-2">
                 "{mystery.hint}"
               </p>
-              <p className="text-sm text-muted">
+              <p className="text-sm text-muted mb-3">
                 Solve today's mystery to unlock a special symbol
               </p>
+              
+              {/* Progress indicator */}
+              <div className="flex items-center justify-center space-x-2 mt-3">
+                <span className="text-sm text-purple-600">Progress:</span>
+                <div className="flex space-x-1">
+                  {mystery.solution.map((symbol, index) => (
+                    <div
+                      key={index}
+                      className={cn(
+                        "w-6 h-6 rounded-full flex items-center justify-center text-xs",
+                        discoveredSymbols.includes(symbol)
+                          ? "bg-green-500 text-white"
+                          : "bg-gray-200 text-gray-400"
+                      )}
+                    >
+                      {discoveredSymbols.includes(symbol) ? "✓" : "?"}
+                    </div>
+                  ))}
+                </div>
+                <span className="text-sm text-purple-600">
+                  {discoveredCount}/{totalRequired}
+                </span>
+              </div>
             </div>
-            
 
           </>
         ) : (
