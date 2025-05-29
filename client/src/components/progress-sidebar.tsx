@@ -88,11 +88,14 @@ function DiscoveriesContent({ recentDiscoveries }: { recentDiscoveries: Discover
                 {getCombinationName(discovery.symbolResult)}
               </div>
               <div className="text-sm text-muted">
-                {discovery.combination?.join(' + ')} = {discovery.symbolResult}
+                {Array.isArray(discovery.combination) ? discovery.combination.join(' + ') : 'Direct discovery'} = {discovery.symbolResult}
+              </div>
+              <div className="text-xs text-slate-600 mt-1 italic">
+                {getSymbolExplanation(discovery.symbolResult)}
               </div>
             </div>
             <Badge variant="secondary" className="text-xs">
-              +{discovery.pointsEarned}
+              +{discovery.points}
             </Badge>
           </div>
         ))
@@ -140,6 +143,41 @@ function getCombinationName(symbol: string): string {
     '💖': 'Love'
   };
   return names[symbol] || symbol;
+}
+
+function getSymbolExplanation(symbol: string): string {
+  const explanations: Record<string, string> = {
+    '👁️‍🗨️': 'The first point of conscious awareness emerging from absolute unity',
+    '🌌': 'The infinite expanse where all manifestation unfolds',
+    '🌬️': 'The primordial vibration that awakens cosmic activity',
+    '🌀': 'Cosmic electricity - the divine force that shapes all forms',
+    '✨': 'Primordial light emerging from the interplay of cosmic forces',
+    '🌊': 'The subtle substance underlying all physical matter',
+    '⚖️': 'The law of cause and effect governing all cosmic action',
+    '⏰': 'The rhythm of cosmic cycles and eternal progression',
+    '💎': 'Crystallized consciousness forming the foundation of physical reality',
+    '🧠': 'Universal mind awakening to its own nature',
+    '🌱': 'Consciousness dwelling in matter, the spark of biological existence',
+    '💭': 'Individual consciousness emerging from universal life',
+    '👤': 'Self-aware being capable of conscious evolution',
+    '❤️': 'The seat of emotional consciousness and divine love',
+    '🔥': 'The transformative element of will and spiritual power',
+    '💧': 'The flowing element of emotion and psychic sensitivity',
+    '🌍': 'The stabilizing element of form and material structure',
+    '💨': 'The element of mind and intellectual discrimination',
+    '👼': 'Purified consciousness transcending material limitations',
+    '🧚': 'Nature spirits working with elemental forces',
+    '🌳': 'The axis connecting earth and heaven, symbol of spiritual growth',
+    '🏔️': 'Elevated consciousness reaching toward divine heights',
+    '👑': 'The cosmic intelligence governing our solar system',
+    '🌍': 'The awakened planetary consciousness of our Earth',
+    '🦉': 'Direct knowing transcending intellectual understanding',
+    '🧘': 'Consciousness at rest in its own infinite nature',
+    '🔮': 'Mystical knowledge obtained through spiritual revelation',
+    '😊': 'The play of feeling in conscious experience',
+    '💖': 'Divine love as the fundamental force of creation'
+  };
+  return explanations[symbol] || 'A cosmic principle in the grand design of consciousness';
 }
 
 export function ProgressSidebar({ 

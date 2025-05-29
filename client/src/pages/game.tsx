@@ -224,15 +224,6 @@ export default function Game() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
         {/* Mobile Layout */}
         <div className="block md:hidden space-y-4">
-          {/* Progress Sidebar - Mobile Buttons */}
-          <ProgressSidebar
-            profile={profile}
-            recentDiscoveries={recentDiscoveries}
-            levelProgress={levelProgress}
-            currentLevel={currentLevel}
-            discoveredSymbols={discoveredSymbols}
-          />
-          
           {/* Symbol Palette */}
           <InfinitePalette
             onSymbolClick={addSymbol}
@@ -247,6 +238,15 @@ export default function Game() {
             onClear={clearCombination}
             isProcessing={isProcessing}
             onSymbolAdd={addSymbol}
+            discoveredSymbols={discoveredSymbols}
+          />
+          
+          {/* Progress Sidebar - Mobile Buttons at Bottom */}
+          <ProgressSidebar
+            profile={profile}
+            recentDiscoveries={recentDiscoveries}
+            levelProgress={levelProgress}
+            currentLevel={currentLevel}
             discoveredSymbols={discoveredSymbols}
           />
         </div>

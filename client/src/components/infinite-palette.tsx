@@ -44,9 +44,7 @@ export function InfinitePalette({ onSymbolClick, discoveredSymbols }: InfinitePa
           <Sparkles className="w-5 h-5 text-blue-500 mr-2" />
           Elements
         </h2>
-        <Badge variant="secondary">
-          {filteredSymbols.length} available
-        </Badge>
+
       </div>
 
       {/* Search Bar */}
