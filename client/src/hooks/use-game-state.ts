@@ -129,7 +129,7 @@ export function useGameState() {
     soundEngine.playSymbolClick(); // Audio feedback for symbol selection
     setGameState(prev => ({
       ...prev,
-      currentCombination: [...prev.currentCombination, symbol].slice(-3) // Max 3 symbols
+      currentCombination: [...prev.currentCombination, symbol].slice(-2) // Max 2 symbols
     }));
   }, []);
 
