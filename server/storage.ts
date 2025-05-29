@@ -12,6 +12,7 @@ export interface IStorage {
   
   createDiscovery(discovery: InsertDiscovery): Promise<Discovery>;
   getDiscoveriesByProfile(profileId: number, limit?: number): Promise<Discovery[]>;
+  clearDiscoveriesByProfile(profileId: number): Promise<void>;
   
   createSession(session: InsertSession): Promise<Session>;
   updateSession(id: number, session: Partial<Session>): Promise<Session | undefined>;
@@ -109,6 +110,15 @@ export class MemStorage implements IStorage {
       .sort((a, b) => (b.discoveredAt?.getTime() || 0) - (a.discoveredAt?.getTime() || 0));
     
     return limit ? profileDiscoveries.slice(0, limit) : profileDiscoveries;
+  }
+
+  async clearDiscoveriesByProfile(profileId: number): Promise<void> {
+    // Find all discoveries for this profile and remove them
+    const discoveriesToDelete = Array.from(this.discoveries.entries())
+      .filter(([_, discovery]) => discovery.profileId === profileId)
+      .map(([id, _]) => id);
+    
+    discoveriesToDelete.forEach(id => this.discoveries.delete(id));
   }
 
   async createSession(insertSession: InsertSession): Promise<Session> {
