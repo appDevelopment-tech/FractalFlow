@@ -323,8 +323,140 @@ export const COMBINATION_RULES: CombinationRule[] = [
     points: 400,
     name: 'Prayer',
     story: 'Akasha carries human devotion to angelic realms. Communication between dimensions of consciousness.'
+  },
+  
+  // === MISSING THEOSOPHICAL ELEMENTS ===
+  
+  {
+    input: ['🌀', '⚖️'],
+    output: '🌩️',
+    points: 80,
+    name: 'Lightning',
+    story: 'Fohat meets Karma and divine electricity flashes forth. Lightning - the union of cosmic force and law.'
+  },
+  
+  {
+    input: ['✨', '⏰'],
+    output: '🌙',
+    points: 90,
+    name: 'Moon',
+    story: 'Light cycles through Time and lunar consciousness emerges. Moon - the reflector of cosmic wisdom.'
+  },
+  
+  {
+    input: ['🌬️', '✨'],
+    output: '☀️',
+    points: 120,
+    name: 'Sun',
+    story: 'Great Breath illuminated by Light becomes the solar logos. Sun - the heart of our cosmic system.'
+  },
+  
+  {
+    input: ['👁️', '⚖️'],
+    output: '🪬',
+    points: 110,
+    name: 'Divine Eye',
+    story: 'Observer united with Karma becomes the all-seeing eye. Divine perception that witnesses all actions.'
+  },
+  
+  {
+    input: ['🌊', '⏰'],
+    output: '🌀',
+    points: 70,
+    name: 'Spiral',
+    story: 'Akasha moves through Time in spiraling evolution. The cosmic pattern of all growth and development.'
+  },
+  
+  {
+    input: ['🔥', '🌊'],
+    output: '💨',
+    points: 85,
+    name: 'Steam',
+    story: 'Will meets Akasha and becomes the breath of transformation. Steam - matter ascending to spirit.'
+  },
+  
+  {
+    input: ['🌳', '✨'],
+    output: '🌸',
+    points: 95,
+    name: 'Flower',
+    story: 'Deva consciousness illuminated by Light blooms into beauty. Flower - spirit manifesting through form.'
+  },
+  
+  {
+    input: ['👤', '👼'],
+    output: '🧘',
+    points: 150,
+    name: 'Meditation',
+    story: 'Human reaches toward Angel through inner communion. Meditation - the bridge between mortal and divine.'
+  },
+  
+  {
+    input: ['🧠', '🌀'],
+    output: '🌪️',
+    points: 130,
+    name: 'Thought-Storm',
+    story: 'Mind channels Fohat and ideas whirl with cosmic intensity. The creative chaos of inspired thinking.'
+  },
+  
+  {
+    input: ['❤️', '🌊'],
+    output: '💧',
+    points: 80,
+    name: 'Tears',
+    story: 'Heart moves through Akasha as emotional waters. Tears - the sacred expression of feeling.'
   }
 ];
+
+// SYMBOL NAME MAPPING - Every symbol has a proper name
+export const SYMBOL_NAMES: Record<string, string> = {
+  '⚫': 'Absolute',
+  '👁️': 'Observer', 
+  '🌌': 'Space',
+  '🌬️': 'Great Breath',
+  '⚡': 'Motion',
+  '🌀': 'Fohat',
+  '✨': 'Light',
+  '🕳️': 'Void',
+  '🌊': 'Akasha',
+  '⚖️': 'Karma',
+  '⏰': 'Time',
+  '🏔️': 'Physical Plane',
+  '💭': 'Mental Plane',
+  '🌟': 'Astral Plane',
+  '👑': 'Buddhic Plane',
+  '👤': 'Human',
+  '🧚': 'Elemental',
+  '👼': 'Angel',
+  '🌳': 'Deva',
+  '🧠': 'Mind',
+  '❤️': 'Heart',
+  '🔥': 'Will',
+  '😊': 'Joy',
+  '🤔': 'Contemplation',
+  '💡': 'Inspiration',
+  '🎯': 'Purpose',
+  '🌅': 'Wonder',
+  '🎨': 'Art',
+  '🔬': 'Science',
+  '🏛️': 'Civilization',
+  '🎵': 'Music',
+  '🌍': 'Earth',
+  '⭐': 'Stars',
+  '🔭': 'Astronomer',
+  '🎼': 'Composer',
+  '🌋': 'Volcano',
+  '🙏': 'Prayer',
+  '🌩️': 'Lightning',
+  '🌙': 'Moon',
+  '☀️': 'Sun',
+  '🪬': 'Divine Eye',
+  '💨': 'Steam',
+  '🌸': 'Flower',
+  '🧘': 'Meditation',
+  '🌪️': 'Thought-Storm',
+  '💧': 'Tears'
+};
 
 function arraysEqual(a: any[], b: any[]): boolean {
   return a.length === b.length && a.every((val, i) => val === b[i]);
@@ -347,20 +479,8 @@ export function findCombination(symbols: SymbolCombination, discoveredSymbols: s
     if (reversedMatch) return reversedMatch;
   }
   
-  // Generate dynamic combinations for discovered symbols not in rules
-  if (symbols.length === 2) {
-    const [a, b] = symbols;
-    // If both symbols are discovered but no rule exists, create fusion
-    if (discoveredSymbols.includes(a) && discoveredSymbols.includes(b)) {
-      return {
-        input: symbols,
-        output: a + b, // Simple fusion notation
-        points: 50,
-        name: 'Consciousness Fusion',
-        story: `${a} and ${b} merge in the dance of cosmic evolution, creating new possibilities.`
-      };
-    }
-  }
+  // Don't create automatic fusions - only allow predefined combinations
+  // This prevents unwanted multiplications like "eye+eye = two eyes"
   
   return null;
 }
