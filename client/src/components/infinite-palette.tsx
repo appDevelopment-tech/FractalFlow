@@ -60,7 +60,7 @@ export function InfinitePalette({ onSymbolClick, discoveredSymbols }: InfinitePa
 
       {/* Simple Grid - Starting Elements + Four Elements */}
       <div className="flex-1 overflow-y-auto">
-        <div className="grid grid-cols-4 md:grid-cols-2 gap-1 md:gap-3">
+        <div className="grid grid-cols-5 md:grid-cols-2 gap-1 md:gap-3">
           {filteredSymbols.map((symbol) => {
             const isFourElement = ['🔥', '💧', '🌍', '💨'].includes(symbol);
             return (
@@ -92,8 +92,8 @@ export function InfinitePalette({ onSymbolClick, discoveredSymbols }: InfinitePa
         </div>
       </div>
 
-      {/* Footer Progress */}
-      <div className="mt-4 pt-4 border-t border-slate-200 text-xs text-slate-500 text-center">
+      {/* Footer Progress - Hidden on mobile for space */}
+      <div className="hidden md:block mt-4 pt-4 border-t border-slate-200 text-xs text-slate-500 text-center">
         Progress to Four Elements: {discoveredElements.length}/4
       </div>
     </div>
