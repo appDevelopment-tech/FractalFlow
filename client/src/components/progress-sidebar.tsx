@@ -86,11 +86,11 @@ function DiscoveriesContent({ recentDiscoveries, showAll = false }: { recentDisc
                 "bg-slate-50 border-slate-200"
               )}
             >
-              <div className="text-lg font-medium text-slate-800 flex items-center gap-2">
-                {getCombinationName(discovery.symbolResult)}
-                <span className="text-xl">{discovery.symbolResult}</span>
-              </div>
+              <div className="text-2xl">{discovery.symbolResult}</div>
               <div className="flex-1">
+                <div className="font-medium text-slate-800">
+                  {getCombinationName(discovery.symbolResult)}
+                </div>
                 <div className="text-sm text-muted">
                   {Array.isArray(discovery.combination) ? discovery.combination.join(' + ') : 'Direct discovery'} = {discovery.symbolResult}
                 </div>
