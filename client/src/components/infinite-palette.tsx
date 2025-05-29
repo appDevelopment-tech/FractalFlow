@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BASIC_SYMBOLS, type BasicSymbol } from '@/lib/symbol-combinations';
+import { BASIC_SYMBOLS, type BasicSymbol, SYMBOL_NAMES } from '@/lib/symbol-combinations';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { Search, Sparkles } from 'lucide-react';
@@ -9,45 +9,9 @@ interface InfinitePaletteProps {
   discoveredSymbols: string[];
 }
 
-// Get display name for symbols
+// Get display name for symbols using Blavatsky's theosophical names
 function getSymbolName(symbol: string): string {
-  const symbolNames: Record<string, string> = {
-    // Basic symbols
-    '○': 'Circle',
-    '●': 'Dot',
-    '·': 'Point',
-    '—': 'Line',
-    '|': 'Vertical',
-    '+': 'Plus',
-    '×': 'Cross',
-    '◯': 'Ring',
-    '?': 'Question',
-    
-    // Discovered symbols
-    '◐': 'Half Moon',
-    '◑': 'Balance',
-    '∞': 'Infinity',
-    '∴': 'Therefore',
-    '‽': 'Interrobang',
-    '☯': 'Yin Yang',
-    '🔥': 'Fire',
-    '💧': 'Water',
-    '🌍': 'Earth',
-    '💨': 'Wind',
-    '🌋': 'Volcano',
-    '⚡': 'Lightning',
-    '☁️': 'Cloud',
-    '🌱': 'Life',
-    '🌪️': 'Tornado',
-    '◎': 'Target',
-    '⊗': 'Tensor',
-    '✚': 'Medical',
-    '⋯': 'Ellipsis',
-    '∶': 'Ratio',
-    '|||': 'Triple Bar'
-  };
-  
-  return symbolNames[symbol] || `Symbol ${symbol}`;
+  return SYMBOL_NAMES[symbol] || symbol;
 }
 
 // Get category for symbol - simplified to just show the journey to elements

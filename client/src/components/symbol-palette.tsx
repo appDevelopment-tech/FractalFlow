@@ -1,5 +1,5 @@
 import React from 'react';
-import { BASIC_SYMBOLS, type BasicSymbol } from '@/lib/symbol-combinations';
+import { BASIC_SYMBOLS, type BasicSymbol, SYMBOL_NAMES } from '@/lib/symbol-combinations';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
@@ -49,7 +49,7 @@ export function SymbolPalette({ onSymbolClick, discoveredSymbols }: SymbolPalett
             title={`Press ${index + 1} for ${symbol}`}
           >
             <span className="text-2xl font-mono">{symbol}</span>
-            <div className="text-xs mt-1 opacity-70">{index + 1}</div>
+            <div className="text-xs mt-1 opacity-70 font-medium">{SYMBOL_NAMES[symbol] || symbol}</div>
           </button>
         ))}
       </div>
