@@ -37,18 +37,17 @@ export function InfinitePalette({ onSymbolClick, discoveredSymbols }: InfinitePa
   });
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6 h-[300px] md:h-full flex flex-col">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-4">
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-2 md:p-6 h-auto md:h-full flex flex-col">
+      {/* Header - Hidden on mobile for compact view */}
+      <div className="hidden md:flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-slate-800 flex items-center">
           <Sparkles className="w-5 h-5 text-blue-500 mr-2" />
           Elements
         </h2>
-
       </div>
 
-      {/* Search Bar */}
-      <div className="relative mb-4">
+      {/* Search Bar - Hidden on mobile for compact view */}
+      <div className="relative mb-4 hidden md:block">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
         <input
           type="text"

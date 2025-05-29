@@ -32,6 +32,7 @@ export default function Game() {
   const [currentHint, setCurrentHint] = useState('');
   const [showTutorial, setShowTutorial] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [showElementsPanel, setShowElementsPanel] = useState(false);
 
   // Show tutorial on first visit
   useEffect(() => {
@@ -88,7 +89,7 @@ export default function Game() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
       
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50">
+      <header className="bg-white/80 backdrop-blur-sm border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo and Title */}
@@ -133,7 +134,7 @@ export default function Game() {
                   variant="outline"
                   size="sm"
                   onClick={() => window.open('https://buymeacoffee.com/maxpetrusex', '_blank')}
-                  className="bg-yellow-400 hover:bg-yellow-500 border-yellow-500 text-black font-medium"
+                  className="hidden md:flex bg-yellow-400 hover:bg-yellow-500 border-yellow-500 text-black font-medium"
                 >
                   🍵 Buy me a coffee
                 </Button>
@@ -223,32 +224,67 @@ export default function Game() {
       {/* Main Game Area */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
         {/* Mobile Layout */}
-        <div className="block md:hidden space-y-4">
-          {/* Symbol Palette */}
-          <InfinitePalette
-            onSymbolClick={addSymbol}
-            discoveredSymbols={discoveredSymbols}
-          />
+        <div className="block md:hidden">
+          {/* Consciousness Playground - Main Focus */}
+          <div className="mb-4">
+            <PlayArea
+              currentCombination={gameState.currentCombination}
+              lastResponse={gameState.lastResponse}
+              onCombine={processCombination}
+              onClear={clearCombination}
+              isProcessing={isProcessing}
+              onSymbolAdd={addSymbol}
+              discoveredSymbols={discoveredSymbols}
+            />
+          </div>
           
-          {/* Play Area */}
-          <PlayArea
-            currentCombination={gameState.currentCombination}
-            lastResponse={gameState.lastResponse}
-            onCombine={processCombination}
-            onClear={clearCombination}
-            isProcessing={isProcessing}
-            onSymbolAdd={addSymbol}
-            discoveredSymbols={discoveredSymbols}
-          />
+          {/* Progress Section */}
+          <div className="mb-4">
+            <ProgressSidebar
+              profile={profile}
+              recentDiscoveries={recentDiscoveries}
+              levelProgress={levelProgress}
+              currentLevel={currentLevel}
+              discoveredSymbols={discoveredSymbols}
+            />
+          </div>
           
-          {/* Progress Sidebar - Mobile Buttons at Bottom */}
-          <ProgressSidebar
-            profile={profile}
-            recentDiscoveries={recentDiscoveries}
-            levelProgress={levelProgress}
-            currentLevel={currentLevel}
-            discoveredSymbols={discoveredSymbols}
-          />
+          {/* Coffee Button - Mobile Only */}
+          <div className="mb-6 text-center">
+            <Button
+              onClick={() => window.open('https://buymeacoffee.com/maxpetrusex', '_blank')}
+              className="bg-yellow-400 hover:bg-yellow-500 border-yellow-500 text-black font-medium"
+            >
+              🍵 Buy me a coffee
+            </Button>
+          </div>
+          
+          {/* Elements Panel - Collapsible Bottom for Mobile */}
+          <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-40 transition-transform duration-300">
+            {/* Toggle Button */}
+            <div className="flex justify-center py-2 border-b border-slate-100">
+              <button
+                onClick={() => setShowElementsPanel(!showElementsPanel)}
+                className="flex items-center space-x-2 px-4 py-1 bg-slate-100 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-200 transition-colors"
+              >
+                <span>🧩 Elements</span>
+                <span className={`transform transition-transform ${showElementsPanel ? 'rotate-180' : ''}`}>▼</span>
+              </button>
+            </div>
+            
+            {/* Collapsible Content */}
+            <div className={`overflow-hidden transition-all duration-300 ${showElementsPanel ? 'max-h-64' : 'max-h-0'}`}>
+              <div className="px-4 py-3">
+                <InfinitePalette
+                  onSymbolClick={addSymbol}
+                  discoveredSymbols={discoveredSymbols}
+                />
+              </div>
+            </div>
+          </div>
+          
+          {/* Spacer for fixed bottom panel */}
+          <div className="h-16"></div>
         </div>
 
         {/* Desktop Layout */}
