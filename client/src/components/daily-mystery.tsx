@@ -48,16 +48,7 @@ export function DailyMysteryCard({ discoveredSymbols = [], onHintClick }: DailyM
               </p>
             </div>
             
-            <div className="text-center">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={onHintClick}
-                className="bg-white/70 border-purple-200 text-purple-700 hover:bg-purple-50"
-              >
-                Need a hint? 💭
-              </Button>
-            </div>
+
           </>
         ) : (
           <div className="text-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">

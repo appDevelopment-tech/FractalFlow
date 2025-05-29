@@ -14,40 +14,40 @@ export interface DailyMystery {
 // Predefined mysteries that rotate based on date
 const MYSTERIES: Omit<DailyMystery, 'date'>[] = [
   {
-    hint: "Three becomes one",
-    solution: ['·', '·', '·'],
-    reward: '∴',
-    description: "The meditation symbol - unlocks mindful contemplation"
+    hint: "The observer reflects upon itself",
+    solution: ['👁️‍🗨️', '👁️‍🗨️'],
+    reward: '🔮',
+    description: "Gnosis - direct knowing through self-reflection"
   },
   {
-    hint: "Opposites unite",
-    solution: ['○', '●'],
-    reward: '◐',
-    description: "The half moon - balance of light and shadow"
+    hint: "Space breathes and motion begins",
+    solution: ['🌌', '🌬️'],
+    reward: '⚡',
+    description: "Motion - the first stirring of cosmic activity"
   },
   {
-    hint: "Question the question",
-    solution: ['?', '?'],
-    reward: '‽',
-    description: "The interrobang - surprised questioning"
+    hint: "When matter meets consciousness",
+    solution: ['💎', '🧠'],
+    reward: '🌱',
+    description: "Life - consciousness dwelling in material form"
   },
   {
-    hint: "Infinity touches the point",
-    solution: ['∞', '·'],
-    reward: '✧',
-    description: "The infinite point - eternal moment of now"
+    hint: "Light reveals the cosmic substance",
+    solution: ['✨', '🌊'],
+    reward: '👁️',
+    description: "Perception - awareness illuminating the akashic medium"
   },
   {
-    hint: "Cross becomes star",
-    solution: ['+', '×'],
-    reward: '✤',
-    description: "The star cross - stellar intersection"
+    hint: "The heart channels divine force",
+    solution: ['❤️', '🌀'],
+    reward: '💖',
+    description: "Love - the heart expressing cosmic electricity as compassion"
   },
   {
-    hint: "Circle embraces mystery",
-    solution: ['◯', '?'],
-    reward: '⊙',
-    description: "The circled dot - center of attention"
+    hint: "When mind touches wisdom",
+    solution: ['🧠', '🦉'],
+    reward: '🧘',
+    description: "Meditation - consciousness at rest in its own nature"
   },
   {
     hint: "Empty circles dance",
