@@ -78,13 +78,21 @@ export function DailyMysteryCard({ discoveredSymbols = [], onHintClick }: DailyM
           </>
         ) : (
           <div className="text-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
-            <div className="text-4xl mb-2">{mystery.reward}</div>
-            <p className="font-medium text-green-800 mb-1">
-              Mystery Solved!
-            </p>
-            <p className="text-sm text-green-700">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <span className="text-2xl">🌟</span>
+              <span className="text-xl font-bold text-green-800">Mystery Solved!</span>
+              <span className="text-2xl">🌟</span>
+            </div>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <span className="text-2xl">{mystery.reward}</span>
+              <span className="font-medium text-green-700">Cosmic Awakening</span>
+            </div>
+            <p className="text-sm text-green-600 italic leading-relaxed">
               {mystery.description}
             </p>
+            <div className="mt-2 text-xs text-green-500">
+              ✨ Special symbol unlocked ✨
+            </div>
           </div>
         )}
 
