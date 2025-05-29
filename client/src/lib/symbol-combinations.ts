@@ -405,6 +405,324 @@ export const COMBINATION_RULES: CombinationRule[] = [
     points: 80,
     name: 'Tears',
     story: 'Heart moves through Akasha as emotional waters. Tears - the sacred expression of feeling.'
+  },
+
+  // === EXPANDED THEOSOPHICAL COMBINATIONS ===
+  // Based on authentic Blavatsky cosmology with logical progressions
+  
+  // Great Breath combinations
+  {
+    input: ['🌬️', '👁️'],
+    output: '⚡',
+    points: 45,
+    name: 'Motion',
+    story: 'Great Breath witnessed by Observer creates the eternal movement of consciousness.'
+  },
+  
+  {
+    input: ['🌬️', '🌬️'],
+    output: '〰️',
+    points: 60,
+    name: 'Cosmic Rhythm',
+    story: 'Great Breath breathing into itself creates the heartbeat of the universe.'
+  },
+
+  // Observer-Space combinations  
+  {
+    input: ['👁️', '🌌'],
+    output: '🧠',
+    points: 70,
+    name: 'Consciousness', 
+    story: 'Observer contemplating infinite Space develops awareness of itself.'
+  },
+
+  {
+    input: ['👁️', '⚡'],
+    output: '⏰',
+    points: 65,
+    name: 'Time',
+    story: 'Observer witnessing Motion creates the experience of time flowing.'
+  },
+
+  {
+    input: ['👁️', '👁️'],
+    output: '👁️‍🗨️',
+    points: 80,
+    name: 'Multiplicity',
+    story: 'Observer seeing itself creates multiple streams of awareness.'
+  },
+
+  {
+    input: ['👁️', '🕳️'],
+    output: '❓',
+    points: 90,
+    name: 'Mystery',
+    story: 'Observer gazing into the Void encounters the eternal question of existence.'
+  },
+
+  // Fohat-Akasha combinations
+  {
+    input: ['🌀', '🌊'],
+    output: '☀️',
+    points: 100,
+    name: 'Light',
+    story: 'Fohat energizing Akasha creates divine illumination piercing the cosmos.'
+  },
+
+  {
+    input: ['🌀', '🌊'],
+    output: '⚛️',
+    points: 95,
+    name: 'Matter',
+    story: 'Fohat condensing Akasha crystallizes spirit into substance.'
+  },
+
+  {
+    input: ['🌀', '🧠'],
+    output: '🔥',
+    points: 110,
+    name: 'Will',
+    story: 'Fohat channeled through Consciousness becomes directed cosmic force.'
+  },
+
+  {
+    input: ['🌀', '⚡'],
+    output: '⚡',
+    points: 85,
+    name: 'Energy',
+    story: 'Fohat merging with Motion creates pure dynamic force.'
+  },
+
+  {
+    input: ['🌀', '⏰'],
+    output: '🔄',
+    points: 75,
+    name: 'Cycles',
+    story: 'Fohat moving through Time creates the eternal wheel of existence.'
+  },
+
+  // Space-Time-Matter combinations
+  {
+    input: ['🌌', '⏰'],
+    output: '🌐',
+    points: 120,
+    name: 'Spacetime',
+    story: 'Space unified with Time creates the fabric of reality itself.'
+  },
+
+  {
+    input: ['🌌', '⚛️'],
+    output: '🏔️',
+    points: 110,
+    name: 'Physical Plane',
+    story: 'Space filled with Matter crystallizes into the material realm.'
+  },
+
+  {
+    input: ['🌌', '🧠'],
+    output: '💭',
+    points: 115,
+    name: 'Mental Plane',
+    story: 'Space illuminated by Consciousness creates the realm of thought.'
+  },
+
+  // Light consciousness combinations
+  {
+    input: ['☀️', '🧠'],
+    output: '🦉',
+    points: 130,
+    name: 'Wisdom',
+    story: 'Light penetrating Consciousness creates illuminated understanding.'
+  },
+
+  {
+    input: ['☀️', '⚛️'],
+    output: '💎',
+    points: 125,
+    name: 'Crystal',
+    story: 'Light crystallized within Matter creates perfect geometric form.'
+  },
+
+  {
+    input: ['☀️', '🕳️'],
+    output: '🌑',
+    points: 105,
+    name: 'Shadow',
+    story: 'Light meeting Void defines the boundary between illumination and mystery.'
+  },
+
+  // Matter-Consciousness-Life progression
+  {
+    input: ['⚛️', '🧠'],
+    output: '🌱',
+    points: 140,
+    name: 'Life',
+    story: 'Matter awakened by Consciousness stirs into living being.'
+  },
+
+  {
+    input: ['🌱', '🧠'],
+    output: '👤',
+    points: 160,
+    name: 'Soul',
+    story: 'Life touched by Consciousness develops individual awareness.'
+  },
+
+  {
+    input: ['👤', '⚛️'],
+    output: '👨',
+    points: 150,
+    name: 'Human',
+    story: 'Soul embodied in Matter becomes human - bridge between spirit and form.'
+  },
+
+  {
+    input: ['👤', '☀️'],
+    output: '👼',
+    points: 180,
+    name: 'Angel',
+    story: 'Soul purified by Light becomes an angelic being of pure consciousness.'
+  },
+
+  // Human development
+  {
+    input: ['👨', '🧠'],
+    output: '🧠',
+    points: 90,
+    name: 'Mind',
+    story: 'Human developing consciousness creates the faculty of thinking.'
+  },
+
+  {
+    input: ['👨', '❤️'],
+    output: '❤️',
+    points: 95,
+    name: 'Heart',
+    story: 'Human opening to feeling develops the emotional center.'
+  },
+
+  {
+    input: ['👨', '🔥'],
+    output: '🕊️',
+    points: 120,
+    name: 'Spirit',
+    story: 'Human expressing Will awakens the divine spark within.'
+  },
+
+  // Planes and experiences
+  {
+    input: ['🏔️', '🌱'],
+    output: '🌍',
+    points: 200,
+    name: 'Earth',
+    story: 'Physical Plane animated by Life becomes a conscious planetary being.'
+  },
+
+  {
+    input: ['🏔️', '☀️'],
+    output: '☀️',
+    points: 180,
+    name: 'Sun',
+    story: 'Physical Plane receiving Light manifests the solar principle.'
+  },
+
+  {
+    input: ['💭', '🧠'],
+    output: '💭',
+    points: 85,
+    name: 'Thought',
+    story: 'Mental Plane activated by Consciousness generates thought-forms.'
+  },
+
+  {
+    input: ['💭', '🧠'],
+    output: '💡',
+    points: 90,
+    name: 'Idea',
+    story: 'Mental Plane touched by experience creates illuminating insights.'
+  },
+
+  // Advanced consciousness states
+  {
+    input: ['🕳️', '🧠'],
+    output: '🧘',
+    points: 170,
+    name: 'Meditation',
+    story: 'Consciousness resting in the Void discovers the peace beyond thought.'
+  },
+
+  {
+    input: ['❓', '🧠'],
+    output: '✨',
+    points: 140,
+    name: 'Wonder',
+    story: 'Mystery embraced by Consciousness becomes the joy of not-knowing.'
+  },
+
+  {
+    input: ['❓', '🦉'],
+    output: '🔮',
+    points: 200,
+    name: 'Gnosis',
+    story: 'Mystery penetrated by Wisdom becomes direct knowing beyond thought.'
+  },
+
+  // Heart-mind unity
+  {
+    input: ['🧠', '❤️'],
+    output: '🦉',
+    points: 130,
+    name: 'Wisdom',
+    story: 'Mind and Heart united create the wisdom that transcends both.'
+  },
+
+  {
+    input: ['❤️', '🧠'],
+    output: '😊',
+    points: 80,
+    name: 'Emotion',
+    story: 'Heart opening to Consciousness creates the dimension of feeling.'
+  },
+
+  {
+    input: ['❤️', '🧠'],
+    output: '💖',
+    points: 120,
+    name: 'Love',
+    story: 'Heart experiencing through Consciousness discovers the unity in all.'
+  },
+
+  // Cosmic relationships
+  {
+    input: ['🌍', '👨'],
+    output: '🏛️',
+    points: 180,
+    name: 'Civilization',
+    story: 'Earth touched by Human consciousness develops collective culture.'
+  },
+
+  {
+    input: ['🌍', '🧠'],
+    output: '🌍',
+    points: 220,
+    name: 'Gaia',
+    story: 'Earth awakening to its own Consciousness becomes a living planetary being.'
+  },
+
+  {
+    input: ['☀️', '🌍'],
+    output: '🍂',
+    points: 160,
+    name: 'Seasons',
+    story: 'Sun and Earth dancing together create the rhythm of natural cycles.'
+  },
+
+  {
+    input: ['☀️', '🧠'],
+    output: '👑',
+    points: 250,
+    name: 'Solar Logos',
+    story: 'Sun awakened to Consciousness becomes the supreme intelligence of our system.'
   }
 ];
 
@@ -455,7 +773,23 @@ export const SYMBOL_NAMES: Record<string, string> = {
   '🌸': 'Flower',
   '🧘': 'Meditation',
   '🌪️': 'Thought-Storm',
-  '💧': 'Tears'
+  '💧': 'Tears',
+  '〰️': 'Cosmic Rhythm',
+  '👁️‍🗨️': 'Multiplicity',
+  '❓': 'Mystery',
+  '⚛️': 'Matter',
+  '🔄': 'Cycles',
+  '🌐': 'Spacetime',
+  '🦉': 'Wisdom',
+  '💎': 'Crystal',
+  '🌑': 'Shadow',
+  '👨': 'Human',
+  '🕊️': 'Spirit',
+  '🍂': 'Seasons',
+  '🔮': 'Gnosis',
+  '😊': 'Emotion',
+  '💖': 'Love',
+  '👑': 'Solar Logos'
 };
 
 function arraysEqual(a: any[], b: any[]): boolean {

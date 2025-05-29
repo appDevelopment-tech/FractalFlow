@@ -1,0 +1,436 @@
+import React, { useState, useRef, useEffect } from 'react';
+
+const ConsciousnessCraft = () => {
+  const [elements, setElements] = useState([
+    { id: 'absolute', name: 'The Absolute', symbol: '⚫', discovered: true, description: 'The source of all existence', category: 'primordial' },
+  ]);
+  
+  const [workspaceElements, setWorkspaceElements] = useState([]);
+  const [isDragging, setIsDragging] = useState(false);
+  const [discoveries, setDiscoveries] = useState([]);
+  const [showDiscovery, setShowDiscovery] = useState(false);
+  const workspaceRef = useRef(null);
+
+  // Combination rules - Blavatsky inspired
+  const combinations = {
+    'absolute': {
+      'absolute': () => ([
+        { id: 'great-breath', name: 'Great Breath', symbol: '🌬️', description: 'The first stirring of consciousness', category: 'cosmic-forces' },
+        { id: 'observer', name: 'Observer', symbol: '👁️', description: 'Awareness looking at itself', category: 'consciousness' },
+        { id: 'space', name: 'Cosmic Space', symbol: '🌌', description: 'The infinite container', category: 'cosmic-forces' }
+      ])
+    },
+    'great-breath': {
+      'observer': () => ([
+        { id: 'motion', name: 'Motion', symbol: '⚡', description: 'The eternal movement', category: 'cosmic-forces' },
+        { id: 'awareness', name: 'Pure Awareness', symbol: '✨', description: 'Consciousness in motion', category: 'consciousness' }
+      ]),
+      'space': () => ([
+        { id: 'fohat', name: 'Fohat', symbol: '🌀', description: 'Cosmic electricity, the divine force', category: 'cosmic-forces' },
+        { id: 'akasha', name: 'Akasha', symbol: '🌊', description: 'The primordial substance', category: 'elements' }
+      ]),
+      'great-breath': () => ([
+        { id: 'rhythm', name: 'Cosmic Rhythm', symbol: '〰️', description: 'The heartbeat of the universe', category: 'cosmic-forces' }
+      ])
+    },
+    'observer': {
+      'space': () => ([
+        { id: 'consciousness', name: 'Consciousness', symbol: '🧠', description: 'Awareness of space itself', category: 'consciousness' },
+        { id: 'void', name: 'The Void', symbol: '🕳️', description: 'Emptiness that contains everything', category: 'elements' }
+      ]),
+      'motion': () => ([
+        { id: 'time', name: 'Time', symbol: '⏰', description: 'Motion perceived by awareness', category: 'cosmic-forces' },
+        { id: 'experience', name: 'Experience', symbol: '💫', description: 'The flow of conscious moments', category: 'consciousness' }
+      ]),
+      'observer': () => ([
+        { id: 'multiplicity', name: 'Multiplicity', symbol: '👁️‍🗨️', description: 'Multiple streams of awareness', category: 'consciousness' },
+        { id: 'reflection', name: 'Reflection', symbol: '🪞', description: 'Consciousness seeing itself', category: 'consciousness' }
+      ]),
+      'light': () => ([
+        { id: 'illumination', name: 'Illumination', symbol: '💡', description: 'The light of understanding', category: 'consciousness' }
+      ]),
+      'void': () => ([
+        { id: 'mystery', name: 'Mystery', symbol: '❓', description: 'The unknown depths', category: 'experiences' }
+      ])
+    },
+    'fohat': {
+      'akasha': () => ([
+        { id: 'light', name: 'Light', symbol: '☀️', description: 'Divine illumination', category: 'elements' },
+        { id: 'matter', name: 'Matter', symbol: '⚛️', description: 'Substance crystallized from spirit', category: 'elements' }
+      ]),
+      'consciousness': () => ([
+        { id: 'will', name: 'Will', symbol: '🔥', description: 'Directed cosmic force', category: 'consciousness' },
+        { id: 'karma', name: 'Karma', symbol: '⚖️', description: 'The law of cause and effect', category: 'cosmic-forces' }
+      ]),
+      'motion': () => ([
+        { id: 'energy', name: 'Energy', symbol: '⚡', description: 'Pure dynamic force', category: 'elements' },
+        { id: 'vibration', name: 'Vibration', symbol: '〜', description: 'The oscillation of existence', category: 'cosmic-forces' }
+      ]),
+      'time': () => ([
+        { id: 'cycles', name: 'Cycles', symbol: '🔄', description: 'The wheel of time', category: 'cosmic-forces' }
+      ])
+    },
+    'space': {
+      'time': () => ([
+        { id: 'spacetime', name: 'Spacetime', symbol: '🌐', description: 'The fabric of reality', category: 'cosmic-forces' },
+        { id: 'dimension', name: 'Dimension', symbol: '📐', description: 'Levels of existence', category: 'planes' }
+      ]),
+      'matter': () => ([
+        { id: 'physical-plane', name: 'Physical Plane', symbol: '🏔️', description: 'The material realm', category: 'planes' }
+      ]),
+      'consciousness': () => ([
+        { id: 'mental-plane', name: 'Mental Plane', symbol: '💭', description: 'The realm of thought', category: 'planes' }
+      ])
+    },
+    'light': {
+      'consciousness': () => ([
+        { id: 'wisdom', name: 'Wisdom', symbol: '🦉', description: 'Illuminated understanding', category: 'consciousness' }
+      ]),
+      'matter': () => ([
+        { id: 'crystal', name: 'Crystal', symbol: '💎', description: 'Light crystallized in matter', category: 'elements' }
+      ]),
+      'void': () => ([
+        { id: 'shadow', name: 'Shadow', symbol: '🌑', description: 'Light defining darkness', category: 'elements' }
+      ]),
+      'light': () => ([
+        { id: 'radiance', name: 'Radiance', symbol: '✨', description: 'Pure luminosity', category: 'elements' }
+      ])
+    },
+    'matter': {
+      'consciousness': () => ([
+        { id: 'life', name: 'Life', symbol: '🌱', description: 'Consciousness dwelling in matter', category: 'beings' }
+      ]),
+      'energy': () => ([
+        { id: 'plasma', name: 'Plasma', symbol: '🔥', description: 'Matter energized', category: 'elements' }
+      ]),
+      'time': () => ([
+        { id: 'evolution', name: 'Evolution', symbol: '🧬', description: 'Matter transforming through time', category: 'cosmic-forces' }
+      ])
+    },
+    'will': {
+      'matter': () => ([
+        { id: 'creation', name: 'Creation', symbol: '🎨', description: 'Will shaping matter', category: 'experiences' }
+      ]),
+      'consciousness': () => ([
+        { id: 'intention', name: 'Intention', symbol: '🎯', description: 'Directed awareness', category: 'consciousness' }
+      ]),
+      'energy': () => ([
+        { id: 'power', name: 'Power', symbol: '💪', description: 'Will made manifest', category: 'experiences' }
+      ])
+    },
+    'experience': {
+      'consciousness': () => ([
+        { id: 'memory', name: 'Memory', symbol: '🧠', description: 'Consciousness holding experience', category: 'consciousness' }
+      ]),
+      'time': () => ([
+        { id: 'history', name: 'History', symbol: '📜', description: 'Accumulated experience', category: 'experiences' }
+      ]),
+      'multiplicity': () => ([
+        { id: 'perspective', name: 'Perspective', symbol: '👁️', description: 'Different viewpoints of experience', category: 'consciousness' }
+      ])
+    },
+    'life': {
+      'consciousness': () => ([
+        { id: 'soul', name: 'Soul', symbol: '👤', description: 'Individual consciousness', category: 'beings' }
+      ]),
+      'time': () => ([
+        { id: 'growth', name: 'Growth', symbol: '🌿', description: 'Life expanding through time', category: 'experiences' }
+      ]),
+      'light': () => ([
+        { id: 'plant', name: 'Plant', symbol: '🌳', description: 'Life drinking light', category: 'beings' }
+      ])
+    },
+    'soul': {
+      'experience': () => ([
+        { id: 'wisdom', name: 'Wisdom', symbol: '🦉', description: 'Soul learning from experience', category: 'consciousness' }
+      ]),
+      'matter': () => ([
+        { id: 'human', name: 'Human', symbol: '👨', description: 'Soul embodied', category: 'beings' }
+      ]),
+      'light': () => ([
+        { id: 'angel', name: 'Angel', symbol: '👼', description: 'Soul of pure light', category: 'beings' }
+      ])
+    },
+    'human': {
+      'consciousness': () => ([
+        { id: 'mind', name: 'Mind', symbol: '🧠', description: 'Human consciousness', category: 'consciousness' }
+      ]),
+      'emotion': () => ([
+        { id: 'heart', name: 'Heart', symbol: '❤️', description: 'The emotional center', category: 'consciousness' }
+      ]),
+      'will': () => ([
+        { id: 'spirit', name: 'Spirit', symbol: '🕊️', description: 'The divine spark in humans', category: 'consciousness' }
+      ])
+    },
+    'mental-plane': {
+      'consciousness': () => ([
+        { id: 'thought', name: 'Thought', symbol: '💭', description: 'Mental constructs', category: 'experiences' }
+      ]),
+      'experience': () => ([
+        { id: 'idea', name: 'Idea', symbol: '💡', description: 'Mental experiences', category: 'experiences' }
+      ])
+    },
+    'physical-plane': {
+      'life': () => ([
+        { id: 'earth', name: 'Earth', symbol: '🌍', description: 'The living planet', category: 'beings' }
+      ]),
+      'light': () => ([
+        { id: 'sun', name: 'Sun', symbol: '☀️', description: 'The source of physical light', category: 'beings' }
+      ])
+    },
+    'karma': {
+      'experience': () => ([
+        { id: 'lesson', name: 'Lesson', symbol: '📚', description: 'What karma teaches', category: 'experiences' }
+      ]),
+      'time': () => ([
+        { id: 'destiny', name: 'Destiny', symbol: '🌟', description: 'Karma unfolding through time', category: 'experiences' }
+      ])
+    },
+    'void': {
+      'consciousness': () => ([
+        { id: 'meditation', name: 'Meditation', symbol: '🧘', description: 'Consciousness resting in void', category: 'experiences' }
+      ]),
+      'light': () => ([
+        { id: 'shadow', name: 'Shadow', symbol: '🌑', description: 'Light defining darkness', category: 'elements' }
+      ])
+    },
+    'mystery': {
+      'consciousness': () => ([
+        { id: 'wonder', name: 'Wonder', symbol: '✨', description: 'The joy of not knowing', category: 'experiences' }
+      ]),
+      'wisdom': () => ([
+        { id: 'gnosis', name: 'Gnosis', symbol: '🔮', description: 'Direct knowing beyond mystery', category: 'consciousness' }
+      ])
+    },
+    'heart': {
+      'consciousness': () => ([
+        { id: 'emotion', name: 'Emotion', symbol: '😊', description: 'The feeling dimension', category: 'experiences' }
+      ]),
+      'experience': () => ([
+        { id: 'love', name: 'Love', symbol: '💖', description: 'The heart experiencing unity', category: 'experiences' }
+      ])
+    },
+    'mind': {
+      'heart': () => ([
+        { id: 'wisdom', name: 'Wisdom', symbol: '🦉', description: 'Mind and heart united', category: 'consciousness' }
+      ]),
+      'experience': () => ([
+        { id: 'knowledge', name: 'Knowledge', symbol: '📖', description: 'Mind processing experience', category: 'experiences' }
+      ])
+    },
+    'thought': {
+      'emotion': () => ([
+        { id: 'creativity', name: 'Creativity', symbol: '🎨', description: 'Thought inspired by feeling', category: 'experiences' }
+      ]),
+      'will': () => ([
+        { id: 'decision', name: 'Decision', symbol: '⚖️', description: 'Will guided by thought', category: 'experiences' }
+      ])
+    },
+    'earth': {
+      'human': () => ([
+        { id: 'civilization', name: 'Civilization', symbol: '🏛️', description: 'Humans shaping Earth', category: 'beings' }
+      ]),
+      'consciousness': () => ([
+        { id: 'gaia', name: 'Gaia', symbol: '🌍', description: 'Earth as conscious being', category: 'beings' }
+      ])
+    },
+    'sun': {
+      'earth': () => ([
+        { id: 'seasons', name: 'Seasons', symbol: '🍂', description: 'The dance of Sun and Earth', category: 'cosmic-forces' }
+      ]),
+      'consciousness': () => ([
+        { id: 'solar-logos', name: 'Solar Logos', symbol: '👑', description: 'The Sun as cosmic consciousness', category: 'beings' }
+      ])
+    }
+  };
+
+  const addNewDiscoveries = (newElements) => {
+    const uniqueNew = newElements.filter(newEl => 
+      !elements.some(existingEl => existingEl.id === newEl.id)
+    );
+    
+    if (uniqueNew.length > 0) {
+      setElements(prev => [...prev, ...uniqueNew.map(el => ({...el, discovered: true}))]);
+      setDiscoveries(uniqueNew);
+      setShowDiscovery(true);
+      setTimeout(() => setShowDiscovery(false), 3000);
+    }
+  };
+
+  const handleElementClick = (element) => {
+    const rect = workspaceRef.current.getBoundingClientRect();
+    const newWorkspaceElement = {
+      id: Math.random().toString(36).substr(2, 9),
+      elementId: element.id,
+      element: element,
+      x: Math.random() * (rect.width - 80) + 40,
+      y: Math.random() * (rect.height - 80) + 40,
+    };
+    setWorkspaceElements(prev => [...prev, newWorkspaceElement]);
+  };
+
+  const handleDragStart = (e, workspaceElement) => {
+    setIsDragging(workspaceElement.id);
+    e.dataTransfer.setData('text/plain', workspaceElement.id);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e, targetWorkspaceElement) => {
+    e.preventDefault();
+    const draggedId = e.dataTransfer.getData('text/plain');
+    const draggedElement = workspaceElements.find(el => el.id === draggedId);
+    
+    if (draggedElement && draggedElement.id !== targetWorkspaceElement.id) {
+      // Try combination
+      const combo1 = combinations[draggedElement.element.id]?.[targetWorkspaceElement.element.id];
+      const combo2 = combinations[targetWorkspaceElement.element.id]?.[draggedElement.element.id];
+      
+      if (combo1) {
+        const newElements = combo1();
+        addNewDiscoveries(newElements);
+        // Remove the combined elements
+        setWorkspaceElements(prev => prev.filter(el => 
+          el.id !== draggedId && el.id !== targetWorkspaceElement.id
+        ));
+      } else if (combo2) {
+        const newElements = combo2();
+        addNewDiscoveries(newElements);
+        setWorkspaceElements(prev => prev.filter(el => 
+          el.id !== draggedId && el.id !== targetWorkspaceElement.id
+        ));
+      }
+    }
+    setIsDragging(false);
+  };
+
+  const getCategoryColor = (category) => {
+    switch(category) {
+      case 'primordial': return 'from-purple-900 to-black';
+      case 'cosmic-forces': return 'from-blue-800 to-purple-800';
+      case 'consciousness': return 'from-yellow-600 to-orange-600';
+      case 'elements': return 'from-green-600 to-blue-600';
+      case 'planes': return 'from-indigo-600 to-purple-600';
+      case 'beings': return 'from-pink-600 to-red-600';
+      case 'experiences': return 'from-cyan-600 to-teal-600';
+      default: return 'from-gray-600 to-gray-800';
+    }
+  };
+
+  const groupedElements = elements.reduce((acc, element) => {
+    if (!acc[element.category]) acc[element.category] = [];
+    acc[element.category].push(element);
+    return acc;
+  }, {});
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-950 to-black text-white overflow-hidden">
+      {/* Cosmic Background */}
+      <div className="fixed inset-0 opacity-30">
+        <div className="absolute top-10 left-10 w-2 h-2 bg-white rounded-full animate-pulse"></div>
+        <div className="absolute top-32 right-20 w-1 h-1 bg-blue-300 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-20 left-1/4 w-1 h-1 bg-purple-300 rounded-full animate-pulse"></div>
+        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-yellow-300 rounded-full animate-pulse"></div>
+      </div>
+
+      {/* Discovery Notification */}
+      {showDiscovery && (
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 animate-bounce">
+          <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black px-6 py-3 rounded-full shadow-2xl">
+            <div className="text-center font-bold">
+              🌟 New Consciousness Discovered! 🌟
+              <div className="text-sm mt-1">
+                {discoveries.map(d => d.name).join(', ')}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="flex h-screen">
+        {/* Elements Panel */}
+        <div className="w-80 bg-black bg-opacity-50 backdrop-blur-sm p-4 overflow-y-auto border-r border-purple-500">
+          <h2 className="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Consciousness Elements
+          </h2>
+          
+          {Object.entries(groupedElements).map(([category, categoryElements]) => (
+            <div key={category} className="mb-6">
+              <h3 className="text-lg font-semibold mb-2 capitalize text-purple-300">
+                {category.replace('-', ' ')}
+              </h3>
+              <div className="grid grid-cols-2 gap-2">
+                {categoryElements.map(element => (
+                  <div
+                    key={element.id}
+                    onClick={() => handleElementClick(element)}
+                    className={`cursor-pointer p-3 rounded-lg bg-gradient-to-r ${getCategoryColor(element.category)} 
+                               hover:scale-105 transform transition-all duration-200 border border-white border-opacity-20
+                               hover:border-opacity-50 shadow-lg hover:shadow-xl`}
+                  >
+                    <div className="text-2xl text-center mb-1">{element.symbol}</div>
+                    <div className="text-xs text-center font-medium">{element.name}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+          
+          <div className="mt-6 p-3 bg-purple-900 bg-opacity-50 rounded-lg text-sm text-purple-200">
+            💡 <strong>Tip:</strong> Click elements to add them to the workspace, then drag them together to discover new forms of consciousness!
+          </div>
+        </div>
+
+        {/* Workspace */}
+        <div className="flex-1 relative" ref={workspaceRef}>
+          <div className="absolute top-4 left-4 text-3xl font-bold bg-gradient-to-r from-yellow-400 to-purple-400 bg-clip-text text-transparent">
+            The Consciousness Craft
+          </div>
+          <div className="absolute top-12 left-4 text-sm text-purple-300">
+            Drag elements together to unlock the mysteries of existence
+          </div>
+
+          {/* Workspace Elements */}
+          {workspaceElements.map(workspaceElement => (
+            <div
+              key={workspaceElement.id}
+              draggable
+              onDragStart={(e) => handleDragStart(e, workspaceElement)}
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, workspaceElement)}
+              className={`absolute cursor-move p-4 rounded-full bg-gradient-to-r ${getCategoryColor(workspaceElement.element.category)}
+                         border-2 border-white border-opacity-30 shadow-2xl hover:shadow-purple-500/50
+                         transform hover:scale-110 transition-all duration-200 backdrop-blur-sm
+                         ${isDragging === workspaceElement.id ? 'scale-110 rotate-12' : ''}`}
+              style={{ 
+                left: workspaceElement.x, 
+                top: workspaceElement.y,
+                background: `radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)`
+              }}
+            >
+              <div className="text-3xl">{workspaceElement.element.symbol}</div>
+              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs whitespace-nowrap text-purple-200">
+                {workspaceElement.element.name}
+              </div>
+            </div>
+          ))}
+
+          {/* Guidance Text */}
+          {workspaceElements.length === 0 && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center text-purple-300 text-xl opacity-50">
+                <div className="text-6xl mb-4">⚫</div>
+                <div>Click "The Absolute" to begin your journey</div>
+                <div className="text-sm mt-2">The source of all consciousness awaits...</div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ConsciousnessCraft;
